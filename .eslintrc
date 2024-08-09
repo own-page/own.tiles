@@ -12,7 +12,10 @@
   "parser": "@typescript-eslint/parser", // Leverages TS ESTree to lint TypeScript
 
   // Add additional rules and configuration options
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier",
+    "react-hooks", 
+    "react",
+    "import"],
 
   // Extend various ESLint configurations and plugins
   "extends": [
@@ -20,12 +23,21 @@
     "plugin:react/recommended",             // React recommended rules
     "plugin:@typescript-eslint/recommended", // TypeScript recommended rules
     "plugin:@typescript-eslint/eslint-recommended", // ESLint overrides for TypeScript
-    "prettier",                             // Prettier rules
     "plugin:prettier/recommended",          // Prettier plugin integration
+
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:react-hooks/recommended",       // Recommended rules for React hooks
-    "plugin:storybook/recommended"          // Recommended rules for Storybook
+    // "plugin:storybook/recommended"          // Recommended rules for Storybook
+    "prettier"                             // Prettier rules
   ],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": true,
+      "node": true
+    }
   }
 }

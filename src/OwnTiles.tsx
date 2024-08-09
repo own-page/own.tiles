@@ -40,7 +40,7 @@ export type TileProps = {
   info: TileInfo;
   position: TilePosition;
   style: React.CSSProperties;
-  '...customFields': unknown;
+  "...customFields": unknown;
 };
 
 export type Tile = {
