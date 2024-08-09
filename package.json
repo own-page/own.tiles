@@ -33,8 +33,5 @@
     "typescript": "^5.5.3",
     "vite": "^5.3.4",
     "vite-plugin-dts": "^4.0.0-beta.1"
-  },
-  "dependencies": {
-    "own.tiles": "github:own-page/own.tiles"
   }
 }
