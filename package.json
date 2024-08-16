@@ -12,7 +12,8 @@
   "scripts": {
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -33,5 +34,8 @@
     "typescript": "^5.5.3",
     "vite": "^5.3.4",
     "vite-plugin-dts": "^4.0.0-beta.1"
+  },
+  "dependencies": {
+    "react-github-calendar": "^4.2.2"
   }
 }
