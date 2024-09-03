@@ -1,2 +1,3 @@
 import './widgets.css';
-export * as GitHub from './GitHub';
+export { default as GitHub } from './GitHub';
+export { default as Spotify } from './Spotify';

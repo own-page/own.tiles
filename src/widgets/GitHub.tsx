@@ -1,6 +1,7 @@
 import GitHubCalendar from 'react-github-calendar';
 import { TileInfo } from '../OwnTiles';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
+import { InnerOwnTile } from '../InnerOwnTile';
 
 type Props = {
   username: string;
@@ -31,7 +32,15 @@ const GitHub: React.FC<Props> = (props) => {
     props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
 
   return (
-    <>
+    <InnerOwnTile
+      className="size-full p-9 overflow-clip relative bg-white"
+      //  text-black/80 [&_footer]:text-black/60
+      // text-white/90 [&_footer]:text-white/60 bg-[#0d1117]"
+      // bg-gradient-to-tr from-[#0d1117] to-[#0d1117]
+      // style={{
+      //   boxShadow: 'inset 0 0.5px 0.5px rgba(255,255,255,0.1)'
+      // }}
+    >
       <div
         className="text-white bg-black/90 rounded-full 
           size-10 flex-center absolute top-4 left-4 z-10 p-2 backdrop-blur-xl whitespace-nowrap
@@ -63,7 +72,7 @@ const GitHub: React.FC<Props> = (props) => {
         transformData={selectLastHalfYear(months)}
         username={props.username}
       />
-    </>
+    </InnerOwnTile>
   );
 };
 
