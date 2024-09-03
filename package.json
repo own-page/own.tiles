@@ -9,6 +9,13 @@
   "files": [
     "/dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
   "scripts": {
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
@@ -25,17 +32,22 @@
     "@types/react": "^18.3.3",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "postcss": "^8.4.44",
     "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.3",
-    "vite": "^5.3.4",
+    "vite": "^5.4.2",
     "vite-plugin-dts": "^4.0.0-beta.1"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
     "react-github-calendar": "^4.2.2"
   }
 }
