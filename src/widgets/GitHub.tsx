@@ -2,6 +2,7 @@ import GitHubCalendar from 'react-github-calendar';
 import { TileInfo } from '../OwnTiles';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { InnerOwnTile } from '../InnerOwnTile';
+import React from 'react';
 
 type Props = {
   username: string;
@@ -83,7 +84,7 @@ const tile: TileInfo<'github', Props> = {
   props: {
     username: 'GitHub username'
   },
-  Component: GitHub
+  Component: React.memo(GitHub)
 };
 
 export default tile;

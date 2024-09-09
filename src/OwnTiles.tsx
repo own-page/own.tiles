@@ -35,6 +35,7 @@ export type TileInfo<N extends Lowercase<string>, P extends object> = {
   cookieInformaton?: CookieInformation[];
   license: LicenseDescription;
   props: PropsInfo<P>;
+  minDimensions?: { w: number; h: number };
   Component: React.FC<P>;
 };
 
