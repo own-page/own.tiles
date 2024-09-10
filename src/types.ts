@@ -1,3 +1,5 @@
+import { PropsInfo } from 'utils/props';
+
 export type AccessibilityStandard = {
   rating: 'AAA' | 'AA' | 'A';
   standard: 'WCAG 2.0' | 'WCAG 2.1' | 'WCAG 2.2'; // soon WCAG 3.0
@@ -23,10 +25,6 @@ export type LicenseDescription = {
 //   license: LicenseDescription;
 //   defaultProps: TileProps;
 // };
-
-type PropsInfo<P extends object> = {
-  [k in keyof P]: string;
-};
 
 export type TileDimensions = { w: number; h: number };
 

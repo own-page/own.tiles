@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "react-docgen-typescript": "^2.2.2",
     "react-github-calendar": "^4.2.2"
   }
 }

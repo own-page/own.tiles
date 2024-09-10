@@ -1,12 +1,13 @@
-// import { InnerOwnTile } from '../InnerOwnTile';
 import React from 'react';
-import { TileInfo } from '../OwnTiles';
-// import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
+import { TileInfo } from 'types';
+import { getPropsInfo } from 'utils/props';
 
 type Props = {
-  //   username: string;
+  /** 'Spotify link **/
   link?: string;
-  useColor?: boolean | string;
+  /** Theme */
+  theme?: 'color' | 'dark';
+  /** Grid configuration */
   grid?: any;
 };
 
@@ -39,9 +40,8 @@ const FALLBACK_LINK =
 
 const Spotify: React.FC<Props> = (props) => {
   const useColor =
-    typeof props.useColor === 'string'
-      ? props.useColor.toLowerCase() === 'true'
-      : (props.useColor ?? true);
+    props.theme === 'color' ||
+    (props.theme !== 'dark' && props.theme !== undefined);
   const themeString = useColor ? '' : '&theme=0';
   const link = parseLink(props.link || FALLBACK_LINK);
 
@@ -78,10 +78,7 @@ const tile: TileInfo<'spotify', Props> = {
       h: link.startsWith('/track') ? 4 : Infinity
     };
   },
-  props: {
-    useColor: 'Color?',
-    link: 'Spotify link'
-  },
+  props: getPropsInfo<Props>(import.meta.url),
   Component: React.memo(Spotify)
 };
 

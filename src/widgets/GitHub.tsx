@@ -1,11 +1,14 @@
 import GitHubCalendar from 'react-github-calendar';
-import { TileInfo } from '../OwnTiles';
+import { TileInfo } from '../types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { InnerOwnTile } from '../InnerOwnTile';
 import React from 'react';
+import { getPropsInfo } from 'utils/props';
 
 type Props = {
+  /** GitHub username */
   username: string;
+  /** Grid configuration */
   grid?: any;
 };
 
@@ -81,9 +84,7 @@ const tile: TileInfo<'github', Props> = {
   name: 'github',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://github.com/',
-  props: {
-    username: 'GitHub username'
-  },
+  props: getPropsInfo<Props>(import.meta.url),
   Component: React.memo(GitHub)
 };
 
