@@ -84,7 +84,7 @@ const tile: TileInfo<'github', Props> = {
   name: 'github',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://github.com/',
-  props: getPropsInfo<Props>(import.meta.url),
+  props: getPropsInfo(import.meta.url, GitHub),
   Component: React.memo(GitHub)
 };
 

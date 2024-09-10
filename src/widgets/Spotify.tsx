@@ -78,7 +78,7 @@ const tile: TileInfo<'spotify', Props> = {
       h: link.startsWith('/track') ? 4 : Infinity
     };
   },
-  props: getPropsInfo<Props>(import.meta.url),
+  props: getPropsInfo(import.meta.url, Spotify),
   Component: React.memo(Spotify)
 };
 

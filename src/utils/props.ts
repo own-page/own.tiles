@@ -1,4 +1,5 @@
 import { parse, type ComponentDoc } from 'react-docgen-typescript';
+import { ComponentType } from 'react';
 
 export type PropInfo = {
   description: string;
@@ -15,41 +16,27 @@ export function isComplex(propInfo: PropInfo): boolean {
   return propInfo.type === 'object' || propInfo.type === 'function';
 }
 
-export function getPropsInfo<T>(
+export function getPropsInfo<T extends ComponentType<any>>(
   componentPath: string,
-  componentName?: string
-): PropsInfo<T> {
+  component: T
+): PropsInfo<React.ComponentProps<T>> {
   const componentInfos = parse(componentPath);
 
   if (componentInfos.length === 0) {
-    throw new Error(`No components found in ${componentPath}`);
+    throw new Error(`No components found for ${component.name}`);
   }
 
-  // Look for the default export
-  const defaultExport = componentInfos.find((info) => info.tags?.default);
+  const componentName = component.name;
+  const namedComponent = componentInfos.find(
+    (info) => info.displayName === componentName
+  );
 
-  if (defaultExport) {
-    return processComponentInfo(defaultExport);
-  } else if (componentInfos.length === 1) {
-    // If there's only one component and it's not a default export, use it
-    return processComponentInfo(componentInfos[0]);
-  } else if (!componentName) {
-    // If there are multiple components, no default export, and no componentName provided, throw an error
-    throw new Error(
-      `No default export found in ${componentPath} and multiple components present. Please specify a component name.`
-    );
+  if (namedComponent) {
+    return processComponentInfo(namedComponent);
   } else {
-    // If componentName is provided, try to find the matching component
-    const namedComponent = componentInfos.find(
-      (info) => info.displayName === componentName
+    throw new Error(
+      `Component "${componentName}" not found in parsed information`
     );
-    if (namedComponent) {
-      return processComponentInfo(namedComponent);
-    } else {
-      throw new Error(
-        `Component "${componentName}" not found in ${componentPath}`
-      );
-    }
   }
 }
 

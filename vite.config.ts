@@ -4,9 +4,10 @@ import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [react(), dts()],
+  plugins: [react(), dts(), tsconfigPaths()],
   build: {
     lib: {
       entry: './src/index.ts',
