@@ -28,6 +28,8 @@ type PropsInfo<P extends object> = {
   [k in keyof P]: string;
 };
 
+export type TileDimensions = { w: number; h: number };
+
 export type TileInfo<N extends Lowercase<string>, P extends object> = {
   name: N;
   origin: string;
@@ -35,7 +37,8 @@ export type TileInfo<N extends Lowercase<string>, P extends object> = {
   cookieInformaton?: CookieInformation[];
   license: LicenseDescription;
   props: PropsInfo<P>;
-  minDimensions?: { w: number; h: number };
+  minDimensions?: ((props: P) => TileDimensions) | TileDimensions;
+  maxDimensions?: ((props: P) => TileDimensions) | TileDimensions;
   Component: React.FC<P>;
 };
 

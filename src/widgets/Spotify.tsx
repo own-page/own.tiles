@@ -71,6 +71,13 @@ const tile: TileInfo<'spotify', Props> = {
     w: 3,
     h: 4
   },
+  maxDimensions: (props) => {
+    const link = parseLink(props.link || FALLBACK_LINK);
+    return {
+      w: Infinity,
+      h: link.startsWith('/track') ? 4 : Infinity
+    };
+  },
   props: {
     useColor: 'Color?',
     link: 'Spotify link'
