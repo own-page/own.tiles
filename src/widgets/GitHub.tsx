@@ -1,8 +1,8 @@
 import GitHubCalendar from 'react-github-calendar';
-import { TileInfo } from '../types';
+import { TileInfo } from 'types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
-import { InnerOwnTile } from '../InnerOwnTile';
 import React from 'react';
+import { InnerOwnTile } from 'InnerOwnTile';
 // import { getPropsInfo } from 'utils/props';
 
 type Props = {

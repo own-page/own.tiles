@@ -2,58 +2,34 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
-import tailwindcss from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
+import { autoProps } from './vite-auto-props';
+import { getPropsInfo } from './src/utils/props';
 
 export default defineConfig({
   plugins: [
-    {
-      name: 'generate-props-info',
-      async buildStart() {
-        console.log('Generating props info...');
-        try {
-          await execAsync('npm run generate-props-info');
-          console.log('Props info generated successfully.');
-        } catch (error) {
-          console.error('Error generating props info:', error);
-        }
-      }
-    },
+    autoProps({ getPropsInfo }),
     react(),
-    dts(),
+    dts({
+      insertTypesEntry: true,
+      include: ['src'],
+      beforeWriteFile: (filePath, content) => ({
+        filePath: filePath.replace('/dist/src/', '/dist/'),
+        content
+      })
+    }),
     tsconfigPaths()
   ],
   build: {
     lib: {
       entry: './src/index.ts',
       name: 'own.tiles',
-      fileName: (format) => `index.${format}.js`,
-      formats: ['cjs', 'es']
+      fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: [...Object.keys(peerDependencies)],
-      output: {
-        globals: {
-          react: 'React'
-        },
-        assetFileNames: (assetInfo) => {
-          return assetInfo.name === 'style.css'
-            ? 'style.css'
-            : assetInfo.name || 'unknown';
-        }
-      }
+      external: [...Object.keys(peerDependencies)]
     },
     sourcemap: true,
     emptyOutDir: true
-  },
-  css: {
-    postcss: {
-      plugins: [tailwindcss, autoprefixer]
-    }
   }
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import { TileInfo } from 'types';
-import props from 'props/Spotify.props.json';
 
 type Props = {
   /** Spotify link */
@@ -78,6 +77,6 @@ export const tile: TileInfo<'spotify', Props> = {
       h: link.startsWith('/track') ? 4 : Infinity
     };
   },
-  props,
+  props: {},
   Component: React.memo(Spotify)
 };

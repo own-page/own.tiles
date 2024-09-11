@@ -1,13 +1,13 @@
 {
   "name": "own.tiles",
   "version": "0.0.2",
-  "description": "",
-  "main": "dist/index.cjs.js",
   "type": "module",
-  "module": "dist/index.es.js",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "dist"
   ],
   "exports": {
     ".": {
@@ -20,8 +20,7 @@
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "build": "tsc && vite build",
-    "prepare": "npm run build",
-    "props": "tsx src/scripts/makeProps.ts"
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -48,7 +47,7 @@
     "tslib": "^2.7.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.2",
-    "vite-plugin-dts": "^4.0.0-beta.1",
+    "vite-plugin-dts": "^4.2.1",
     "vite-tsconfig-paths": "^5.0.1"
   },
   "dependencies": {
