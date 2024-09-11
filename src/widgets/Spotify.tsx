@@ -6,8 +6,6 @@ type Props = {
   link?: string;
   /** Theme */
   theme?: 'color' | 'dark';
-  /** Grid configuration */
-  grid?: any;
 };
 
 const SPOTIFY_DOMAIN = 'open.spotify.com';
@@ -38,9 +36,7 @@ const FALLBACK_LINK =
   'https://open.spotify.com/album/4cCfFozyo6JC8acN8uIP7u?si=laPgYvLDR8Gh0fPa3M2mFw';
 
 export const Spotify = (props: Props) => {
-  const useColor =
-    props.theme === 'color' ||
-    (props.theme !== 'dark' && props.theme !== undefined);
+  const useColor = props.theme === undefined || props.theme === 'color';
   const themeString = useColor ? '' : '&theme=0';
   const link = parseLink(props.link || FALLBACK_LINK);
 
@@ -56,6 +52,7 @@ export const Spotify = (props: Props) => {
       height="100%"
       frameBorder="0"
       allowFullScreen
+      // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
     ></iframe>
