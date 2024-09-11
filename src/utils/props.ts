@@ -30,26 +30,25 @@ function processComponentInfo<T>(componentInfo: any): PropsInfo<T> {
   ][]) {
     let type: string | string[];
 
-    if (prop.type.name === 'enum') {
+    if (prop.type.raw === 'boolean') {
+      type = 'boolean';
+    } else if (prop.type.name === 'enum') {
       type = prop.type.value.map((v: any) => v.value.replace(/"/g, ''));
-    } else if (prop.type.name === 'union') {
-      type = prop.type.value.map((v: any) => v.name);
     } else if (
-      ['boolean', 'number', 'string', 'object', 'function'].includes(
-        prop.type.name
-      )
+      ['number', 'string', 'object', 'function'].includes(prop.type.name)
     ) {
       type = prop.type.name;
     } else {
-      type = 'string'; // Default to string for other types
+      continue; // skip unknown types
     }
 
     result[key as keyof T] = {
       description: prop.description || '',
       type: type,
       required: prop.required || false,
-      defaultValue: prop.defaultValue?.value
-    };
+      defaultValue: prop.defaultValue?.value,
+      ogInfo: prop
+    } as any;
   }
 
   return result;

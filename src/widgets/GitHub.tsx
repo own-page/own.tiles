@@ -1,5 +1,5 @@
 import GitHubCalendar from 'react-github-calendar';
-import { TileInfo } from 'types';
+import { GridArea, TileInfo } from 'types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import React from 'react';
 import { InnerOwnTile } from 'InnerOwnTile';
@@ -8,8 +8,9 @@ import { InnerOwnTile } from 'InnerOwnTile';
 type Props = {
   /** GitHub username */
   username: string;
-  /** Grid configuration */
-  grid?: any;
+  /** Show username */
+  showUsername: boolean;
+  grid?: GridArea;
 };
 
 const selectLastHalfYear = (showMonths: number) => (contributions: any) => {

@@ -10,6 +10,23 @@ export type CookieInformation = {
   description: string;
 };
 
+export type GridArea = {
+  /** the horizontal position of the element (distance to the left side of the grid) */
+  x: number;
+  /** the vertical position of the element (distance to the top side of the grid) */
+  y: number;
+  /** the width of the element */
+  w: number;
+  /** the height of the element */
+  h: number;
+
+  /**
+   * the z-index of the element, used for layering, currently unused, because it is fixed
+   * @see mapZIndex
+   */
+  z?: number;
+};
+
 export type LicenseDescription = {
   type: string;
   fullText: string;

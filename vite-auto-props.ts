@@ -4,7 +4,7 @@ import { parse } from 'react-docgen-typescript';
 
 const docgenOptions = {
   shouldExtractValuesFromUnion: true,
-  shouldExtractLiteralValuesFromEnum: true,
+  // shouldExtractLiteralValuesFromEnum: true,
   savePropValueAsString: true
 };
 
