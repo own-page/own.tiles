@@ -1,3 +1,3 @@
 import './widgets.css';
-export { default as GitHub } from './GitHub';
-export { default as Spotify } from './Spotify';
+export { tile as GitHub } from './GitHub';
+export { tile as Spotify } from './Spotify';

@@ -1,0 +1,12 @@
+{
+  "username": {
+    "description": "GitHub username",
+    "type": "string",
+    "required": true
+  },
+  "grid": {
+    "description": "Grid configuration",
+    "type": "string",
+    "required": false
+  }
+}

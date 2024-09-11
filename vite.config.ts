@@ -5,9 +5,29 @@ import { peerDependencies } from './package.json';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 export default defineConfig({
-  plugins: [react(), dts(), tsconfigPaths()],
+  plugins: [
+    {
+      name: 'generate-props-info',
+      async buildStart() {
+        console.log('Generating props info...');
+        try {
+          await execAsync('npm run generate-props-info');
+          console.log('Props info generated successfully.');
+        } catch (error) {
+          console.error('Error generating props info:', error);
+        }
+      }
+    },
+    react(),
+    dts(),
+    tsconfigPaths()
+  ],
   build: {
     lib: {
       entry: './src/index.ts',

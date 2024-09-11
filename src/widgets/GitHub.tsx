@@ -3,7 +3,7 @@ import { TileInfo } from '../types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { InnerOwnTile } from '../InnerOwnTile';
 import React from 'react';
-import { getPropsInfo } from 'utils/props';
+// import { getPropsInfo } from 'utils/props';
 
 type Props = {
   /** GitHub username */
@@ -29,7 +29,7 @@ const selectLastHalfYear = (showMonths: number) => (contributions: any) => {
   });
 };
 
-const GitHub: React.FC<Props> = (props) => {
+export const GitHub = (props: Props) => {
   // const small =
   //   props.grid !== undefined ? props.grid.h < 3 || props.grid.w < 3 : false;
   const months =
@@ -80,12 +80,10 @@ const GitHub: React.FC<Props> = (props) => {
   );
 };
 
-const tile: TileInfo<'github', Props> = {
+export const tile: TileInfo<'github', Props> = {
   name: 'github',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://github.com/',
-  props: getPropsInfo(import.meta.url, GitHub),
+  props: {} as any, //getPropsInfo<typeof GitHub>(GitHubProps),
   Component: React.memo(GitHub)
 };
-
-export default tile;

@@ -1,0 +1,20 @@
+{
+  "link": {
+    "description": "Spotify link",
+    "type": "string",
+    "required": false
+  },
+  "theme": {
+    "description": "Theme",
+    "type": [
+      "color",
+      "dark"
+    ],
+    "required": false
+  },
+  "grid": {
+    "description": "Grid configuration",
+    "type": "string",
+    "required": false
+  }
+}

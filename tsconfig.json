@@ -21,6 +21,9 @@
     "noFallthroughCasesInSwitch": true, // Requires handling all cases in a switch statement.
     "declaration": true, // Generates declaration files for TypeScript.
 
+    "esModuleInterop": true, // Enables interoperability between CommonJS and ES modules.
+    "allowSyntheticDefaultImports": true, // Allows importing modules without a default export.
+
     /* Absolute Paths */
     "baseUrl": "src", // Sets the base directory to resolve non-relative module names.
     "paths": {

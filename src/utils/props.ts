@@ -1,4 +1,3 @@
-import { parse, type ComponentDoc } from 'react-docgen-typescript';
 import { ComponentType } from 'react';
 
 export type PropInfo = {
@@ -17,36 +16,23 @@ export function isComplex(propInfo: PropInfo): boolean {
 }
 
 export function getPropsInfo<T extends ComponentType<any>>(
-  componentPath: string,
-  component: T
+  componentInfo: any
 ): PropsInfo<React.ComponentProps<T>> {
-  const componentInfos = parse(componentPath);
-
-  if (componentInfos.length === 0) {
-    throw new Error(`No components found for ${component.name}`);
-  }
-
-  const componentName = component.name;
-  const namedComponent = componentInfos.find(
-    (info) => info.displayName === componentName
-  );
-
-  if (namedComponent) {
-    return processComponentInfo(namedComponent);
-  } else {
-    throw new Error(
-      `Component "${componentName}" not found in parsed information`
-    );
-  }
+  return processComponentInfo(componentInfo[0]);
 }
 
-function processComponentInfo<T>(componentInfo: ComponentDoc): PropsInfo<T> {
+function processComponentInfo<T>(componentInfo: any): PropsInfo<T> {
   const result: PropsInfo<T> = {} as PropsInfo<T>;
 
-  for (const [key, prop] of Object.entries(componentInfo.props)) {
+  for (const [key, prop] of Object.entries(componentInfo.props) as [
+    string,
+    any
+  ][]) {
     let type: string | string[];
 
-    if (prop.type.name === 'union') {
+    if (prop.type.name === 'enum') {
+      type = prop.type.value.map((v: any) => v.value.replace(/"/g, ''));
+    } else if (prop.type.name === 'union') {
       type = prop.type.value.map((v: any) => v.name);
     } else if (
       ['boolean', 'number', 'string', 'object', 'function'].includes(

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TileInfo } from 'types';
-import { getPropsInfo } from 'utils/props';
+import props from 'props/Spotify.props.json';
 
 type Props = {
-  /** 'Spotify link **/
+  /** Spotify link */
   link?: string;
   /** Theme */
   theme?: 'color' | 'dark';
@@ -38,7 +38,7 @@ const parseLink = (rawLink: string) => {
 const FALLBACK_LINK =
   'https://open.spotify.com/album/4cCfFozyo6JC8acN8uIP7u?si=laPgYvLDR8Gh0fPa3M2mFw';
 
-const Spotify: React.FC<Props> = (props) => {
+export const Spotify = (props: Props) => {
   const useColor =
     props.theme === 'color' ||
     (props.theme !== 'dark' && props.theme !== undefined);
@@ -63,7 +63,7 @@ const Spotify: React.FC<Props> = (props) => {
   );
 };
 
-const tile: TileInfo<'spotify', Props> = {
+export const tile: TileInfo<'spotify', Props> = {
   name: 'spotify',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://spotify.com/',
@@ -78,8 +78,6 @@ const tile: TileInfo<'spotify', Props> = {
       h: link.startsWith('/track') ? 4 : Infinity
     };
   },
-  props: getPropsInfo(import.meta.url, Spotify),
+  props,
   Component: React.memo(Spotify)
 };
-
-export default tile;

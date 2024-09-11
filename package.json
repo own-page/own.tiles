@@ -20,7 +20,8 @@
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "build": "tsc && vite build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "props": "tsx src/scripts/makeProps.ts"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "react": "^18.3.1"
   },
   "devDependencies": {
+    "@types/node": "^22.5.4",
     "@types/react": "^18.3.3",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
@@ -42,6 +44,8 @@
     "postcss": "^8.4.44",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.10",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.7.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.2",
     "vite-plugin-dts": "^4.0.0-beta.1",
