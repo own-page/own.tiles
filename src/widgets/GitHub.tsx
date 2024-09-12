@@ -1,5 +1,5 @@
 import GitHubCalendar from 'react-github-calendar';
-import { GridArea, TileInfo } from 'types';
+import { GridArea, RawTileInfo } from 'types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import React from 'react';
 import { InnerOwnTile } from 'InnerOwnTile';
@@ -30,6 +30,32 @@ const selectLastHalfYear = (showMonths: number) => (contributions: any) => {
   });
 };
 
+type InnerProps = {
+  username: string;
+  months: number;
+};
+
+const InnerCalendar = React.memo((props: InnerProps) => {
+  return (
+    <GitHubCalendar
+      style={{
+        overflow: 'clip'
+      }}
+      fontSize={14}
+      theme={{
+        dark: ['fafafa', 'gray']
+      }}
+      hideColorLegend={true}
+      hideMonthLabels={true}
+      hideTotalCount={true}
+      blockSize={12}
+      blockMargin={3}
+      transformData={selectLastHalfYear(props.months)}
+      username={props.username}
+    />
+  );
+});
+
 export const GitHub = (props: Props) => {
   // const small =
   //   props.grid !== undefined ? props.grid.h < 3 || props.grid.w < 3 : false;
@@ -52,39 +78,41 @@ export const GitHub = (props: Props) => {
           "
         style={{
           filter:
-            'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)  drop-shadow(0 0 1rem white)  drop-shadow(0 0 1rem white)'
+            'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
         }}
       >
         <GithubLogo size={48} />
       </div>
+      {props.showUsername && (
+        <div
+          className="text-[#0a0909c4] bg-white 
+        absolute left-4 bottom-4 
+        flex-center rounded-full px-5 h-10 
+        font-['Plus_Jakarta_Sans'] font-medium text-base"
+          style={{
+            filter:
+              'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
+          }}
+        >
+          {props.username}
+        </div>
+      )}
+
       <div
         className="absolute size-full mix-blend-color"
         style={{ backgroundColor: 'var(--background-color)' }}
       ></div>
-      <GitHubCalendar
-        style={{
-          overflow: 'clip'
-        }}
-        fontSize={14}
-        theme={{
-          dark: ['fafafa', 'gray']
-        }}
-        hideColorLegend={true}
-        hideMonthLabels={true}
-        hideTotalCount={true}
-        blockSize={12}
-        blockMargin={3}
-        transformData={selectLastHalfYear(months)}
-        username={props.username}
-      />
+      <InnerCalendar username={props.username} months={months} />
     </InnerOwnTile>
   );
 };
 
-export const tile: TileInfo<'github', Props> = {
+export const tile: RawTileInfo<'github', Props> = {
   name: 'github',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://github.com/',
-  props: {} as any, //getPropsInfo<typeof GitHub>(GitHubProps),
+  props: {
+    username: { slowLoad: true }
+  },
   Component: React.memo(GitHub)
 };

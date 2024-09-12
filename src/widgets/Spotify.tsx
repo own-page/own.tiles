@@ -1,8 +1,8 @@
 import React from 'react';
-import { TileInfo } from 'types';
+import { RawTileInfo } from 'types';
 
 type Props = {
-  /** Spotify link */
+  /** Link to playlist, artist, ... */
   link?: string;
   /** Theme */
   theme?: 'color' | 'dark';
@@ -59,7 +59,7 @@ export const Spotify = (props: Props) => {
   );
 };
 
-export const tile: TileInfo<'spotify', Props> = {
+export const tile: RawTileInfo<'spotify', Props> = {
   name: 'spotify',
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://spotify.com/',
@@ -74,6 +74,9 @@ export const tile: TileInfo<'spotify', Props> = {
       h: link.startsWith('/track') ? 4 : Infinity
     };
   },
-  props: {},
+  props: {
+    link: { slowLoad: true },
+    theme: { slowLoad: true }
+  },
   Component: React.memo(Spotify)
 };

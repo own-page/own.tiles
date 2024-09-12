@@ -20,9 +20,10 @@ export function autoProps(options: {
         const propsInfo = options.getPropsInfo(parsedInfo);
 
         const tileModification = `
+          import { mergeProps } from 'utils/props';
           ${code}
           if (tile) {
-            tile.props = ${JSON.stringify(propsInfo, null, 2)};
+            tile.props = mergeProps(tile.props, ${JSON.stringify(propsInfo)});
           }
         `;
 

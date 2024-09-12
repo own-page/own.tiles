@@ -5,11 +5,22 @@ export type PropInfo = {
   type: string | string[];
   required: boolean;
   defaultValue?: any;
+  /** if true, a change in prop will result in a slow refresh (e.g. if iframe link is changed) */
+  slowLoad: boolean;
 };
 
 export type PropsInfo<T> = {
   [K in keyof T]: PropInfo;
 };
+
+/** does one level deep merge of props */
+export const mergeProps = (a: any, b: any) =>
+  Object.fromEntries(
+    Object.entries({ ...a, ...b }).map(([k, v]) => [
+      k,
+      typeof v === 'object' && v ? { ...a[k], ...v } : v
+    ])
+  );
 
 export function isComplex(propInfo: PropInfo): boolean {
   return propInfo.type === 'object' || propInfo.type === 'function';

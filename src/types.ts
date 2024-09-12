@@ -45,6 +45,15 @@ export type LicenseDescription = {
 
 export type TileDimensions = { w: number; h: number };
 
+export type RawTileInfo<N extends Lowercase<string>, P extends object> = Omit<
+  TileInfo<N, P>,
+  'props'
+> & {
+  props?: {
+    [K in keyof PropsInfo<P>]?: Partial<PropsInfo<P>[K]>;
+  };
+};
+
 export type TileInfo<N extends Lowercase<string>, P extends object> = {
   name: N;
   origin: string;
