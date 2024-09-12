@@ -86,7 +86,7 @@ export const GitHub = (props: Props) => {
       {props.showUsername && (
         <div
           className="text-[#0a0909c4] bg-white 
-        absolute left-4 bottom-4 
+        absolute left-4 bottom-4 z-10
         flex-center rounded-full px-5 h-10 
         font-['Plus_Jakarta_Sans'] font-medium text-base"
           style={{

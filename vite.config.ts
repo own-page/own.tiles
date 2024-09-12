@@ -27,12 +27,12 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: [...Object.keys(peerDependencies)],
-      output: {
-        globals: {
-          react: 'React'
-        }
-      }
+      external: [...Object.keys(peerDependencies)]
+      // output: {
+      //   globals: {
+      //     react: 'React'
+      //   }
+      // }
     },
     sourcemap: true,
     emptyOutDir: true
