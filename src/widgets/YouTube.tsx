@@ -1,5 +1,6 @@
 import React from 'react';
 import { RawTileInfo } from 'types';
+import IFrame from 'utils/IFrame';
 
 type Props = {
   /** Link to playlist, artist, ... */
@@ -43,7 +44,7 @@ const parseLink = (rawLink: string) => {
 };
 
 // put other easter-eggs here ;)
-const FALLBACK_LINK = 'https://www.youtube.com/watch?v=5jceNNZD4oY';
+const FALLBACK_LINK = 'https://www.youtube.com/watch?v=gnV-8pkILF0';
 
 export const YouTube = (props: Props) => {
   //   const useColor = props.theme === undefined || props.theme === 'color';
@@ -51,7 +52,7 @@ export const YouTube = (props: Props) => {
   const videoId = parseLink(props.link || FALLBACK_LINK);
 
   return (
-    <iframe
+    <IFrame
       style={{ clipPath: 'inset(0 round 2.25rem)' }}
       src={`https://www.youtube.com/embed/${videoId}`}
       width="100%"
@@ -61,7 +62,7 @@ export const YouTube = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
-    ></iframe>
+    />
   );
 };
 

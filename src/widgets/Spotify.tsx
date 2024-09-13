@@ -1,5 +1,6 @@
 import React from 'react';
 import { RawTileInfo } from 'types';
+import IFrame from 'utils/IFrame';
 
 type Props = {
   /** Link to playlist, artist, ... */
@@ -45,7 +46,7 @@ export const Spotify = (props: Props) => {
     : { clipPath: 'inset(0 round 2.25rem)' };
 
   return (
-    <iframe
+    <IFrame
       style={clipPathStyle}
       src={`https://open.spotify.com/embed${link}?utm_source=generator${themeString}`}
       width="100%"
@@ -55,7 +56,7 @@ export const Spotify = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
-    ></iframe>
+    />
   );
 };
 
