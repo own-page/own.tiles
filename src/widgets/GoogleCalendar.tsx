@@ -4,7 +4,7 @@ import IFrame from 'utils/IFrame';
 
 type Props = {
   /** Link to calendar */
-  link?: string;
+  email?: string;
   /** Title of the calendar */
   title?: string;
   /** Theme */
@@ -39,3 +39,26 @@ const parseLink = (rawLink: string) => {
 // link to the public austrian holidays calendar
 const FALLBACK_LINK =
   'https://calendar.google.com/calendar/embed?src=en-gb.austrian%23holiday%40group.v.calendar.google.com&ctz=Europe%2FVienna';
+
+export const GoogleCalendar = (props: Props) => {
+  const useColor = props.theme === undefined || props.theme === 'white';
+  const email = parseLink(props.email || FALLBACK_LINK);
+
+  const themeStyle = useColor
+    ? { filter: 'none' }
+    : { filter: 'invert(90%) hue-rotate(180deg)' }; // hacky way to make the calendar dark mode
+
+  return (
+    <IFrame
+      style={themeStyle}
+      src={`https://calendar.google.com/calendar/embed?src=${email}`}
+      width="100%"
+      height="100%"
+      frameBorder="0"
+      allowFullScreen
+      // sandbox="allow-scripts allow-forms allow-same-origin"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    />
+  );
+};
