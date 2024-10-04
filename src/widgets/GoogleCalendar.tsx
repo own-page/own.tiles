@@ -1,9 +1,10 @@
 import React from 'react';
 import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
+import { InnerOwnTile } from 'InnerOwnTile';
 
 type Props = {
-  /** Email address to calendar */
+  /** Calendar ID (email) */
   email?: string;
   /** Title of the calendar */
   title?: string;
@@ -38,7 +39,7 @@ const parseEmail = (rawEmail: string) => {
 };
 
 // email address to the public austrian holidays calendar
-const FALLBACK_EMAIL = 'en-gb.austrian#holiday@group.v.calendar.google.com';
+const FALLBACK_EMAIL = 'ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com';
 
 export const GoogleCalendar = (props: Props) => {
   const useColor = props.theme === undefined || props.theme === 'white';
@@ -51,17 +52,29 @@ export const GoogleCalendar = (props: Props) => {
     : { filter: 'invert(90%) hue-rotate(180deg)' }; // hacky way to make the calendar dark mode
 
   return (
-    <IFrame
+    <InnerOwnTile
+      className="size-full px-4 pt-10 overflow-clip relative bg-white"
       style={themeStyle}
-      src={`https://${GOOGLE_CALENDAR_DOMAIN}/calendar/embed?src=${email}&mode=${view}&title=${title}&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
-      width="100%"
-      height="100%"
-      frameBorder="0"
-      allowFullScreen
-      // sandbox="allow-scripts allow-forms allow-same-origin"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-    />
+    >
+      <div
+        className={`text-[#0a0909c4]
+        absolute left-1/2 -translate-x-1/2 top-0 z-10
+        flex-center px-5 h-10 
+        font-['Plus_Jakarta_Sans'] font-medium text-base`}
+      >
+        {title}
+      </div>
+      <IFrame
+        src={`https://${GOOGLE_CALENDAR_DOMAIN}/calendar/embed?src=${email}&bgColor=ffffff&mode=${view}&showTitle=0&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        allowFullScreen
+        // sandbox="allow-scripts allow-forms allow-same-origin"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      />
+    </InnerOwnTile>
   );
 };
 
@@ -82,8 +95,8 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
   },
   props: {
     email: { slowLoad: true },
-    title: { slowLoad: true },
-    theme: { slowLoad: true },
+    title: { slowLoad: false },
+    theme: { slowLoad: false },
     view: { slowLoad: true }
   },
   Component: React.memo(GoogleCalendar)
