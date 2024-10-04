@@ -10,7 +10,7 @@ type Props = {
   /** Theme */
   theme?: 'white' | 'dark';
   /** View */
-  view?: 'week' | 'month' | 'schedule';
+  view?: 'week' | 'month' | 'agenda';
 };
 
 const GOOGLE_CALENDAR_DOMAIN = 'calendar.google.com';
