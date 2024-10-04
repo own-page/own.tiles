@@ -51,7 +51,7 @@ export const GoogleCalendar = (props: Props) => {
   return (
     <IFrame
       style={themeStyle}
-      src={`https://calendar.google.com/calendar/embed?src=${email}`}
+      src={`https://calendar.google.com/calendar/embed?src=${email}&mode=${props.view}&title=${props.title}&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
       width="100%"
       height="100%"
       frameBorder="0"
@@ -71,8 +71,8 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
     w: 4,
     h: 3
   },
-  maxDimensions: (props) => {
-    const link = parseLink(props.email || FALLBACK_LINK);
+  maxDimensions: () => {
+    //const email = parseLink(props.email || FALLBACK_LINK);
     return {
       w: Infinity,
       h: Infinity
