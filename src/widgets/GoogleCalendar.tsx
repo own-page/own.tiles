@@ -62,3 +62,27 @@ export const GoogleCalendar = (props: Props) => {
     />
   );
 };
+
+export const tile: RawTileInfo<'google-calendar', Props> = {
+  name: 'google-calendar',
+  license: { type: 'MIT', fullText: 'MIT' },
+  origin: 'https://calendar.google.com/',
+  minDimensions: {
+    w: 4,
+    h: 3
+  },
+  maxDimensions: (props) => {
+    const link = parseLink(props.email || FALLBACK_LINK);
+    return {
+      w: Infinity,
+      h: Infinity
+    };
+  },
+  props: {
+    email: { slowLoad: true },
+    title: { slowLoad: true },
+    theme: { slowLoad: true },
+    view: { slowLoad: true }
+  },
+  Component: React.memo(GoogleCalendar)
+};
