@@ -3,13 +3,13 @@ import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 
 type Props = {
-  /** Link to calendar */
+  /** Email address to calendar */
   email?: string;
   /** Title of the calendar */
   title?: string;
   /** Theme */
   theme?: 'white' | 'dark';
-  /** View of the calendar */
+  /** View */
   view?: 'week' | 'month' | 'schedule';
 };
 
