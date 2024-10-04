@@ -15,34 +15,36 @@ type Props = {
 
 const GOOGLE_CALENDAR_DOMAIN = 'calendar.google.com';
 
-const parseLink = (rawLink: string) => {
-  if (typeof rawLink !== 'string') {
-    console.error('Invalid link provided:', rawLink);
+const parseEmail = (rawEmail: string) => {
+  if (typeof rawEmail !== 'string') {
+    console.error('Invalid email provided:', rawEmail);
     return '';
   }
 
   try {
-    const url = new URL(rawLink, `https://${GOOGLE_CALENDAR_DOMAIN}`);
-
-    if (url.hostname !== GOOGLE_CALENDAR_DOMAIN) {
-      console.error('Not a valid Google Calendar link:', rawLink);
+    // Simple regex to validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(rawEmail)) {
+      console.error('Invalid email format:', rawEmail);
       return '';
     }
 
-    return url.pathname;
+    // Assuming the email is valid, return it directly
+    return rawEmail;
   } catch (error) {
-    console.error('Invalid URL:', rawLink);
+    console.error('Unexpected error during email validation:', error);
     return '';
   }
 };
 
-// link to the public austrian holidays calendar
-const FALLBACK_LINK =
-  'https://calendar.google.com/calendar/embed?src=en-gb.austrian%23holiday%40group.v.calendar.google.com&ctz=Europe%2FVienna';
+// email address to the public austrian holidays calendar
+const FALLBACK_EMAIL = 'en-gb.austrian#holiday@group.v.calendar.google.com';
 
 export const GoogleCalendar = (props: Props) => {
   const useColor = props.theme === undefined || props.theme === 'white';
-  const email = parseLink(props.email || FALLBACK_LINK);
+  const email = parseEmail(props.email || FALLBACK_EMAIL);
+  const view = props.view || 'week';
+  const title = props.title || 'My Calendar';
 
   const themeStyle = useColor
     ? { filter: 'none' }
@@ -51,7 +53,7 @@ export const GoogleCalendar = (props: Props) => {
   return (
     <IFrame
       style={themeStyle}
-      src={`https://calendar.google.com/calendar/embed?src=${email}&mode=${props.view}&title=${props.title}&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
+      src={`https://${GOOGLE_CALENDAR_DOMAIN}/calendar/embed?src=${email}&mode=${view}&title=${title}&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
       width="100%"
       height="100%"
       frameBorder="0"
