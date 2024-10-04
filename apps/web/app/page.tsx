@@ -5,7 +5,8 @@ import {
   GithubLogo,
   DiscordLogo,
   MagnifyingGlass,
-  X
+  X,
+  XLogo
 } from '@phosphor-icons/react/dist/ssr';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 
@@ -24,11 +25,12 @@ const socials = [
     name: 'Discord',
     url: 'https://discord.gg/own-tiles',
     icon: DiscordLogo
-  }
+  },
+  { name: 'X', url: 'https://x.com/own_tiles', icon: XLogo }
 ];
 
 const P = (props: React.PropsWithChildren) => (
-  <p className="text-white text-sm font-medium pt-4">{props.children}</p>
+  <p className="text-white/70 text-sm font-medium pt-4">{props.children}</p>
 );
 
 type HeaderProps = {
@@ -64,8 +66,8 @@ const Header = (props: HeaderProps) => (
         <img
           src="/netidee_logo.svg"
           alt="netidee logo"
-          width={107}
-          height={27}
+          width={128}
+          height={32}
         />
       </a>
     </div>
