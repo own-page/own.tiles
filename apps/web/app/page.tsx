@@ -127,7 +127,7 @@ const SearchBar = (props: SearchBarProps) => {
 const TileDisplayButton = (props: { Icon: React.ElementType }) => {
   return (
     <button className="hover:bg-white/20 p-1 rounded-md">
-      <props.Icon size={24} weight="fill" />
+      <props.Icon size={20} weight="fill" />
     </button>
   );
 };
@@ -144,13 +144,16 @@ const TileDisplay = (props: { name: string }) => {
   if (!Tile) return null;
 
   return (
-    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative text-white">
+    <div
+      className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative text-white
+     border border-white/20"
+    >
       <div className="text-xl font-semibold leading-none">{props.name}</div>
       <div className="absolute right-5 top-0 space-x-1">
         <TileDisplayButton Icon={Clipboard} />
         <TileDisplayButton Icon={SlidersHorizontal} />
       </div>
-      <div className="overflow-hidden h-48">
+      <div className="overflow-hidden h-72">
         <Tile.Component />
       </div>
     </div>
@@ -190,11 +193,10 @@ export default function Home() {
       />
       <div
         className="absolute max-w-xl w-full px-6 space-y-10
-        transition-all duration-1000
         left-1/2 -translate-x-1/2 
-        top-1/2 -translate-y-1/2
-        data-[show-header=false]:top-0 
-        data-[show-header=false]:translate-y-0 transform-gpu"
+        data-[show-header=true]:animate-slideDown
+        data-[show-header=false]:animate-slideUp
+        transform-gpu will-change-[transform]"
         data-show-header={showHeader}
       >
         <SearchBar value={searchValue} setSearchValue={setSearchValue} />
