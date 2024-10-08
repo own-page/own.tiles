@@ -37,8 +37,13 @@
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      "typescript": true,
+      "typescript": {
+        "project": [
+          "./tsconfig.json",
+          "./apps/web/tsconfig.json"
+        ]
+      },
       "node": true
-    }
+    },
   }
 }
