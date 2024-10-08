@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -6,11 +7,13 @@ import {
   DiscordLogo,
   MagnifyingGlass,
   X,
-  XLogo
+  XLogo,
+  Clipboard,
+  SlidersHorizontal
 } from '@phosphor-icons/react/dist/ssr';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
-import * as OwnTiles from 'own.tiles';
+import { tiles } from 'own.tiles';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -52,16 +55,15 @@ const Header = (props: HeaderProps) => (
     data-[visible=false]:opacity-80
     data-[visible=false]:blur-xl
     data-[visible=false]:pointer-events-none
+    data-[visible=false]:select-none
     "
   >
-    <h1 className="font-semibold text-8xl text-white">own.tiles</h1>
+    <h1 className="font-semibold text-7xl sm:text-8xl text-white">own.tiles</h1>
     <P>the open source repository for grid-based web widgets</P>
     <div className="flex gap-4">
       {socials.map((social) => (
         <a href={social.url} key={social.name}>
-          {/* <div className="size-6 bg-red-500"> */}
           <social.icon size={24} weight="fill" />
-          {/* </div> */}
         </a>
       ))}
     </div>
@@ -132,11 +134,55 @@ type DisplayOwnTilesProps = {
   filter: string;
 };
 
+const tileNames = Object.keys(tiles);
+
+const TileDisplayButton = (props: { Icon: React.ElementType }) => {
+  return (
+    <button className="hover:bg-white/20 p-1 rounded-md">
+      <props.Icon size={24} weight="fill" />
+    </button>
+  );
+};
+
+const TileDisplay = (props: { name: string }) => {
+  const Tile = tiles[props.name as keyof typeof tiles];
+
+  if (!Tile) return null;
+
+  return (
+    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 backdrop-blur-xl rounded-2xl relative">
+      <div className="text-xl font-semibold leading-none">{props.name}</div>
+      <div className="absolute right-5 top-0 space-x-1">
+        <TileDisplayButton Icon={Clipboard} />
+        <TileDisplayButton Icon={SlidersHorizontal} />
+      </div>
+      <div className="overflow-hidden h-48">
+        <Tile.Component />
+      </div>
+    </div>
+  );
+};
+
 const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
+  if (props.filter.trim() === '') return null;
 
-  OwnTiles.
+  const results = tileNames.filter((s) =>
+    s.toLowerCase().includes(props.filter)
+  );
 
-  return <div className="bg-red-500 absolute top-0">{props.filter}</div>;
+  if (results.length === 0) {
+    return (
+      <div className="w-full text-center absolute top-0">No tiles found</div>
+    );
+  }
+
+  return (
+    <div className="absolute top-0 w-full">
+      {results.map((e) => (
+        <TileDisplay key={e} name={e} />
+      ))}
+    </div>
+  );
 };
 
 export default function Home() {
@@ -146,16 +192,17 @@ export default function Home() {
 
   return (
     <div
-      className={`w-screen h-screen 
+      className={`w-screen h-screen
     flex flex-col items-center justify-center
-    space-y-16
     bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 
     ${plus_jakarta_sans.className}`}
     >
-      <SearchBar value={searchValue} setSearchValue={setSearchValue} />
-      <div className="relative">
-        <Header showHeader={showHeader} />
-        <DisplayOwnTiles filter={searchValue} />
+      <div className="max-w-xl w-full px-6 space-y-16">
+        <SearchBar value={searchValue} setSearchValue={setSearchValue} />
+        <div className="relative">
+          <Header showHeader={showHeader} />
+          <DisplayOwnTiles filter={searchValue} />
+        </div>
       </div>
     </div>
   );
