@@ -9,6 +9,7 @@ import {
   XLogo
 } from '@phosphor-icons/react/dist/ssr';
 import { Plus_Jakarta_Sans } from 'next/font/google';
+import OwnPageLogo from '../public/own.page_logo_bold.svg';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -17,16 +18,21 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 
 const socials = [
   {
-    name: 'Github',
-    url: 'https://github.com/own-tiles',
-    icon: GithubLogo
+    name: 'own.page',
+    url: 'https://own.page',
+    icon: () => (
+      <div className="size-6 flex items-center justify-center">
+        <OwnPageLogo height={23} />
+      </div>
+    )
   },
   {
-    name: 'Discord',
-    url: 'https://discord.gg/own-tiles',
-    icon: DiscordLogo
+    name: 'Github',
+    url: 'https://github.com/own-page/own.tiles',
+    icon: GithubLogo
   },
-  { name: 'X', url: 'https://x.com/own_tiles', icon: XLogo }
+  { name: 'Discord', url: 'https://discord.gg/GVz4ykbh6C', icon: DiscordLogo },
+  { name: 'X', url: 'https://x.com/own_pages', icon: XLogo }
 ];
 
 const P = (props: React.PropsWithChildren) => (
@@ -52,7 +58,9 @@ const Header = (props: HeaderProps) => (
     <div className="flex gap-4">
       {socials.map((social) => (
         <a href={social.url} key={social.name}>
+          {/* <div className="size-6 bg-red-500"> */}
           <social.icon size={24} weight="fill" />
+          {/* </div> */}
         </a>
       ))}
     </div>
