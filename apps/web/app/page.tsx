@@ -144,7 +144,7 @@ const TileDisplay = (props: { name: string }) => {
   if (!Tile) return null;
 
   return (
-    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative">
+    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative text-white">
       <div className="text-xl font-semibold leading-none">{props.name}</div>
       <div className="absolute right-5 top-0 space-x-1">
         <TileDisplayButton Icon={Clipboard} />
