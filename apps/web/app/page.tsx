@@ -11,14 +11,8 @@ import {
   Clipboard,
   SlidersHorizontal
 } from '@phosphor-icons/react/dist/ssr';
-import { Plus_Jakarta_Sans } from 'next/font/google';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
 import { tiles } from 'own.tiles';
-
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap'
-});
 
 const socials = [
   {
@@ -94,7 +88,7 @@ const SearchBar = (props: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null!);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center py-6">
       <div className="relative w-96">
         <input
           ref={inputRef}
@@ -130,18 +124,18 @@ const SearchBar = (props: SearchBarProps) => {
   );
 };
 
-type DisplayOwnTilesProps = {
-  filter: string;
-};
-
-const tileNames = Object.keys(tiles);
-
 const TileDisplayButton = (props: { Icon: React.ElementType }) => {
   return (
     <button className="hover:bg-white/20 p-1 rounded-md">
       <props.Icon size={24} weight="fill" />
     </button>
   );
+};
+
+const tileNames = Object.keys(tiles);
+
+type DisplayOwnTilesProps = {
+  filter: string;
 };
 
 const TileDisplay = (props: { name: string }) => {
@@ -175,11 +169,11 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
   }
 
   return (
-    <div className="w-full">
+    <>
       {results.map((e) => (
         <TileDisplay key={e} name={e} />
       ))}
-    </div>
+    </>
   );
 };
 
@@ -189,19 +183,30 @@ export default function Home() {
   const showHeader = searchValue.trim() === '';
 
   return (
-    <div
-      className={`w-screen min-h-screen
-    flex flex-col items-center justify-center
-    bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 bg-fixed
-    ${plus_jakarta_sans.className}`}
-    >
-      <div className="max-w-xl w-full px-6 space-y-16">
+    <>
+      <div
+        className="fixed inset-0 w-screen h-screen 
+        bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 bg-fixed"
+      />
+      <div
+        className="absolute max-w-xl w-full px-6 space-y-10
+        transition-all duration-1000
+        left-1/2 -translate-x-1/2 
+        top-1/2 -translate-y-1/2
+        data-[show-header=false]:top-0 
+        data-[show-header=false]:translate-y-0 transform-gpu"
+        data-show-header={showHeader}
+      >
         <SearchBar value={searchValue} setSearchValue={setSearchValue} />
-        {/* <div className="relative"> */}
-        <Header showHeader={showHeader} />
-        <DisplayOwnTiles filter={searchValue} />
-        {/* </div> */}
+        <div className="relative">
+          <div className="w-full">
+            <Header showHeader={showHeader} />
+          </div>
+          <div className="absolute top-0 left-0 w-full">
+            <DisplayOwnTiles filter={searchValue} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
