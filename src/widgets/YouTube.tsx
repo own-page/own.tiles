@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 
@@ -78,5 +78,5 @@ export const tile: RawTileInfo<'youtube', Props> = {
     link: { slowLoad: true }
     // theme: { slowLoad: true }
   },
-  Component: React.memo(YouTube)
+  Component: memo(YouTube)
 };

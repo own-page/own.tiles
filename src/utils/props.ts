@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from 'react';
 
 export type PropInfo = {
   description: string;
   type: string | string[];
   required: boolean;
-  defaultValue?: any;
+  defaultValue?: unknown;
   /** if true, a change in prop will result in a slow refresh (e.g. if iframe link is changed) */
   slowLoad: boolean;
 };

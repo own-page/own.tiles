@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 
@@ -79,5 +79,5 @@ export const tile: RawTileInfo<'spotify', Props> = {
     link: { slowLoad: true },
     theme: { slowLoad: true }
   },
-  Component: React.memo(Spotify)
+  Component: memo(Spotify)
 };

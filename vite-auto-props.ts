@@ -1,6 +1,6 @@
 import { Plugin } from 'vite';
 // import path from 'path';
-import { parse } from 'react-docgen-typescript';
+import { ComponentDoc, parse } from 'react-docgen-typescript';
 
 const docgenOptions = {
   shouldExtractValuesFromUnion: true,
@@ -9,7 +9,7 @@ const docgenOptions = {
 };
 
 export function autoProps(options: {
-  getPropsInfo: Function;
+  getPropsInfo: (info: ComponentDoc[]) => object;
   debug?: boolean;
 }): Plugin {
   return {

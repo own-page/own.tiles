@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 
@@ -66,5 +66,5 @@ export const tile: RawTileInfo<'eventbrite', Props> = {
   props: {
     link: { slowLoad: true }
   },
-  Component: React.memo(Eventbrite)
+  Component: memo(Eventbrite)
 };

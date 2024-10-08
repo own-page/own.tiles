@@ -49,7 +49,6 @@
     "baseUrl": "src",
     "paths": {
       "*": ["*"],
-      "own.tiles": ["."]
     }
   },
   "include": ["src"], // Specifies the directory to include when searching for TypeScript files.

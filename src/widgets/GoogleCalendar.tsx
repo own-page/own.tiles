@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 import { InnerOwnTile } from 'InnerOwnTile';
@@ -99,5 +99,5 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
     theme: { slowLoad: false },
     view: { slowLoad: true }
   },
-  Component: React.memo(GoogleCalendar)
+  Component: memo(GoogleCalendar)
 };

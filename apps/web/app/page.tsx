@@ -10,7 +10,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
-import { Spotify } from 'own.tiles';
+import * as OwnTiles from 'own.tiles';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -84,11 +84,11 @@ const Header = (props: HeaderProps) => (
 );
 
 type SearchBarProps = {
-  onSearch: (value: string) => void;
+  value: string;
+  setSearchValue: (value: string) => void;
 };
 
 const SearchBar = (props: SearchBarProps) => {
-  const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null!);
 
   return (
@@ -98,10 +98,9 @@ const SearchBar = (props: SearchBarProps) => {
           ref={inputRef}
           type="text"
           placeholder="Search"
-          value={searchValue}
+          value={props.value}
           onChange={(e) => {
-            setSearchValue(e.target.value);
-            props.onSearch(e.target.value);
+            props.setSearchValue(e.target.value);
           }}
           className="bg-white/10 px-5 py-3 w-full border border-white/80 rounded-full
              outline-none text-white placeholder:text-white/50 focus:ring-0 drop-shadow-xl"
@@ -109,17 +108,16 @@ const SearchBar = (props: SearchBarProps) => {
         <button
           className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-transparent border-none focus:outline-none"
           onClick={() => {
-            if (searchValue) {
-              setSearchValue('');
-              props.onSearch('');
+            if (props.value) {
+              props.setSearchValue('');
               // Autofocus the input after clearing
               inputRef.current.focus();
             }
           }}
           type="button"
-          style={{ cursor: searchValue ? 'pointer' : 'default' }}
+          style={{ cursor: props.value ? 'pointer' : 'default' }}
         >
-          {searchValue ? (
+          {props.value ? (
             <X size={24} className="text-white" weight="bold" />
           ) : (
             <MagnifyingGlass size={24} className="text-white" weight="bold" />
@@ -130,12 +128,21 @@ const SearchBar = (props: SearchBarProps) => {
   );
 };
 
-export default function Home() {
-  const [showHeader, setShowHeader] = useState(true);
+type DisplayOwnTilesProps = {
+  filter: string;
+};
 
-  const handleSearch = (value: string) => {
-    setShowHeader(value.trim() === '');
-  };
+const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
+
+  OwnTiles.
+
+  return <div className="bg-red-500 absolute top-0">{props.filter}</div>;
+};
+
+export default function Home() {
+  const [searchValue, setSearchValue] = useState('');
+
+  const showHeader = searchValue.trim() === '';
 
   return (
     <div
@@ -145,9 +152,11 @@ export default function Home() {
     bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 
     ${plus_jakarta_sans.className}`}
     >
-      <SearchBar onSearch={handleSearch} />
-      <Header showHeader={showHeader} />
-      {/* <Spotify.Component /> */}
+      <SearchBar value={searchValue} setSearchValue={setSearchValue} />
+      <div className="relative">
+        <Header showHeader={showHeader} />
+        <DisplayOwnTiles filter={searchValue} />
+      </div>
     </div>
   );
 }

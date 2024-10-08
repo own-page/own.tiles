@@ -21,6 +21,7 @@
   "extends": [
     "eslint:recommended",                   // ESLint recommended rules
     "plugin:react/recommended",             // React recommended rules
+    "plugin:react/jsx-runtime",             // to fix React import issue: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
     "plugin:@typescript-eslint/recommended", // TypeScript recommended rules
     "plugin:@typescript-eslint/eslint-recommended", // ESLint overrides for TypeScript
     "plugin:prettier/recommended",          // Prettier plugin integration

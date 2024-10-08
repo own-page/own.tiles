@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { memo } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { GridArea, RawTileInfo } from 'types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
-import React from 'react';
 import { InnerOwnTile } from 'InnerOwnTile';
-// import { getPropsInfo } from 'utils/props';
 
 type Props = {
   /** GitHub username */
@@ -35,7 +35,7 @@ type InnerProps = {
   months: number;
 };
 
-const InnerCalendar = React.memo((props: InnerProps) => {
+const InnerCalendar = (props: InnerProps) => {
   return (
     <GitHubCalendar
       style={{
@@ -54,7 +54,9 @@ const InnerCalendar = React.memo((props: InnerProps) => {
       username={props.username}
     />
   );
-});
+};
+
+const InnerCalendarMemo = memo(InnerCalendar);
 
 export const GitHub = (props: Props) => {
   // const small =
@@ -102,7 +104,7 @@ export const GitHub = (props: Props) => {
         className="absolute size-full mix-blend-color"
         style={{ backgroundColor: 'var(--background-color)' }}
       ></div>
-      <InnerCalendar username={props.username} months={months} />
+      <InnerCalendarMemo username={props.username} months={months} />
     </InnerOwnTile>
   );
 };
@@ -114,5 +116,5 @@ export const tile: RawTileInfo<'github', Props> = {
   props: {
     username: { slowLoad: true }
   },
-  Component: React.memo(GitHub)
+  Component: memo(GitHub)
 };

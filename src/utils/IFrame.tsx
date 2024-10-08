@@ -8,6 +8,7 @@ type ChromHackProps = {
 function useOnce(f: () => void) {
   useEffect(() => {
     f();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
@@ -17,7 +18,7 @@ function useOnce(f: () => void) {
  ' therefore we have to introduce a side-effect sadly
  * @param props @see ChromHackProps
  */
-const ChromeHack: React.FC<ChromHackProps> = (props) => {
+const ChromeHack = (props: ChromHackProps) => {
   useOnce(props.loadProp);
   return <></>;
 };
