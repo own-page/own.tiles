@@ -9,7 +9,8 @@ import {
   X,
   XLogo,
   Clipboard,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Check
 } from '@phosphor-icons/react/dist/ssr';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
 import { tiles } from 'own.tiles';
@@ -124,9 +125,17 @@ const SearchBar = (props: SearchBarProps) => {
   );
 };
 
-const TileDisplayButton = (props: { Icon: React.ElementType }) => {
+type TileDisplayButtonProps = {
+  Icon: React.ElementType;
+  onClick?: () => void;
+};
+
+const TileDisplayButton = (props: TileDisplayButtonProps) => {
   return (
-    <button className="hover:bg-white/20 p-1 rounded-md">
+    <button
+      className="hover:bg-white/20 p-1 rounded-md"
+      onClick={props.onClick}
+    >
       <props.Icon size={20} weight="fill" />
     </button>
   );
@@ -141,7 +150,28 @@ type DisplayOwnTilesProps = {
 const TileDisplay = (props: { name: string }) => {
   const Tile = tiles[props.name as keyof typeof tiles];
 
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    setIsCopied(true);
+    // navigator.clipboard.writeText(Tile.code);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 300);
+  };
+
   if (!Tile) return null;
+
+  const getHeight = () => {
+    if ('minDimensions' in Tile) {
+      const dimensions =
+        typeof Tile.minDimensions === 'function'
+          ? (Tile.minDimensions as () => { h: number })()
+          : Tile.minDimensions;
+      return (dimensions as { h: number }).h * 96;
+    }
+    return 288; // Default height in pixels
+  };
 
   return (
     <div
@@ -150,10 +180,18 @@ const TileDisplay = (props: { name: string }) => {
     >
       <div className="text-xl font-semibold leading-none">{props.name}</div>
       <div className="absolute right-5 top-0 space-x-1">
-        <TileDisplayButton Icon={Clipboard} />
+        <TileDisplayButton
+          Icon={isCopied ? Check : Clipboard}
+          onClick={copyToClipboard}
+        />
         <TileDisplayButton Icon={SlidersHorizontal} />
       </div>
-      <div className="overflow-hidden h-72">
+      <div
+        className="overflow-hidden"
+        style={{
+          height: getHeight()
+        }}
+      >
         <Tile.Component />
       </div>
     </div>
