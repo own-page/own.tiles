@@ -14,20 +14,12 @@ const config: Config = {
       },
       keyframes: {
         slideDown: {
-          '0%': {
-            transform: 'translate(-50%, 0%)'
-          },
-          '100%': {
-            transform: 'translate(-50%, 50%)'
-          }
+          '0%': { transform: 'translate(-50%, 0%)' },
+          '100%': { transform: 'translate(-50%, 50%)' }
         },
         slideUp: {
-          '0%': {
-            transform: 'translate(-50%, 50%)'
-          },
-          '100%': {
-            transform: 'translate(-50%, 0%)'
-          }
+          '0%': { transform: 'translate(-50%, 50%)' },
+          '100%': { transform: 'translate(-50%, 0%)' }
         }
       },
       animation: {
