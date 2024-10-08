@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import DisplayOwnTiles from '@/components/TileDisplay';
+import Impressum from '@/components/Impressum';
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -30,6 +31,9 @@ export default function Home() {
         <div className="absolute top-12 left-0 w-full">
           <DisplayOwnTiles filter={searchValue} />
         </div>
+      </div>
+      <div className="fixed bottom-4 right-4">
+        <Impressum />
       </div>
     </>
   );

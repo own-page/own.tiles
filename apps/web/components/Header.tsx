@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { GithubLogo, DiscordLogo, XLogo } from '@phosphor-icons/react/dist/ssr';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
 
