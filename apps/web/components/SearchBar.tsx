@@ -21,7 +21,7 @@ const SearchBar = (props: SearchBarProps) => {
             props.setSearchValue(e.target.value);
           }}
           className="bg-white/10 px-5 py-3 w-full border border-white/80 rounded-full
-             outline-none text-white placeholder:text-white/50 focus:ring-0 drop-shadow-xl"
+             !outline-none text-white placeholder:text-white/50 focus:!ring-0 drop-shadow-xl"
         />
         <button
           className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-transparent border-none focus:outline-none"

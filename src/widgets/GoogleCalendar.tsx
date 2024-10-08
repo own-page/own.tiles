@@ -70,6 +70,7 @@ export const GoogleCalendar = (props: Props) => {
         height="100%"
         frameBorder="0"
         allowFullScreen
+        className="rounded-3xl"
         // sandbox="allow-scripts allow-forms allow-same-origin"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
@@ -84,7 +85,7 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
   origin: 'https://calendar.google.com/',
   minDimensions: {
     w: 4,
-    h: 3
+    h: 4
   },
   maxDimensions: () => {
     //const email = parseLink(props.email || FALLBACK_LINK);

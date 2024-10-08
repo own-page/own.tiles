@@ -59,10 +59,11 @@ const InnerCalendar = (props: InnerProps) => {
 const InnerCalendarMemo = memo(InnerCalendar);
 
 export const GitHub = (props: Props) => {
-  // const small =
-  //   props.grid !== undefined ? props.grid.h < 3 || props.grid.w < 3 : false;
   const months =
     props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
+
+  const username = props.username || 'DominikScholz';
+  const showUsername = props.showUsername || true;
 
   return (
     <InnerOwnTile
@@ -83,9 +84,9 @@ export const GitHub = (props: Props) => {
             'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
         }}
       >
-        <GithubLogo size={48} />
+        <GithubLogo size={'100%'} />
       </div>
-      {props.showUsername && (
+      {showUsername && (
         <div
           className="text-[#0a0909c4] bg-white 
         absolute left-4 bottom-4 z-10
@@ -96,7 +97,7 @@ export const GitHub = (props: Props) => {
               'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
           }}
         >
-          {props.username}
+          {username}
         </div>
       )}
 
@@ -104,7 +105,7 @@ export const GitHub = (props: Props) => {
         className="absolute size-full mix-blend-color"
         style={{ backgroundColor: 'var(--background-color)' }}
       ></div>
-      <InnerCalendarMemo username={props.username} months={months} />
+      <InnerCalendarMemo username={username} months={months} />
     </InnerOwnTile>
   );
 };
@@ -116,5 +117,6 @@ export const tile: RawTileInfo<'github', Props> = {
   props: {
     username: { slowLoad: true }
   },
+  minDimensions: { w: 3, h: 2 },
   Component: memo(GitHub)
 };

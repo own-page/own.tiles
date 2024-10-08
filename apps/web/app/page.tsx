@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, createContext } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import DisplayOwnTiles from '@/components/TileDisplay';
