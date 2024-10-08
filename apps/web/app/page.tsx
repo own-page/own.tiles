@@ -195,7 +195,7 @@ export default function Home() {
         className="absolute max-w-xl w-full px-6 space-y-10
         data-[show-header=true]:animate-slideDown
         data-[show-header=false]:animate-slideUp
-        left-1/2 top-1/2
+        left-1/2
         transform-gpu will-change-[transform]"
         data-show-header={showHeader}
       >
