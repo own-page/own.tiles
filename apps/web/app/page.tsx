@@ -150,7 +150,7 @@ const TileDisplay = (props: { name: string }) => {
   if (!Tile) return null;
 
   return (
-    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 backdrop-blur-xl rounded-2xl relative">
+    <div className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative">
       <div className="text-xl font-semibold leading-none">{props.name}</div>
       <div className="absolute right-5 top-0 space-x-1">
         <TileDisplayButton Icon={Clipboard} />
@@ -171,13 +171,11 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
   );
 
   if (results.length === 0) {
-    return (
-      <div className="w-full text-center absolute top-0">No tiles found</div>
-    );
+    return <div className="w-full text-center">No tiles found</div>;
   }
 
   return (
-    <div className="absolute top-0 w-full">
+    <div className="w-full">
       {results.map((e) => (
         <TileDisplay key={e} name={e} />
       ))}
@@ -192,17 +190,17 @@ export default function Home() {
 
   return (
     <div
-      className={`w-screen h-screen
+      className={`w-screen min-h-screen
     flex flex-col items-center justify-center
-    bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 
+    bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 bg-fixed
     ${plus_jakarta_sans.className}`}
     >
       <div className="max-w-xl w-full px-6 space-y-16">
         <SearchBar value={searchValue} setSearchValue={setSearchValue} />
-        <div className="relative">
-          <Header showHeader={showHeader} />
-          <DisplayOwnTiles filter={searchValue} />
-        </div>
+        {/* <div className="relative"> */}
+        <Header showHeader={showHeader} />
+        <DisplayOwnTiles filter={searchValue} />
+        {/* </div> */}
       </div>
     </div>
   );
