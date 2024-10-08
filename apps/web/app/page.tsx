@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import DisplayOwnTiles from '@/components/TileDisplay';
-import Impressum from '@/components/Impressum';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -21,7 +21,8 @@ export default function Home() {
         className="m-auto max-w-xl w-full px-6 space-y-10
         data-[show-header=true]:animate-slideDown
         data-[show-header=false]:animate-slideUp
-        transform-gpu will-change-[transform]"
+        transform-gpu will-change-[transform]
+        group"
         data-show-header={showHeader}
       >
         <SearchBar value={searchValue} setSearchValue={setSearchValue} />
@@ -30,11 +31,10 @@ export default function Home() {
         </div>
         <div className="absolute top-12 left-0 w-full">
           <DisplayOwnTiles filter={searchValue} />
+          {!showHeader && <Footer className="p-2" />}
         </div>
       </div>
-      <div className="fixed bottom-4 right-4">
-        <Impressum />
-      </div>
+      {showHeader && <Footer className="fixed right-0 bottom-0 p-2" />}
     </>
   );
 }
