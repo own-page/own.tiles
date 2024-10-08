@@ -12,7 +12,8 @@
     "@phosphor-icons/react": "^2.1.7",
     "next": "14.2.14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "own.tiles": "file:../../"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

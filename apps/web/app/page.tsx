@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   GithubLogo,
   DiscordLogo,
@@ -10,6 +10,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
+import { Spotify } from 'own.tiles';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -146,6 +147,7 @@ export default function Home() {
     >
       <SearchBar onSearch={handleSearch} />
       <Header showHeader={showHeader} />
+      {/* <Spotify.Component /> */}
     </div>
   );
 }

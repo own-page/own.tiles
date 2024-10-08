@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // transpilePackages: ['own.tiles'],
   experimental: {
     turbo: {
       rules: {

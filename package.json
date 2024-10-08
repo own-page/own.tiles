@@ -9,6 +9,9 @@
   "files": [
     "dist"
   ],
+  "workspaces": [
+    "apps/*"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
