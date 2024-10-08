@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, createContext, useContext } from 'react';
 import {
   GithubLogo,
   DiscordLogo,
@@ -14,6 +14,12 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import OwnPageLogo from '../public/own.page_logo_bold.svg';
 import { tiles } from 'own.tiles';
+
+const ConfigureContext = createContext<{
+  setConfigureTile: (name: string | null) => void;
+}>({
+  setConfigureTile: () => {}
+});
 
 const socials = [
   {
@@ -143,14 +149,16 @@ const TileDisplayButton = (props: TileDisplayButtonProps) => {
 
 const tileNames = Object.keys(tiles);
 
-type DisplayOwnTilesProps = {
-  filter: string;
+type TileDisplayProps = {
+  name: string;
+  configure: boolean;
 };
 
-const TileDisplay = (props: { name: string }) => {
+const TileDisplay = (props: TileDisplayProps) => {
   const Tile = tiles[props.name];
 
   const [isCopied, setIsCopied] = useState(false);
+  const { setConfigureTile } = useContext(ConfigureContext);
 
   const copyToClipboard = () => {
     setIsCopied(true);
@@ -176,7 +184,8 @@ const TileDisplay = (props: { name: string }) => {
   return (
     <div
       className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative text-white
-     border border-white/20"
+     border border-white/20 data-[modal=true]:z-[1001]"
+      data-modal={props.configure}
     >
       <div className="text-xl font-semibold leading-none">{props.name}</div>
       <div className="absolute right-5 top-0 space-x-1">
@@ -184,7 +193,10 @@ const TileDisplay = (props: { name: string }) => {
           Icon={isCopied ? Check : Clipboard}
           onClick={copyToClipboard}
         />
-        <TileDisplayButton Icon={SlidersHorizontal} />
+        <TileDisplayButton
+          Icon={SlidersHorizontal}
+          onClick={() => setConfigureTile(props.name)}
+        />
       </div>
       <div
         className="overflow-hidden"
@@ -196,6 +208,11 @@ const TileDisplay = (props: { name: string }) => {
       </div>
     </div>
   );
+};
+
+type DisplayOwnTilesProps = {
+  filter: string;
+  configure: string | undefined;
 };
 
 const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
@@ -212,7 +229,11 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
   return (
     <>
       {results.map((e) => (
-        <TileDisplay key={e} name={e} />
+        <TileDisplay
+          key={e}
+          name={e}
+          configure={props.configure === e.toLowerCase()}
+        />
       ))}
     </>
   );
@@ -220,33 +241,46 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
+  const [configureTile, setConfigureTile] = useState<string | null>(null);
 
   const showHeader = searchValue.trim() === '';
 
+  const showModal = configureTile !== null;
+
   return (
-    <>
+    <ConfigureContext.Provider value={{ setConfigureTile }}>
       <div
         className="fixed inset-0 w-screen h-screen 
         bg-gradient-to-bl from-green-400 via-teal-400 to-blue-500 bg-fixed"
       />
       <div
-        className="absolute max-w-xl w-full px-6 space-y-10
+        className="m-auto max-w-xl w-full px-6 space-y-10
         data-[show-header=true]:animate-slideDown
         data-[show-header=false]:animate-slideUp
-        left-1/2
         transform-gpu will-change-[transform]"
         data-show-header={showHeader}
       >
         <SearchBar value={searchValue} setSearchValue={setSearchValue} />
-        <div className="relative">
-          <div className="w-full">
-            <Header showHeader={showHeader} />
-          </div>
-          <div className="absolute top-0 left-0 w-full">
-            <DisplayOwnTiles filter={searchValue} />
-          </div>
+        <div className="w-full">
+          <Header showHeader={showHeader} />
+        </div>
+        <div className="absolute top-12 left-0 w-full">
+          <DisplayOwnTiles
+            filter={searchValue}
+            configure={configureTile ?? undefined}
+          />
         </div>
       </div>
-    </>
+      {showModal && (
+        <div className="w-full inset-0 fixed backdrop-blur-xl z-[1000]">
+          <button
+            className="absolute top-2 right-2 flex items-center justify-center p-2"
+            onClick={() => setConfigureTile(null)}
+          >
+            <X size={24} weight="bold" />
+          </button>
+        </div>
+      )}
+    </ConfigureContext.Provider>
   );
 }
