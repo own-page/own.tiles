@@ -148,7 +148,7 @@ type DisplayOwnTilesProps = {
 };
 
 const TileDisplay = (props: { name: string }) => {
-  const Tile = tiles[props.name as keyof typeof tiles];
+  const Tile = tiles[props.name];
 
   const [isCopied, setIsCopied] = useState(false);
 
