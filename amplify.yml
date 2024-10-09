@@ -4,6 +4,7 @@ applications:
       phases:
         preBuild:
           commands:
+            - ls -la
             - cd ./apps/web
             - npm install
         build:
