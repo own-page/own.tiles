@@ -3,7 +3,7 @@ import {
   Clipboard,
   SlidersHorizontal
 } from '@phosphor-icons/react/dist/ssr';
-import { widgets as tiles } from 'own.tiles';
+// import { widgets as tiles } from 'own.tiles';
 import 'own.tiles/style.css';
 import { useState } from 'react';
 import TileConfig from './TileConfig';
@@ -24,6 +24,7 @@ const TileDisplayButton = (props: TileDisplayButtonProps) => {
   );
 };
 
+const tiles = { ' ': undefined };
 type TileName = keyof typeof tiles;
 const tileNames = Object.keys(tiles) as TileName[];
 
