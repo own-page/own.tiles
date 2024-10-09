@@ -54,7 +54,10 @@ export type RawTileInfo<N extends Lowercase<string>, P extends object> = Omit<
   };
 };
 
-export type TileInfo<N extends Lowercase<string>, P extends object> = {
+export type TileInfo<
+  N extends Lowercase<string> = Lowercase<string>,
+  P extends object = object
+> = {
   name: N;
   origin: string;
   accessibility?: AccessibilityStandard;

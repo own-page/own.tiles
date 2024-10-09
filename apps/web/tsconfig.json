@@ -20,7 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
-      "own.tiles": ["../../src/index"]
+      "own.tiles": ["../../dist/index"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

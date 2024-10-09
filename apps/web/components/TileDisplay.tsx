@@ -3,10 +3,10 @@ import {
   Clipboard,
   SlidersHorizontal
 } from '@phosphor-icons/react/dist/ssr';
-import { tiles } from 'own.tiles';
+import { widgets as tiles } from 'own.tiles';
 import 'own.tiles/style.css';
 import { useState } from 'react';
-import Modal from './Modal';
+import TileConfig from './TileConfig';
 
 type TileDisplayButtonProps = {
   Icon: React.ElementType;
@@ -24,12 +24,12 @@ const TileDisplayButton = (props: TileDisplayButtonProps) => {
   );
 };
 
-const tileNames = Object.keys(tiles);
+type TileName = keyof typeof tiles;
+const tileNames = Object.keys(tiles) as TileName[];
 
 type TileDisplayProps = {
-  name: string;
+  name: TileName;
 };
-
 const TileDisplay = (props: TileDisplayProps) => {
   const Tile = tiles[props.name];
 
@@ -47,15 +47,16 @@ const TileDisplay = (props: TileDisplayProps) => {
   if (!Tile) return null;
 
   const getHeight = () => {
-    if ('minDimensions' in Tile) {
-      const dimensions =
-        typeof Tile.minDimensions === 'function'
-          ? (Tile.minDimensions as () => { h: number })()
-          : Tile.minDimensions;
-      return (dimensions as { h: number }).h * 96;
-    }
-    return 288; // Default height in pixels
+    const minDimensions = 'minDimensions' in Tile ? Tile.minDimensions : null;
+    const height = minDimensions
+      ? (typeof minDimensions === 'function'
+          ? minDimensions({}).h
+          : minDimensions.h) * 96
+      : 288;
+    return height;
   };
+
+  const height = getHeight();
 
   return (
     <>
@@ -74,35 +75,16 @@ const TileDisplay = (props: TileDisplayProps) => {
             onClick={() => setIsOpen(true)}
           />
         </div>
-        <div
-          className="overflow-hidden"
-          style={{
-            height: getHeight()
-          }}
-        >
+        <div className="overflow-hidden" style={{ height }}>
           <Tile.Component />
         </div>
       </div>
-      {isOpen && (
-        <Modal
-          className="rounded-3xl bg-gray-50/20 backdrop-blur-xl border border-white/20"
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-        >
-          <div className="max-w-xl flex m-auto p-6">
-            <div className="w-full h-2/3 mt-6">
-              <div
-                className="overflow-hidden"
-                style={{
-                  height: getHeight()
-                }}
-              >
-                <Tile.Component />
-              </div>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <TileConfig
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        info={Tile}
+        height={height}
+      />
     </>
   );
 };
