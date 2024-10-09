@@ -208,7 +208,7 @@ type Props<P> = {
   >;
 };
 
-export const PropsForm = <P,>(props: Props<P>) => {
+const PropsForm = <P,>(props: Props<P>) => {
   return (
     <>
       {Object.entries(props.propsInfo).map(([k, v], index) => (
@@ -232,3 +232,5 @@ export const PropsForm = <P,>(props: Props<P>) => {
     </>
   );
 };
+
+export default PropsForm;

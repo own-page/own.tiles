@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { GithubLogo, DiscordLogo, XLogo } from '@phosphor-icons/react/dist/ssr';
-import OwnPageLogo from '../public/own.page_logo_bold.svg';
 
 const socials = [
   {
@@ -8,7 +7,11 @@ const socials = [
     url: 'https://own.page',
     icon: () => (
       <div className="size-6 flex items-center justify-center">
-        <OwnPageLogo height={23} />
+        <img
+          src="/own.page_logo_bold.svg"
+          alt="own.page logo"
+          className="!h-[23px]"
+        />
       </div>
     )
   },

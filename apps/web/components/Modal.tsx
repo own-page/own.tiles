@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import styles from './Modal.module.css';
 import { X } from '@phosphor-icons/react/dist/ssr';
 
 interface ModalProps {
@@ -27,7 +26,7 @@ const Modal = (props: ModalProps) => {
     <dialog
       ref={dialogRef}
       onClose={props.onClose}
-      className={`${styles.modal} w-full h-full ${props.className || ''}`}
+      className={`w-full h-full ${props.className || ''}`}
     >
       {props.children}
       <button

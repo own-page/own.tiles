@@ -30,10 +30,11 @@ export default function Home() {
           <Header showHeader={showHeader} />
         </div>
         <div className="absolute top-12 left-0 w-full">
-          <DisplayOwnTiles filter={searchValue} />
+          {<DisplayOwnTiles filter={searchValue} />}
           {!showHeader && <Footer className="p-2" />}
         </div>
       </div>
+
       {showHeader && <Footer className="fixed right-0 bottom-0 p-2" />}
     </>
   );
