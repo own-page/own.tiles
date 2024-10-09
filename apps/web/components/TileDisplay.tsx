@@ -105,6 +105,8 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
   }
 
   return results.map((e) => <TileDisplay key={e} name={e} />);
+
+  return <div>Hello</div>;
 };
 
 export default DisplayOwnTiles;
