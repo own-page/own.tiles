@@ -7,7 +7,7 @@ applications:
             - cd apps/web && npm install
         build:
           commands:
-            - cd apps/web && npm run build
+            - npm run build
       artifacts:
         baseDirectory: apps/web/.next
         files:
