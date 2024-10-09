@@ -4,13 +4,10 @@ applications:
       phases:
         preBuild:
           commands:
-            - ls -la
-            - cd ./apps/web
-            - npm install
+            - cd apps/web && npm install
         build:
           commands:
-            - cd ./apps/web
-            - npm run build
+            - cd apps/web && npm run build
       artifacts:
         baseDirectory: apps/web/.next
         files:
