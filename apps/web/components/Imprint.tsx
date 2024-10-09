@@ -35,9 +35,12 @@ const Imprint = () => {
         >
           <div className="max-w-xl flex flex-col m-auto p-6 font-mono text-black/70">
             <h1 className="text-2xl font-bold">Imprint</h1>
-            <div className="w-full h-2/3 mt-6 font-mono">
-              {process.env.NEXT_PUBLIC_IMPRINT_DATA}
-            </div>
+            <div
+              className="w-full mt-6 font-mono"
+              dangerouslySetInnerHTML={{
+                __html: process.env.NEXT_PUBLIC_IMPRINT_DATA || ''
+              }}
+            />
           </div>
         </Modal>
       )}
