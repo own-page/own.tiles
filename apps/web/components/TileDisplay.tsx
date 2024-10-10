@@ -97,7 +97,7 @@ const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
   if (props.filter.trim() === '') return null;
 
   const results = tileNames.filter((s) =>
-    s.toLowerCase().includes(props.filter)
+    s.toLowerCase().includes(props.filter.toLowerCase())
   );
 
   if (results.length === 0) {
