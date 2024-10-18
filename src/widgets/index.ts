@@ -1,4 +1,4 @@
-import './widgets.css';
+// import './widgets.css';
 import { tile as GitHub } from './GitHub';
 import { tile as Spotify } from './Spotify';
 import { tile as YouTube } from './YouTube';

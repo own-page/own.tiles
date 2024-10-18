@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.THIS_SHOULDNT_BE_HERE {
+  color: pink;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
