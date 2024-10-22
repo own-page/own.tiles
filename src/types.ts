@@ -1,4 +1,4 @@
-import { PropsInfo } from 'utils/props';
+import { type PropsInfo } from 'utils/props';
 
 export type AccessibilityStandard = {
   rating: 'AAA' | 'AA' | 'A';
@@ -66,7 +66,7 @@ export type TileInfo<
   props: PropsInfo<P>;
   minDimensions?: ((props: P) => TileDimensions) | TileDimensions;
   maxDimensions?: ((props: P) => TileDimensions) | TileDimensions;
-  Component: React.FC<P>;
+  Component: React.ComponentType<P>;
 };
 
 // type CommonTileProps = {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { memo } from 'react';
 import GitHubCalendar from 'react-github-calendar';
-import { GridArea, RawTileInfo } from 'types';
+import { type GridArea, type RawTileInfo } from 'types';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { InnerOwnTile } from 'InnerOwnTile';
 
@@ -43,7 +43,7 @@ const InnerCalendar = (props: InnerProps) => {
       }}
       fontSize={14}
       theme={{
-        dark: ['fafafa', 'gray']
+        dark: ['#fafafa', 'gray']
       }}
       hideColorLegend={true}
       hideMonthLabels={true}

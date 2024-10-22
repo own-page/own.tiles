@@ -1,10 +1,10 @@
-// import './widgets.css';
+import './widgets.css';
 import { tile as GitHub } from './GitHub';
 import { tile as Spotify } from './Spotify';
 import { tile as YouTube } from './YouTube';
 import { tile as GoogleCalendar } from './GoogleCalendar';
 import { tile as Eventbrite } from './Eventbrite';
-import { TileInfo } from 'types';
+import { type TileInfo } from 'types';
 
 const rawWidgets = {
   GitHub,

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { RawTileInfo } from 'types';
+import { type RawTileInfo } from 'types';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -37,7 +37,7 @@ const parseLink = (rawLink: string) => {
     }
 
     return videoId;
-  } catch (error) {
+  } catch (_error) {
     console.error('Invalid URL:', rawLink);
     return '';
   }

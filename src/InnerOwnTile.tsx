@@ -1,4 +1,8 @@
-import { ComponentPropsWithRef, ElementType, PropsWithChildren } from 'react';
+import {
+  type ComponentPropsWithRef,
+  type ElementType,
+  type PropsWithChildren
+} from 'react';
 
 type InnerOwnTileProps<T extends ElementType = 'div'> = {
   Component?: T;

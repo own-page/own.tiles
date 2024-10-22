@@ -16,3 +16,6 @@ dist
 **/.history
 
 # End of https://www.gitignore.io/api/visualstudiocode
+
+
+*.tsbuildinfo

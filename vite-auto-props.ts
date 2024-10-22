@@ -1,6 +1,5 @@
-import { Plugin } from 'vite';
-// import path from 'path';
-import { ComponentDoc, parse } from 'react-docgen-typescript';
+import { type Plugin } from 'vite';
+import { type ComponentDoc, parse } from 'react-docgen-typescript';
 
 const docgenOptions = {
   shouldExtractValuesFromUnion: true,

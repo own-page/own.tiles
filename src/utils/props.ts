@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentType } from 'react';
+
+import { type ComponentType } from 'react';
 
 export type PropInfo = {
   description: string;

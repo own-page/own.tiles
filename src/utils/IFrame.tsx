@@ -1,4 +1,4 @@
-import { FC, IframeHTMLAttributes, useEffect, useState } from 'react';
+import { type FC, type IframeHTMLAttributes, useEffect, useState } from 'react';
 
 type ChromHackProps = {
   /** callback that is called once on startup */
@@ -8,7 +8,6 @@ type ChromHackProps = {
 function useOnce(f: () => void) {
   useEffect(() => {
     f();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
