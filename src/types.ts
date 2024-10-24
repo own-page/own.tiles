@@ -54,6 +54,10 @@ export type RawTileInfo<N extends Lowercase<string>, P extends object> = Omit<
   };
 };
 
+export type DimensionFunction<P> =
+  | ((props: P) => TileDimensions)
+  | TileDimensions;
+
 export type TileInfo<
   N extends Lowercase<string> = Lowercase<string>,
   P extends object = object
@@ -64,8 +68,8 @@ export type TileInfo<
   cookieInformaton?: CookieInformation[];
   license: LicenseDescription;
   props: PropsInfo<P>;
-  minDimensions?: ((props: P) => TileDimensions) | TileDimensions;
-  maxDimensions?: ((props: P) => TileDimensions) | TileDimensions;
+  minDimensions?: DimensionFunction<P>;
+  maxDimensions?: DimensionFunction<P>;
   Component: React.ComponentType<P>;
 };
 
