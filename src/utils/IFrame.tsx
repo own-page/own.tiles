@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC, type IframeHTMLAttributes, useEffect, useState } from 'react';
 
 type ChromHackProps = {
