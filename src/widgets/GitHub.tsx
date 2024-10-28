@@ -63,7 +63,7 @@ export const GitHub = (props: Props) => {
     props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
 
   const username = props.username || 'DominikScholz';
-  const showUsername = props.showUsername || true;
+  const showUsername = props.showUsername;
 
   return (
     <InnerOwnTile
@@ -115,7 +115,8 @@ export const tile: RawTileInfo<'github', Props> = {
   license: { type: 'MIT', fullText: 'MIT' },
   origin: 'https://github.com/',
   props: {
-    username: { slowLoad: true }
+    username: { slowLoad: true },
+    showUsername: { slowLoad: false }
   },
   minDimensions: { w: 3, h: 2 },
   Component: memo(GitHub)

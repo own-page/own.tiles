@@ -16,7 +16,7 @@ const rawWidgets = {
 
 export const widgets = rawWidgets as unknown as {
   [key in keyof typeof rawWidgets]: TileInfo<
-    Lowercase<key>,
+    (typeof rawWidgets)[key]['name'],
     NonNullable<(typeof rawWidgets)[key]['props']>
   >;
 };
