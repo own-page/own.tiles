@@ -5,6 +5,7 @@ import { peerDependencies } from './package.json';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { autoProps } from './vite-auto-props';
 import { getPropsInfo } from './src/utils/props';
+import preserveDirectives from 'rollup-preserve-directives';
 
 export default defineConfig({
   plugins: [
@@ -18,7 +19,8 @@ export default defineConfig({
         content
       })
     }),
-    tsconfigPaths()
+    tsconfigPaths(),
+    preserveDirectives()
   ],
   build: {
     lib: {

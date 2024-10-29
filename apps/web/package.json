@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
-    "next": "14.2.14",
+    "next": "14.2.15",
     "own.tiles": "file:../../",
-    "react": "^18",
+    "react": "^18.2.0",
     "react-dom": "^18"
   },
   "devDependencies": {
