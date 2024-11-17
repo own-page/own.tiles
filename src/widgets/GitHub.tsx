@@ -10,6 +10,8 @@ type Props = {
   username: string;
   /** Show username */
   showUsername: boolean;
+  /** Color theme */
+  color: 'colorful' | 'github';
   grid?: GridArea;
 };
 
@@ -30,9 +32,20 @@ const selectLastHalfYear = (showMonths: number) => (contributions: any) => {
   });
 };
 
+const displayColorTheme = (colorTheme: string): string[] => {
+  if (colorTheme === 'github') {
+    return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+  } else if (colorTheme === 'colorful') {
+    return ['var(--interpolate-start)', 'var(--interpolate-end)'];
+  } else {
+    return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+  }
+};
+
 type InnerProps = {
   username: string;
   months: number;
+  colorTheme: string;
 };
 
 const InnerCalendar = (props: InnerProps) => {
@@ -43,7 +56,10 @@ const InnerCalendar = (props: InnerProps) => {
       }}
       fontSize={14}
       theme={{
-        dark: ['#fafafa', 'gray']
+        //dark: ['#fafafa', 'gray']
+        //light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+        light: displayColorTheme(props.colorTheme),
+        dark: displayColorTheme(props.colorTheme)
       }}
       hideColorLegend={true}
       hideMonthLabels={true}
@@ -64,6 +80,7 @@ export const GitHub = (props: Props) => {
 
   const username = props.username || 'DominikScholz';
   const showUsername = props.showUsername;
+  const colorTheme = props.color || 'colorful';
 
   return (
     <InnerOwnTile
@@ -101,14 +118,18 @@ export const GitHub = (props: Props) => {
         </div>
       )}
 
-      <div
+      {/* <div
         className="absolute size-full mix-blend-color"
         style={{
           backgroundColor: 'var(--background-color)',
           transform: 'translate3d(0,0,0)'
         }}
-      ></div>
-      <InnerCalendarMemo username={username} months={months} />
+      ></div> */}
+      <InnerCalendarMemo
+        username={username}
+        months={months}
+        colorTheme={colorTheme}
+      />
     </InnerOwnTile>
   );
 };
