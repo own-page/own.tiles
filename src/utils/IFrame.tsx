@@ -41,6 +41,7 @@ const IFrame: FC<IframeHTMLAttributes<HTMLIFrameElement>> = (props) => {
           transition: 'opacity 1s ease-in-out',
           ...props.style
         }}
+        loading="lazy"
       >
         <ChromeHack loadProp={loaded} />
       </iframe>
