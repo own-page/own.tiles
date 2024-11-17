@@ -68,6 +68,9 @@ export const GitHub = (props: Props) => {
   return (
     <InnerOwnTile
       className="size-full p-9 overflow-clip relative bg-white"
+      style={{
+        transform: 'translate3d(0,0,0)'
+      }}
       //  text-black/80 [&_footer]:text-black/60
       // text-white/90 [&_footer]:text-white/60 bg-[#0d1117]"
       // bg-gradient-to-tr from-[#0d1117] to-[#0d1117]
@@ -105,7 +108,7 @@ export const GitHub = (props: Props) => {
         className="absolute size-full mix-blend-color"
         style={{
           backgroundColor: 'var(--background-color)',
-          transform: 'translate3d(0,0,0'
+          transform: 'translate3d(0,0,0)'
         }}
       ></div>
       <InnerCalendarMemo username={username} months={months} />
