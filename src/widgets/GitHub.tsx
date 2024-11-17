@@ -103,7 +103,10 @@ export const GitHub = (props: Props) => {
 
       <div
         className="absolute size-full mix-blend-color"
-        style={{ backgroundColor: 'var(--background-color)' }}
+        style={{
+          backgroundColor: 'var(--background-color)',
+          transform: 'translate3d(0,0,0'
+        }}
       ></div>
       <InnerCalendarMemo username={username} months={months} />
     </InnerOwnTile>
