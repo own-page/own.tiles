@@ -44,7 +44,7 @@ const parseLink = (rawLink: string) => {
 };
 
 // put other easter-eggs here ;)
-const FALLBACK_LINK = 'https://www.youtube.com/watch?v=gnV-8pkILF0';
+const FALLBACK_LINK = 'https://www.youtube.com/watch?v=3uFxiOo60MI';
 
 export const YouTube = (props: Props) => {
   //   const useColor = props.theme === undefined || props.theme === 'color';
