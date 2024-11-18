@@ -36,7 +36,14 @@ const displayColorTheme = (colorTheme: string): string[] => {
   if (colorTheme === 'github') {
     return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
   } else if (colorTheme === 'colorful') {
-    return ['var(--interpolate-start)', 'var(--interpolate-end)'];
+    //return ['var(--interpolate-start)', 'var(--interpolate-end)'];
+    return [
+      'var(--github1)',
+      'var(--github2)',
+      'var(--github3)',
+      'var(--github4)',
+      'var(--github5)'
+    ];
   } else {
     return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
   }
@@ -84,7 +91,17 @@ export const GitHub = (props: Props) => {
 
   return (
     <InnerOwnTile
-      className="size-full p-9 overflow-clip relative bg-white"
+      className="size-full p-9 overflow-clip relative bg-white [&_div]:!overflow-hidden"
+      style={
+        {
+          '--github1': 'hsl(from var(--background-color) h s 95%)',
+          '--github2': 'hsl(from var(--background-color) h s 84%)',
+          '--github3': 'hsl(from var(--background-color) h s 70%)',
+          '--github4': 'hsl(from var(--background-color) h s 59%)',
+          '--github5': 'hsl(from var(--background-color) h s 40%)',
+          direction: 'rtl'
+        } as any
+      }
       //  text-black/80 [&_footer]:text-black/60
       // text-white/90 [&_footer]:text-white/60 bg-[#0d1117]"
       // bg-gradient-to-tr from-[#0d1117] to-[#0d1117]
