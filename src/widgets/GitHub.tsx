@@ -84,7 +84,7 @@ export const GitHub = (props: Props) => {
 
   return (
     <InnerOwnTile
-      className="size-full p-9 overflow-clip relative bg-white [&_div]:!overflow-hidden"
+      className="size-full p-9 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
       style={{
         direction: 'rtl'
       }}
@@ -94,8 +94,8 @@ export const GitHub = (props: Props) => {
           size-10 flex-center absolute top-4 left-4 z-10 p-2 backdrop-blur-xl whitespace-nowrap
           "
         style={{
-          filter:
-            'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
+          boxShadow:
+            '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
         }}
       >
         <GithubLogo size={'100%'} />
@@ -107,8 +107,8 @@ export const GitHub = (props: Props) => {
         flex-center rounded-full px-5 h-10 
         font-['Plus_Jakarta_Sans'] font-medium text-base"
           style={{
-            filter:
-              'drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white) drop-shadow(0 0 1rem white)'
+            boxShadow:
+              '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
           }}
         >
           {username}
