@@ -36,14 +36,7 @@ const displayColorTheme = (colorTheme: string): string[] => {
   if (colorTheme === 'github') {
     return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
   } else if (colorTheme === 'colorful') {
-    //return ['var(--interpolate-start)', 'var(--interpolate-end)'];
-    return [
-      'var(--github1)',
-      'var(--github2)',
-      'var(--github3)',
-      'var(--github4)',
-      'var(--github5)'
-    ];
+    return ['#f2f2f2', 'gray'];
   } else {
     return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
   }
@@ -92,22 +85,9 @@ export const GitHub = (props: Props) => {
   return (
     <InnerOwnTile
       className="size-full p-9 overflow-clip relative bg-white [&_div]:!overflow-hidden"
-      style={
-        {
-          '--github1': 'hsl(from var(--background-color) h s 95%)',
-          '--github2': 'hsl(from var(--background-color) h s 84%)',
-          '--github3': 'hsl(from var(--background-color) h s 70%)',
-          '--github4': 'hsl(from var(--background-color) h s 59%)',
-          '--github5': 'hsl(from var(--background-color) h s 40%)',
-          direction: 'rtl'
-        } as any
-      }
-      //  text-black/80 [&_footer]:text-black/60
-      // text-white/90 [&_footer]:text-white/60 bg-[#0d1117]"
-      // bg-gradient-to-tr from-[#0d1117] to-[#0d1117]
-      // style={{
-      //   boxShadow: 'inset 0 0.5px 0.5px rgba(255,255,255,0.1)'
-      // }}
+      style={{
+        direction: 'rtl'
+      }}
     >
       <div
         className="text-white bg-black/90 rounded-full 
@@ -135,13 +115,13 @@ export const GitHub = (props: Props) => {
         </div>
       )}
 
-      {/* <div
+      <div
         className="absolute size-full mix-blend-color"
         style={{
-          backgroundColor: 'var(--background-color)',
-          transform: 'translate3d(0,0,0)'
+          display: colorTheme === 'github' ? 'none' : 'block',
+          backgroundColor: 'var(--background-color)'
         }}
-      ></div> */}
+      ></div>
       <InnerCalendarMemo
         username={username}
         months={months}
