@@ -32,7 +32,7 @@ const selectLastHalfYear = (showMonths: number) => (contributions: any) => {
   });
 };
 
-const displayColorTheme = (colorTheme: string) => {
+const displayColorTheme = (colorTheme: string): any => {
   if (colorTheme === 'github') {
     return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
   } else if (colorTheme === 'colorful') {
