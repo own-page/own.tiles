@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { GithubLogo, DiscordLogo, XLogo } from '@phosphor-icons/react/dist/ssr';
 
 const socials = [

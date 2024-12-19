@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { X } from '@phosphor-icons/react/dist/ssr';
 
 interface ModalProps {

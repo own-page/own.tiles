@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { User, X, CaretDown, Link, Palette } from '@phosphor-icons/react';
 import { useEffect, useRef } from 'react';

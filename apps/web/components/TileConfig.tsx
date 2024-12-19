@@ -2,7 +2,7 @@
 import type { TileInfo } from 'own.tiles';
 import Modal from './Modal';
 import PropsForm from './PropsForm';
-import { useState, useEffect, SetStateAction, useRef } from 'react';
+import { useState, useEffect, type SetStateAction, useRef } from 'react';
 
 /**
  * Waits a fixed amount of seconds and returns a promise that resolves after that time,
