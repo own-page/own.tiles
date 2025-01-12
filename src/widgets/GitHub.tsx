@@ -16,19 +16,13 @@ type Props = {
 };
 
 const selectLastHalfYear = (showMonths: number) => (contributions: any) => {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
-  const shownMonths = showMonths;
+  const now = new Date();
+  const monthsAgo = new Date(now);
+  monthsAgo.setMonth(now.getMonth() - showMonths);
 
   return contributions.filter((activity: any) => {
     const date = new Date(activity.date);
-    const monthOfDay = date.getMonth();
-
-    return (
-      date.getFullYear() === currentYear &&
-      monthOfDay > currentMonth - shownMonths &&
-      monthOfDay <= currentMonth
-    );
+    return date >= monthsAgo && date <= now;
   });
 };
 

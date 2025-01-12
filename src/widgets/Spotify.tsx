@@ -42,8 +42,8 @@ export const Spotify = (props: Props) => {
   const link = parseLink(props.link || FALLBACK_LINK);
 
   const clipPathStyle = link.startsWith('/track')
-    ? { clipPath: 'inset(0 0 8px 0 round 2.25rem)' } // this is a hack because spotify embeds of tracks have white background
-    : { clipPath: 'inset(0 round 2.25rem)' };
+    ? { clipPath: 'inset(0 0 8px 0 round var(--tile-radius))' } // this is a hack because spotify embeds of tracks have white background
+    : { clipPath: 'inset(0 round var(--tile-radius))' };
 
   return (
     <IFrame
