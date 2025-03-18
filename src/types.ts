@@ -10,6 +10,11 @@ export type CookieInformation = {
   description: string;
 };
 
+export type Author = {
+  name: string;
+  url: string;
+};
+
 export type GridArea = {
   /** the horizontal position of the element (distance to the left side of the grid) */
   x: number;
@@ -64,6 +69,7 @@ export type TileInfo<
 > = {
   name: N;
   origin: string;
+  author?: Author;
   accessibility?: AccessibilityStandard;
   cookieInformaton?: CookieInformation[];
   license: LicenseDescription;
