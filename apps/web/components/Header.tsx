@@ -47,7 +47,7 @@ const Header = (props: HeaderProps) => (
     <div className="flex gap-4">
       {socials.map((social) => (
         <a href={social.url} key={social.name}>
-          <social.icon size={24} weight="fill" />
+          <social.icon size={24} weight="fill" className="text-white" />
         </a>
       ))}
     </div>
