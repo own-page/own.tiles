@@ -53,14 +53,13 @@ export const YouTube = (props: Props) => {
 
   return (
     <IFrame
-      style={{ clipPath: 'inset(0 round 2.25rem)' }}
+      style={{ clipPath: 'inset(0 round 2.25rem)', border: 0 }}
       src={`https://www.youtube.com/embed/${videoId}`}
       width="100%"
       height="100%"
-      frameBorder="0"
       allowFullScreen
       // sandbox="allow-scripts allow-forms allow-same-origin"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       loading="lazy"
     />
   );
@@ -69,6 +68,31 @@ export const YouTube = (props: Props) => {
 export const tile: RawTileInfo<'youtube', Props> = {
   name: 'youtube',
   license: { type: 'MIT', fullText: 'MIT' },
+  author: {
+    name: 'own.page',
+    url: 'https://own.page'
+  },
+  accessibility: {
+    rating: 'AA',
+    standard: 'WCAG 2.1'
+  },
+  cookieInformaton: [
+    {
+      type: 'preferences',
+      description:
+        'Stores video playback settings such as volume, subtitles, and autoplay preferences.'
+    },
+    {
+      type: 'analytics',
+      description:
+        'Tracks user engagement and video performance for YouTube analytics.'
+    },
+    {
+      type: 'necessary',
+      description:
+        'Used for security, session management, and video streaming stability.'
+    }
+  ],
   origin: 'https://www.youtube.com/',
   minDimensions: {
     w: 3,
