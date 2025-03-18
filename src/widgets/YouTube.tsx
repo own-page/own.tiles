@@ -53,7 +53,7 @@ export const YouTube = (props: Props) => {
 
   return (
     <IFrame
-      style={{ clipPath: 'inset(0 round 2.25rem)', border: 0 }}
+      style={{ clipPath: 'inset(0 round var(--tile-radius))', border: 0 }}
       src={`https://www.youtube.com/embed/${videoId}`}
       width="100%"
       height="100%"
