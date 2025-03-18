@@ -5,6 +5,7 @@ import { tile as YouTube } from './YouTube';
 import { tile as GoogleCalendar } from './GoogleCalendar';
 import { tile as Eventbrite } from './Eventbrite';
 import { tile as Vimeo } from './Vimeo';
+import { tile as Calendly } from './Calendly';
 import { type TileInfo } from 'types';
 
 const rawWidgets = {
@@ -13,7 +14,8 @@ const rawWidgets = {
   YouTube,
   GoogleCalendar,
   Eventbrite,
-  Vimeo
+  Vimeo,
+  Calendly
 } as const;
 
 export const widgets = rawWidgets as unknown as {
