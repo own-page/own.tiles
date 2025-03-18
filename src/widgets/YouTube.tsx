@@ -95,8 +95,8 @@ export const tile: RawTileInfo<'youtube', Props> = {
   ],
   origin: 'https://www.youtube.com/',
   minDimensions: {
-    w: 3,
-    h: 2
+    w: 4,
+    h: 3
   },
   props: {
     link: { slowLoad: true }
