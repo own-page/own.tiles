@@ -128,10 +128,36 @@ export const GitHub = (props: Props) => {
 export const tile: RawTileInfo<'github', Props> = {
   name: 'github',
   license: { type: 'MIT', fullText: 'MIT' },
+  author: {
+    name: 'own.page',
+    url: 'https://own.page'
+  },
+  accessibility: {
+    rating: 'AA',
+    standard: 'WCAG 2.1'
+  },
+  cookieInformaton: [
+    {
+      type: 'preferences',
+      description:
+        'Stores user interface preferences and display settings for the GitHub contribution calendar.'
+    },
+    {
+      type: 'analytics',
+      description:
+        'Collects usage data to improve GitHub services and enhance user experience with the embedded calendar.'
+    },
+    {
+      type: 'necessary',
+      description:
+        'Essential cookies required for the GitHub contribution visualization to function properly.'
+    }
+  ],
   origin: 'https://github.com/',
   props: {
     username: { slowLoad: true },
-    showUsername: { slowLoad: false }
+    showUsername: { slowLoad: false },
+    color: { slowLoad: false }
   },
   minDimensions: { w: 3, h: 2 },
   Component: memo(GitHub)
