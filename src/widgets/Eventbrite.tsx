@@ -37,10 +37,10 @@ export const Eventbrite = (props: Props) => {
 
   return (
     <IFrame
+      style={{ border: 0 }}
       src={`https://www.eventbrite.com/e${link}`}
       width="100%"
       height="100%"
-      frameBorder="0"
       allowFullScreen
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
@@ -51,6 +51,31 @@ export const Eventbrite = (props: Props) => {
 export const tile: RawTileInfo<'eventbrite', Props> = {
   name: 'eventbrite',
   license: { type: 'MIT', fullText: 'MIT' },
+  author: {
+    name: 'own.page',
+    url: 'https://own.page'
+  },
+  accessibility: {
+    rating: 'AA',
+    standard: 'WCAG 2.1'
+  },
+  cookieInformaton: [
+    {
+      type: 'preferences',
+      description:
+        'Stores event display preferences and user interface settings for a personalized experience.'
+    },
+    {
+      type: 'analytics',
+      description:
+        'Tracks user interaction with events to improve service quality and event recommendations.'
+    },
+    {
+      type: 'necessary',
+      description:
+        'Essential for event display functionality, session management, and ensuring the embedded event information loads correctly.'
+    }
+  ],
   origin: 'https://eventbrite.com/',
   minDimensions: {
     w: 4,
