@@ -47,11 +47,10 @@ export const Spotify = (props: Props) => {
 
   return (
     <IFrame
-      style={clipPathStyle}
+      style={{ ...clipPathStyle, border: 0 }}
       src={`https://open.spotify.com/embed${link}?utm_source=generator${themeString}`}
       width="100%"
       height="100%"
-      frameBorder="0"
       allowFullScreen
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -63,6 +62,32 @@ export const Spotify = (props: Props) => {
 export const tile: RawTileInfo<'spotify', Props> = {
   name: 'spotify',
   license: { type: 'MIT', fullText: 'MIT' },
+  author: {
+    name: 'own.page',
+    url: 'https://own.page'
+  },
+  accessibility: {
+    // not certain about this
+    rating: 'A',
+    standard: 'WCAG 2.1'
+  },
+  cookieInformaton: [
+    {
+      type: 'preferences',
+      description:
+        'Stores user preferences like volume settings, playback options, and saved preferences across sessions.'
+    },
+    {
+      type: 'analytics',
+      description:
+        'Tracks user interaction with the embedded player, providing data for Spotify to improve its services and user experience.'
+    },
+    {
+      type: 'necessary',
+      description:
+        'Essential for maintaining session integrity, enabling playback, and ensuring the Spotify player functions correctly on embedded pages.'
+    }
+  ],
   origin: 'https://spotify.com/',
   minDimensions: {
     w: 3,
