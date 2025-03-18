@@ -82,6 +82,31 @@ export const GoogleCalendar = (props: Props) => {
 export const tile: RawTileInfo<'google-calendar', Props> = {
   name: 'google-calendar',
   license: { type: 'MIT', fullText: 'MIT' },
+  author: {
+    name: 'own.page',
+    url: 'https://own.page'
+  },
+  accessibility: {
+    rating: 'AA',
+    standard: 'WCAG 2.1'
+  },
+  cookieInformaton: [
+    {
+      type: 'preferences',
+      description:
+        'Stores calendar view preferences such as timezone, display settings, and language preferences.'
+    },
+    {
+      type: 'analytics',
+      description:
+        'Tracks user interaction and calendar usage patterns to improve service quality.'
+    },
+    {
+      type: 'necessary',
+      description:
+        'Essential for authentication, session management, and maintaining calendar functionality.'
+    }
+  ],
   origin: 'https://calendar.google.com/',
   minDimensions: {
     w: 4,
