@@ -118,14 +118,14 @@ const TileConfig = (props: TileConfigProps) => {
           <div className="max-w-xl flex flex-col m-auto p-6">
             <div className="flex items-center justify-end space-x-2">
               <Button
-                onClick={copyLinkToClipboard}
+                onClick={copyIframeToClipboard}
                 Icon={Code}
-                text="Copy link"
+                text="Copy iframe"
               />
               <Button
-                onClick={copyIframeToClipboard}
+                onClick={copyLinkToClipboard}
                 Icon={Link}
-                text="Copy iframe"
+                text="Copy link"
               />
             </div>
 
