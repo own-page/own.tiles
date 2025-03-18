@@ -5,8 +5,10 @@ import IFrame from 'utils/IFrame';
 type Props = {
   /** Link to Vimeo video */
   link?: string;
-  /** Color theme */
-  theme?: 'light' | 'dark';
+  /** Loop the video */
+  loop?: boolean;
+  /** Disable controls */
+  disableControls?: boolean;
 };
 
 const VIMEO_DOMAINS = ['vimeo.com', 'player.vimeo.com'];
@@ -42,17 +44,20 @@ const parseLink = (rawLink: string) => {
 };
 
 // Default video to show if none is provided
-const FALLBACK_LINK = 'https://vimeo.com/824804225';
+const FALLBACK_LINK = 'https://vimeo.com/347119375';
 
 export const Vimeo = (props: Props) => {
   const videoId = parseLink(props.link || FALLBACK_LINK);
-  const theme = props.theme || 'light';
-  const colorParam = theme === 'dark' ? '?background=1' : '?background=0';
-
+  const loop = props.loop || false;
+  const loopParam = loop ? '?loop=1' : '?loop=0';
+  const disableControls = props.disableControls || false;
+  const disableControlsParam = disableControls
+    ? 'background=1'
+    : 'background=0';
   return (
     <IFrame
       style={{ clipPath: 'inset(0 round var(--tile-radius))', border: 0 }}
-      src={`https://player.vimeo.com/video/${videoId}${colorParam}`}
+      src={`https://player.vimeo.com/video/${videoId}${loopParam}&${disableControlsParam}&keyboard=1&transparent=0`}
       width="100%"
       height="100%"
       allowFullScreen
@@ -92,8 +97,8 @@ export const tile: RawTileInfo<'vimeo', Props> = {
   ],
   origin: 'https://vimeo.com/',
   minDimensions: {
-    w: 3,
-    h: 2
+    w: 4,
+    h: 3
   },
   maxDimensions: () => {
     return {
@@ -103,7 +108,8 @@ export const tile: RawTileInfo<'vimeo', Props> = {
   },
   props: {
     link: { slowLoad: true },
-    theme: { slowLoad: false }
+    loop: { slowLoad: false },
+    disableControls: { slowLoad: false }
   },
   Component: memo(Vimeo)
 };
