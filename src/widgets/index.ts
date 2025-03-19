@@ -8,6 +8,7 @@ import { tile as Vimeo } from './Vimeo';
 import { tile as Calendly } from './Calendly';
 import { tile as Deezer } from './Deezer';
 import { tile as Clock } from './Clock';
+import { tile as Event } from './Event';
 import { type TileInfo } from 'types';
 
 const rawWidgets = {
@@ -19,7 +20,8 @@ const rawWidgets = {
   Vimeo,
   Calendly,
   Deezer,
-  Clock
+  Clock,
+  Event
 } as const;
 
 export const widgets = rawWidgets as unknown as {
