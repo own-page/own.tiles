@@ -135,6 +135,8 @@ const Dropdown: React.FC<{
   options: any[];
   label?: string;
 }> = ({ id, value, setValue, options, label }) => {
+  const currentValue = value || options[0];
+
   return (
     <>
       <div className="relative rounded-full px-2 py-0 h-10 flex items-center w-72">
@@ -144,7 +146,7 @@ const Dropdown: React.FC<{
         <span className="text-white text-left px-7 py-1">{label || id}</span>
         <div className="absolute right-3 flex items-center">
           <select
-            value={value}
+            value={currentValue}
             onChange={(e) => setValue(e.target.value)}
             className="w-32 h-8 pl-4 pr-8 text-black/50 bg-white/50 rounded-full appearance-none cursor-pointer focus:outline-none"
           >
@@ -185,11 +187,13 @@ const PropInput: React.FC<{
 
   if (!Component) return null;
 
+  const currentValue = props.value || props.info.defaultValue;
+
   return (
     <div className="flex items-center justify-center z-[10000] my-2">
       <Component
         id={props.id}
-        value={props.value}
+        value={currentValue}
         setValue={props.setValue}
         label={props.info.description}
         placeholder={props.info.type === 'string' ? props.id : undefined}
