@@ -146,7 +146,7 @@ const Dropdown: React.FC<{
           <select
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-36 h-8 pl-4 pr-8 text-black/50 bg-white/50 rounded-full appearance-none cursor-pointer focus:outline-none"
+            className="w-32 h-8 pl-4 pr-8 text-black/50 bg-white/50 rounded-full appearance-none cursor-pointer focus:outline-none"
           >
             {options.map((option) => (
               <option key={option} value={option} className="bg-white/20">
@@ -216,7 +216,7 @@ const PropsForm = <P,>(props: Props<P>) => {
         <PropInput
           key={k}
           id={k}
-          value={props.previewProps[k]}
+          value={props.previewProps[k] ?? ''}
           info={v as PropInfo}
           setValue={(newValue) => {
             const setter = (v as PropInfo).slowLoad
