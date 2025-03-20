@@ -1,13 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User, X, CaretDown, Link, Palette } from '@phosphor-icons/react';
+import {
+  User,
+  X,
+  CaretDown,
+  Link,
+  Palette,
+  Calendar,
+  MapPin
+} from '@phosphor-icons/react';
 import { useEffect, useRef } from 'react';
 import type { PropInfo, PropsInfo } from 'own.tiles';
 
 const mapComponents = {
   username: <User weight="bold" />,
   link: <Link weight="bold" />,
-  theme: <Palette weight="bold" />
+  theme: <Palette weight="bold" />,
+  date: <Calendar weight="bold" />,
+  location: <MapPin weight="bold" />
 };
 
 const TextInput: React.FC<{
@@ -17,25 +27,26 @@ const TextInput: React.FC<{
   placeholder: string;
   label?: string;
   index: number;
-}> = ({ id, value, setValue, placeholder, label, index }) => {
+}> = ({ id, value, setValue, placeholder, label }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (index === 0) {
-      const handlePaste = (e: ClipboardEvent) => {
-        if (inputRef.current && document.activeElement !== inputRef.current) {
-          e.preventDefault();
-          const pastedText = e.clipboardData?.getData('text');
-          if (pastedText) {
-            setValue(pastedText);
-          }
-        }
-      };
+    // The paste event handler should only apply when the input is focused
+    const handlePaste = () => {
+      // Only handle paste events when this specific input is focused
+      if (inputRef.current && document.activeElement === inputRef.current) {
+        // No need to preventDefault - let the normal paste behavior work
+        // e.preventDefault();
+        // const pastedText = e.clipboardData?.getData('text');
+        // if (pastedText) {
+        //   setValue(pastedText);
+        // }
+      }
+    };
 
-      document.addEventListener('paste', handlePaste);
-      return () => document.removeEventListener('paste', handlePaste);
-    }
-  }, [index, setValue]);
+    document.addEventListener('paste', handlePaste);
+    return () => document.removeEventListener('paste', handlePaste);
+  }, [setValue]);
 
   return (
     <>
@@ -46,7 +57,7 @@ const TextInput: React.FC<{
         <input
           ref={inputRef}
           type="text"
-          className="bg-transparent text-white text-left px-7 py-1 focus:outline-none h-full placeholder:text-white/60"
+          className="bg-transparent text-white text-left px-7 py-1 focus:outline-none w-full h-full placeholder:text-white/60"
           placeholder={label || placeholder}
           onFocus={(e) => {
             e.target.placeholder = '';
@@ -55,12 +66,17 @@ const TextInput: React.FC<{
             e.target.placeholder = label || placeholder;
           }}
           value={value}
-          maxLength={128}
+          maxLength={256}
           onChange={(e) => setValue(e.target.value)}
+          // Handle paste event directly on the input element instead
+          onPaste={() => {
+            // Let the default paste behavior work
+            // No need for custom handling
+          }}
         />
         {value && (
           <button
-            className="right-2 text-white/50 hover:text-white"
+            className="relative right-1 text-white/50 hover:text-white"
             onClick={() => setValue('')}
           >
             <X size={16} weight="bold" />
@@ -187,7 +203,7 @@ const PropInput: React.FC<{
 
   if (!Component) return null;
 
-  const currentValue = props.value || props.info.defaultValue;
+  const currentValue = props.value ?? props.info.defaultValue;
 
   return (
     <div className="flex items-center justify-center z-[10000] my-2">

@@ -1,19 +1,24 @@
 import { memo, useEffect, useState } from 'react';
 import { type RawTileInfo } from 'types';
 import { InnerOwnTile } from 'InnerOwnTile';
-import { Calendar, MapPin, Ticket } from '@phosphor-icons/react/dist/ssr';
+import {
+  Calendar,
+  MapPin,
+  Ticket,
+  SpinnerGap
+} from '@phosphor-icons/react/dist/ssr';
 
 type Props = {
   /** Link to event page */
   link?: string;
   /** Title of the event */
   title?: string;
-  /** Date and time of the event (ISO string) */
-  dateTime?: string;
+  /** Date and time of the event */
+  date?: string;
   /** Location of the event */
   location?: string;
-  /** Color scheme */
-  color?: 'light' | 'dark';
+  /** Theme */
+  theme?: 'light' | 'dark';
 };
 
 // Default background if no OpenGraph image is found
@@ -25,15 +30,32 @@ const DEFAULT_BACKGROUNDS = [
   'linear-gradient(135deg, #f6d365 0%, #fda085 100%)'
 ];
 
-// OpenGraph image extractor
-const extractOpenGraphImage = async (): Promise<string | null> => {
+// Create a new interface for the OpenGraph data
+interface OpenGraphData {
+  imageUrl?: string;
+  title?: string;
+  date?: string;
+}
+
+// Update the function to return the simplified data structure
+const extractOpenGraphData = async (url: string): Promise<OpenGraphData> => {
   try {
-    // This would need a proxy service in production to avoid CORS
-    // For now, we'll use a mock implementation
-    return null;
+    if (!url) return {};
+
+    // Call our API endpoint
+    const apiUrl = `/api/get-opengraph?url=${encodeURIComponent(url)}`;
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      console.error('OpenGraph API error:', await response.text());
+      return {};
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('Failed to extract OpenGraph image:', error);
-    return null;
+    console.error('Failed to extract OpenGraph data:', error);
+    return {};
   }
 };
 
@@ -77,7 +99,7 @@ const getThemeStyles = (color: 'light' | 'dark') => {
         container: 'bg-white text-gray-900',
         dateBox: 'bg-black/90 text-white',
         title: 'text-gray-900',
-        details: 'text-gray-700',
+        details: 'text-[#131313]',
         button: 'bg-black/90 text-white hover:bg-black/80'
       };
   }
@@ -88,27 +110,56 @@ const randomBackground =
   DEFAULT_BACKGROUNDS[Math.floor(Math.random() * DEFAULT_BACKGROUNDS.length)];
 
 export const Event = (props: Props) => {
-  const [bgImage, setBgImage] = useState<string | null>(
-    'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F985756363%2F2292945685473%2F1%2Foriginal.20250317-173253?crop=focalpoint&fit=crop&w=600&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.116279069767&s=33a364caf9cf812479c872dd71ba5c1a'
-  );
+  const [bgImage, setBgImage] = useState<string | null>(null);
+  const [loadedLink, setLoadedLink] = useState<string>('');
+  const [suggestedTitle, setSuggestedTitle] = useState<string | null>(null);
+  const [suggestedDate, setSuggestedDate] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const color = props.color || 'light';
-  const title = props.title || 'Untitled Event';
+  const theme = props.theme || 'light';
+  // If we have a suggested title from OpenGraph and no custom title, use the suggested one
+  const title = props.title || suggestedTitle || 'Untitled Event';
   const link = props.link || '';
-  const dateTime = props.dateTime || new Date().toISOString();
+  const dateTime = props.date || suggestedDate || new Date().toISOString();
   const location = props.location || 'Location not specified';
 
   const { date, time, month, day } = formatEventDate(dateTime);
 
+  // Only fetch the data when the link actually changes
   useEffect(() => {
-    if (link) {
-      extractOpenGraphImage().then((imageUrl) => {
-        setBgImage(imageUrl);
-      });
-    }
-  }, [link]);
+    if (link && link !== loadedLink) {
+      console.log('Fetching data for link:', link);
+      setIsLoading(true);
 
-  const styles = getThemeStyles(color);
+      extractOpenGraphData(link)
+        .then((data) => {
+          // Handle image
+          if (data.imageUrl) {
+            setBgImage(data.imageUrl);
+          }
+
+          // Handle title
+          if (data.title) {
+            setSuggestedTitle(data.title);
+          }
+
+          // Handle date if available
+          if (data.date) {
+            setSuggestedDate(data.date);
+          }
+
+          // Mark this link as processed
+          setLoadedLink(link);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error loading OpenGraph data:', error);
+          setIsLoading(false);
+        });
+    }
+  }, [link, loadedLink, props]);
+
+  const styles = getThemeStyles(theme);
 
   return (
     <InnerOwnTile
@@ -127,19 +178,32 @@ export const Event = (props: Props) => {
       {/* Content overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/70" />
 
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-black/40 z-50 flex items-center justify-center">
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 flex flex-col items-center">
+            <SpinnerGap
+              size={32}
+              className="animate-spin text-white mb-2"
+              weight="bold"
+            />
+            <div className="text-white text-sm">Loading event data...</div>
+          </div>
+        </div>
+      )}
+
       {/* Date box in top left */}
       <div className="h-full flex flex-col gap-2 justify-between">
         <div className="flex flex-row gap-4">
           <div
-            className={`relative z-10 rounded-lg overflow-hidden ${styles.dateBox} shadow-lg flex flex-col items-center justify-center text-center`}
-            style={{ width: '4rem', height: '4.5rem' }}
+            className={`relative w-20 h-20 !aspect-square shrink-0 z-10 rounded-lg overflow-hidden ${styles.dateBox} shadow-lg flex flex-col items-center justify-center text-center`}
           >
             <div className="text-sm font-medium uppercase">{month}</div>
             <div className="text-2xl font-bold">{day}</div>
           </div>
 
           {/* Title */}
-          <div className={`relative text-2xl font-bold ${styles.title} mb-2`}>
+          <div className={`relative text-2xl font-bold ${styles.title}`}>
             {title}
           </div>
         </div>
@@ -201,9 +265,9 @@ export const tile: RawTileInfo<'event', Props> = {
   props: {
     link: { slowLoad: false },
     title: { slowLoad: false },
-    dateTime: { slowLoad: false },
+    date: { slowLoad: false },
     location: { slowLoad: false },
-    color: { slowLoad: false, defaultValue: 'light' }
+    theme: { slowLoad: false, defaultValue: 'light' }
   },
   Component: memo(Event)
 };
