@@ -210,17 +210,25 @@ export const Event = (props: Props) => {
 
         <div className="flex flex-col gap-2">
           {/* Date and time */}
-          <div className={`relative flex items-center ${styles.details}`}>
-            <Calendar weight="duotone" className="mr-2" />
-            <div>
+          <div
+            className={`relative flex items-center ${styles.details}`}
+            role="text"
+            aria-label={`Date and time: ${date} at ${time}`}
+          >
+            <Calendar weight="duotone" className="mr-2" aria-hidden="true" />
+            <span>
               {date} • {time}
-            </div>
+            </span>
           </div>
 
           {/* Location */}
-          <div className={`relative flex items-center ${styles.details}`}>
-            <MapPin weight="duotone" className="mr-2" />
-            <div>{location}</div>
+          <div
+            className={`relative flex items-center ${styles.details}`}
+            role="text"
+            aria-label={`Location of the event: ${location}`}
+          >
+            <MapPin weight="duotone" className="mr-2" aria-hidden="true" />
+            <span>{location}</span>
           </div>
         </div>
       </div>
@@ -232,8 +240,14 @@ export const Event = (props: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex items-center justify-center rounded-full px-5 py-2 mt-2 ${styles.button} transition-colors duration-200`}
+          aria-label="Get tickets for this event"
         >
-          <Ticket weight="duotone" className="mr-2" />
+          <Ticket
+            weight="duotone"
+            className="mr-2"
+            aria-hidden="true"
+            aria-label="Link to tickets"
+          />
           Tickets
         </a>
       </div>

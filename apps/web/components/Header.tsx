@@ -17,14 +17,20 @@ const socials = [
   {
     name: 'Github',
     url: 'https://github.com/own-page/own.tiles',
-    icon: GithubLogo
+    icon: GithubLogo,
+    label: 'Github logo'
   },
-  { name: 'Discord', url: 'https://discord.gg/GVz4ykbh6C', icon: DiscordLogo },
-  { name: 'X', url: 'https://x.com/own_pages', icon: XLogo }
+  {
+    name: 'Discord',
+    url: 'https://discord.gg/GVz4ykbh6C',
+    icon: DiscordLogo,
+    label: 'Discord logo'
+  },
+  { name: 'X', url: 'https://x.com/own_pages', icon: XLogo, label: 'X logo' }
 ];
 
 const P = (props: React.PropsWithChildren) => (
-  <p className="text-white/70 text-sm font-medium pt-4">{props.children}</p>
+  <p className="text-white text-sm font-medium pt-4">{props.children}</p>
 );
 
 type HeaderProps = {
@@ -33,6 +39,7 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => (
   <header
+    role="banner"
     data-visible={props.showHeader}
     className="space-y-4 flex flex-col items-center justify-center 
     transition-all duration-500
@@ -41,13 +48,24 @@ const Header = (props: HeaderProps) => (
     data-[visible=false]:pointer-events-none
     data-[visible=false]:select-none
     "
+    aria-hidden={!props.showHeader}
   >
     <h1 className="font-semibold text-7xl sm:text-8xl text-white">own.tiles</h1>
     <P>the open source repository for grid-based web widgets</P>
-    <div className="flex gap-4">
+    <div className="flex gap-4" aria-label="Social links">
       {socials.map((social) => (
-        <a href={social.url} key={social.name}>
-          <social.icon size={24} weight="fill" className="text-white" />
+        <a
+          href={social.url}
+          key={social.name}
+          aria-label={social.name}
+          className="rounded-md"
+        >
+          <social.icon
+            size={24}
+            weight="fill"
+            className="text-white"
+            aria-label={social.label}
+          />
         </a>
       ))}
     </div>
@@ -57,6 +75,7 @@ const Header = (props: HeaderProps) => (
         href="https://www.netidee.at/"
         target="_blank"
         rel="noopener noreferrer"
+        className="rounded-md"
       >
         <img
           src="/netidee_logo.svg"

@@ -45,6 +45,9 @@ export const Spotify = (props: Props) => {
     ? { clipPath: 'inset(0 0 8px 0 round var(--tile-radius))' } // this is a hack because spotify embeds of tracks have white background
     : { clipPath: 'inset(0 round var(--tile-radius))' };
 
+  const linkType = link.split('/')[1] || 'content'; // album, track, playlist, etc.
+  const title = `Spotify ${linkType}`;
+
   return (
     <IFrame
       style={{ ...clipPathStyle, border: 0 }}
@@ -55,6 +58,8 @@ export const Spotify = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
+      title={title}
+      aria-label={`Spotify ${linkType} player`}
     />
   );
 };

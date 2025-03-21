@@ -31,10 +31,17 @@ const IFrame: FC<IframeHTMLAttributes<HTMLIFrameElement>> = (props) => {
     setIsLoaded(true);
   };
 
+  // Ensure iframe has proper accessibility attributes
+  const enhancedProps = {
+    ...props,
+    title: props.title || 'Embedded content', // Default title if none provided
+    'aria-label': props['aria-label'] || props.title || 'Embedded content' // Use title as fallback for aria-label
+  };
+
   return (
     <>
       <iframe
-        {...props}
+        {...enhancedProps}
         onLoad={loaded}
         style={{
           opacity: isLoaded ? 1 : 0,

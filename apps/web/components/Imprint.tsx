@@ -10,30 +10,30 @@ const Imprint = () => {
     <>
       <button
         className="flex-1 py-1.5 px-3.5 sm-2
-      rounded-full text-sm antialiased
-      backdrop-blur-xl
-     
-      border border-solid 
-      border-white/0
-      text-white
-
-      hover:opacity-70
-
-      flex items-center gap-2
-      cursor-pointer
-      ease-in-out"
+        rounded-full text-sm antialiased
+        backdrop-blur-xl
+        border border-solid 
+        border-white/20
+        text-white
+        bg-white/10
+        hover:bg-white/20
+        focus:outline-none
+        flex items-center gap-2
+        cursor-pointer
+        ease-in-out"
         onClick={() => setIsOpen(true)}
+        aria-haspopup="dialog"
       >
         {/* <Scales size={16} weight="fill" /> */}
         Imprint
       </button>
       {isOpen && (
         <Modal
-          className="rounded-3xl max-w-lg bg-gray-50/70 backdrop-blur-xl border border-white/20"
+          className="rounded-3xl max-w-lg bg-white/40 backdrop-blur-xl border border-white/20"
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
         >
-          <div className="max-w-xl flex flex-col m-auto p-6 font-mono text-black/70">
+          <div className="max-w-xl flex flex-col m-auto p-6 font-mono text-black/90">
             <h1 className="text-2xl font-bold mb-6">Imprint</h1>
 
             <div className="space-y-2">
@@ -47,7 +47,7 @@ const Imprint = () => {
                 <span className="font-semibold">Email:</span>{' '}
                 <a
                   href="mailto:contact@own.page"
-                  className="text-black/70 underline hover:text-black/90"
+                  className="text-black/90 underline hover:text-black focus:outline-none rounded-sm"
                 >
                   contact@own.page
                 </a>
@@ -58,7 +58,7 @@ const Imprint = () => {
                   href="https://www.own.page"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black/70 underline hover:text-black/90"
+                  className="text-black/90 underline hover:text-black focus:outline-none rounded-sm"
                 >
                   www.own.page
                 </a>

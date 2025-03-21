@@ -61,6 +61,8 @@ export const YouTube = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       loading="lazy"
+      title="YouTube video player"
+      aria-label="YouTube video content"
     />
   );
 };

@@ -15,10 +15,10 @@ const config: Config = {
       keyframes: {
         slideDown: {
           '0%': { transform: 'translate(0, 0%)' },
-          '100%': { transform: 'translate(0, 50%)' }
+          '100%': { transform: 'translate(0, 25%)' }
         },
         slideUp: {
-          '0%': { transform: 'translate(0, 50%)' },
+          '0%': { transform: 'translate(0, 25%)' },
           '100%': { transform: 'translate(0, 0%)' }
         }
       },

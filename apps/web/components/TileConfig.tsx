@@ -48,17 +48,19 @@ type ButtonProps = {
 const Button = ({ Icon, onClick, text }: ButtonProps) => {
   return (
     <button
-      className="bg-white/50 text-black/50 rounded-full 
+      className="bg-white/60 text-black/70 rounded-full 
       px-4 py-2 flex items-center space-x-2 text-sm relative group/button 
-      hover:bg-white/70 active:bg-white/90"
+      hover:bg-white/80 active:bg-white/90 focus:outline-none"
       onClick={onClick}
       title={text}
+      aria-label={text}
     >
-      <Icon size={18} />
+      <Icon size={18} aria-hidden="true" />
       <span
-        className="absolute top-10 z-10 -translate-x-1/2 bg-black/75
+        className="absolute top-10 z-10 -translate-x-1/2 bg-black/90
        text-white px-2 py-1 rounded-md text-xs whitespace-nowrap opacity-0 
        group-hover/button:opacity-100 transition-opacity pointer-events-none"
+        role="tooltip"
       >
         {text}
       </span>
@@ -111,7 +113,7 @@ const TileConfig = (props: TileConfigProps) => {
     <>
       {props.isOpen && (
         <Modal
-          className="rounded-3xl bg-gray-50/20 backdrop-blur-xl border border-white/20"
+          className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20"
           isOpen={props.isOpen}
           onClose={() => props.setIsOpen(false)}
         >
@@ -129,13 +131,17 @@ const TileConfig = (props: TileConfigProps) => {
               />
             </div>
 
-            <div className="w-full h-2/3 mt-6">
+            <div
+              className="w-full h-2/3 mt-6"
+              aria-label={`${props.info.name} tile preview`}
+            >
               <div className="overflow-hidden" style={{ height: props.height }}>
                 <props.info.Component {...debouncedProps} />
               </div>
             </div>
 
             <div className="w-full h-1/3 mt-6">
+              <h2 className="sr-only">Tile Configuration</h2>
               <PropsForm
                 propsInfo={props.info.props}
                 previewProps={immediateProps}

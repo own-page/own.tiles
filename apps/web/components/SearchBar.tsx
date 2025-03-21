@@ -12,19 +12,24 @@ const SearchBar = (props: SearchBarProps) => {
   return (
     <div className="flex items-center justify-center py-6">
       <div className="relative w-96">
+        <label htmlFor="search-input" className="sr-only">
+          Search for tiles
+        </label>
         <input
           ref={inputRef}
+          id="search-input"
           type="text"
-          placeholder="Search"
+          placeholder="Search for tiles"
           value={props.value}
           onChange={(e) => {
             props.setSearchValue(e.target.value);
           }}
-          className="bg-white/10 px-5 py-3 w-full border border-white/80 rounded-full
-             !outline-none text-white placeholder:text-white/50 focus:!ring-0 drop-shadow-xl"
+          className="bg-black/60 px-5 py-3 w-full border border-white/90 rounded-full
+             !outline-none text-white placeholder:text-white/80 focus:!ring-0 drop-shadow-xl focus:outline-white focus:border-white"
+          aria-label="Search for tiles"
         />
         <button
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-transparent border-none focus:outline-none"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-transparent border-none rounded-full"
           onClick={() => {
             if (props.value) {
               props.setSearchValue('');
@@ -33,12 +38,23 @@ const SearchBar = (props: SearchBarProps) => {
             }
           }}
           type="button"
+          aria-label={props.value ? 'Clear search' : 'Search'}
           style={{ cursor: props.value ? 'pointer' : 'default' }}
         >
           {props.value ? (
-            <X size={24} className="text-white" weight="bold" />
+            <X
+              size={24}
+              className="text-white"
+              weight="bold"
+              aria-hidden="true"
+            />
           ) : (
-            <MagnifyingGlass size={24} className="text-white" weight="bold" />
+            <MagnifyingGlass
+              size={24}
+              className="text-white"
+              weight="bold"
+              aria-hidden="true"
+            />
           )}
         </button>
       </div>

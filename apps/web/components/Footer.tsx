@@ -5,7 +5,7 @@ type FooterProps = {
 };
 
 const Footer = (props: FooterProps) => (
-  <footer className={props.className}>
+  <footer className={props.className} role="contentinfo">
     <Imprint />
   </footer>
 );
