@@ -13,7 +13,7 @@ type Props = {
   link?: string;
   /** Title of the event */
   title?: string;
-  /** Date and time of the event */
+  /** Date and time: MM/DD/YYYY HH:MM AM/PM */
   date?: string;
   /** Location of the event */
   location?: string;
