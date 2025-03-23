@@ -14,10 +14,7 @@ type TileDisplayButtonProps = {
 
 const TileDisplayButton = (props: TileDisplayButtonProps) => {
   return (
-    <button
-      className="hover:bg-white/20 p-1 rounded-md"
-      onClick={props.onClick}
-    >
+    <button className="hover:bg-white/20 p-1 rounded-md" {...props}>
       <props.Icon size={20} weight="fill" />
     </button>
   );
@@ -75,8 +72,7 @@ const TileDisplay = (props: TileDisplayProps) => {
             info={Tile}
             height={height}
           >
-            <button>TEst</button>
-            {/* <TileDisplayButton Icon={SlidersHorizontal} /> */}
+            <TileDisplayButton Icon={SlidersHorizontal} />
           </TileConfig>
         </div>
         <div className="overflow-hidden" style={{ height }}>

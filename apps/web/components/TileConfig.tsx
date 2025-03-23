@@ -111,8 +111,6 @@ const TileConfig = (props: TileConfigProps) => {
   return (
     <Modal
       className="rounded-3xl bg-gray-50/20 backdrop-blur-xl border border-white/20"
-      isOpen={props.isOpen}
-      onClose={() => props.setIsOpen(false)}
       trigger={props.children}
     >
       <div className="max-w-xl flex flex-col m-auto p-6">

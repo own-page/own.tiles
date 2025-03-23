@@ -1,38 +1,37 @@
 'use client';
 
-import { X } from '@phosphor-icons/react/dist/ssr';
-import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger
+} from './ui/dialog';
 
 type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
   children: React.ReactNode;
   className?: string;
-  trigger?: React.ReactNode;
+  trigger: React.ReactNode;
 };
 
 const Modal = (props: ModalProps) => {
-  const { children, className, trigger } = props;
-
-  const [isOpen, setIsOpen] = useState(false);
+  const { children, trigger } = props;
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button className="size-4 bg-red-500">asd</button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
-        className={`!size-full p-0 border-none bg-transparent shadow-none ${className || ''}`}
+        className={cn(
+          '!inset-8 fixed !transform-none max-w-full w-auto p-0 flex justify-center items-center bg-white/10 border-white/20 backdrop-blur-lg',
+          props.className
+        )}
       >
-        <div className="relative bg-background rounded-lg shadow-lg p-4 w-full h-full">
-          {children}
-          <button
-            onClick={() => setIsOpen(false)}
-            className="absolute right-3 top-3 hover:bg-white/20 rounded-md p-1"
-          >
-            <X size="24" className="text-white" weight="bold" />
-          </button>
-        </div>
+        <DialogTitle className="sr-only">Tile Config</DialogTitle>
+        <DialogDescription className="sr-only">
+          Allows configuration of the tile
+        </DialogDescription>
+        <div className="relative w-full max-w-screen-md">{children}</div>
       </DialogContent>
     </Dialog>
   );
