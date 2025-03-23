@@ -10,7 +10,7 @@ import {
   MapPin
 } from '@phosphor-icons/react';
 import { useEffect, useRef } from 'react';
-import type { PropInfo, PropsInfo } from 'own.tiles';
+import type { PropInfo, PropsInfo } from '@own.page/own.tiles';
 import DateTimePicker from './DateTimePicker';
 
 const mapComponents = {

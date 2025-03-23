@@ -3,8 +3,7 @@ import {
   Clipboard,
   SlidersHorizontal
 } from '@phosphor-icons/react/dist/ssr';
-import { widgets as tiles } from 'own.tiles';
-import 'own.tiles/style.css';
+import { widgets as tiles } from '@own.page/own.tiles';
 import { useState } from 'react';
 import TileConfig from './TileConfig';
 

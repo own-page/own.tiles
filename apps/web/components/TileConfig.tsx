@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { TileInfo } from 'own.tiles';
+import type { TileInfo } from '@own.page/own.tiles';
 import Modal from './Modal';
 import PropsForm from './PropsForm';
 import { useState, useEffect, type SetStateAction, useRef } from 'react';
