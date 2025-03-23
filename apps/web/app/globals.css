@@ -12,7 +12,11 @@
   }
 }
 
-
+@layer base {
+  :root {
+    --tile-radius: 2rem;
+  }
+}
 
 @layer base {
   :root {
@@ -69,8 +73,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
