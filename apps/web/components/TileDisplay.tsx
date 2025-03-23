@@ -69,21 +69,20 @@ const TileDisplay = (props: TileDisplayProps) => {
             Icon={isCopied ? Check : Clipboard}
             onClick={copyToClipboard}
           />
-          <TileDisplayButton
-            Icon={SlidersHorizontal}
-            onClick={() => setIsOpen(true)}
-          />
+          <TileConfig
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            info={Tile}
+            height={height}
+          >
+            <button>TEst</button>
+            {/* <TileDisplayButton Icon={SlidersHorizontal} /> */}
+          </TileConfig>
         </div>
         <div className="overflow-hidden" style={{ height }}>
           <Tile.Component />
         </div>
       </div>
-      <TileConfig
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        info={Tile}
-        height={height}
-      />
     </>
   );
 };
