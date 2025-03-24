@@ -50,35 +50,39 @@ Each widget in own.tiles is configured using a standardized structure. Here's wh
 
 ```typescript
 type TileInfo = {
-  name: string; // Unique identifier for the widget
+  // Unique identifier for the widget
+  name: string;
+  // Licensing information
   license: {
-    // Licensing information
     type: string;
     fullText: string;
   };
+  // Widget author details
   author: {
-    // Widget author details
     name: string;
     url: string;
   };
+  // A11Y compliance info
   accessibility: {
-    // A11Y compliance info
     rating: string;
     standard: string;
   };
+  // Cookie usage details
   cookieInformation: {
-    // Cookie usage details
     type: string;
     description: string;
   }[];
-  origin: string; // Source domain of external content
+  // Source domain of external content
+  origin: string;
+  // Minimum widget dimensions
   minDimensions: {
-    // Minimum widget dimensions
     w: number;
     h: number;
   };
-  props: Record<string, PropInfo>; // Widget properties configuration
-  Component: React.ComponentType; // The actual React component
+  // Widget properties
+  props: Record<string, PropInfo>;
+  // The actual React component
+  Component: React.ComponentType;
 };
 ```
 
@@ -127,6 +131,10 @@ export const tile: RawTileInfo<'mywidget', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
+  cookies: {
+    type: 'necessary'
+    description: 'Essential for running the widget properly.'
+  }
   props: {
     text: { type: 'string', description: 'Display text' },
     enabled: { type: 'boolean', description: 'Enable/disable widget' }
