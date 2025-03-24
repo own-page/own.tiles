@@ -142,3 +142,128 @@ export const tile: RawTileInfo<'mywidget', Props> = {
   Component: memo(MyWidget)
 };
 ```
+
+### Advanced Widget Features
+
+#### Debounced Properties
+
+Properties marked with `slowLoad: true` will use debounced updates to prevent excessive re-renders:
+
+```typescript
+props: {
+  link: {
+    type: 'string',
+    description: 'Video URL',
+    slowLoad: true  // Updates after 2 second delay
+  }
+}
+```
+
+#### Automatic Input Icons
+
+The PropsForm system automatically maps icons to common property names:
+
+- `username` → User icon
+- `link` → Link icon
+- `theme` → Palette icon
+
+#### Clipboard Integration
+
+Text inputs automatically handle system-wide paste events for the first input field, making it easy to paste content from anywhere.
+
+### Widget Best Practices
+
+#### Accessibility
+
+- Always provide ARIA labels for interactive elements
+- Use semantic HTML elements
+- Include proper contrast ratios
+- Example:
+
+```typescript
+<IFrame
+  title="YouTube video player"
+  aria-label="YouTube video content"
+  // ... other props
+/>
+```
+
+#### Performance
+
+- Use `memo()` for widget components to prevent unnecessary re-renders
+- Implement `slowLoad` for properties that trigger expensive operations
+- Use lazy loading for iframes: `loading="lazy"`
+
+#### Security
+
+- Always validate external URLs before using them
+- Implement proper sandbox attributes for iframes
+- Example URL validation:
+
+```typescript
+const parseLink = (rawLink: string) => {
+  try {
+    const url = new URL(rawLink);
+    if (!ALLOWED_DOMAINS.includes(url.hostname)) {
+      console.error('Invalid domain:', rawLink);
+      return '';
+    }
+    // ... additional validation
+  } catch (error) {
+    console.error('Invalid URL:', rawLink);
+    return '';
+  }
+};
+```
+
+#### Cookie Compliance
+
+Define cookie usage clearly in the widget configuration:
+
+```typescript
+cookieInformation: [
+  {
+    type: 'necessary',
+    description: 'Required for core functionality'
+  },
+  {
+    type: 'analytics',
+    description: 'Used for performance monitoring'
+  }
+];
+```
+
+### Integration Examples
+
+#### With Next.js
+
+```tsx
+import { widgets } from 'own.tiles';
+
+export default function Page() {
+  return (
+    <div className="widget-container">
+      <widgets.YouTube link="https://youtube.com/watch?v=..." />
+    </div>
+  );
+}
+```
+
+#### With Custom Styling
+
+Widgets support standard CSS customization through CSS variables:
+
+```css
+.widget-container {
+  --tile-radius: 12px; /* Border radius for widgets */
+  /* Add other custom variables as needed */
+}
+```
+
+### Troubleshooting
+
+Common issues and solutions:
+
+- If widgets don't render, check that all required props are provided
+- For iframe content issues, verify that proper permissions are set in `allow` attribute
+- Performance issues might require implementing `slowLoad` for expensive props
