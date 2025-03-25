@@ -10,7 +10,8 @@ import {
   MapPin
 } from '@phosphor-icons/react';
 import { useEffect, useRef } from 'react';
-import type { PropInfo, PropsInfo } from 'own.tiles';
+import type { PropInfo, PropsInfo } from '@own.page/own.tiles';
+import DateTimePicker from './DateTimePicker';
 
 const mapComponents = {
   username: <User weight="bold" />,
@@ -223,6 +224,7 @@ const getComponent = (
   if (type === 'string') return TextInput;
   if (type === 'boolean') return Toggle;
   if (Array.isArray(type)) return Dropdown;
+  if (type === 'date') return DateTimePicker;
   return null;
 };
 
@@ -237,7 +239,16 @@ const PropInput: React.FC<{
 
   if (!Component) return null;
 
-  const currentValue = props.value ?? props.info.defaultValue;
+  // Handle default values for different types
+  let currentValue = props.value;
+  if (currentValue === undefined || currentValue === null) {
+    if (props.info.type === 'date') {
+      // Use current date as default for date type if not set
+      currentValue = props.info.defaultValue || new Date();
+    } else {
+      currentValue = props.info.defaultValue;
+    }
+  }
 
   return (
     <div className="flex items-center justify-center z-[10000] my-2">
