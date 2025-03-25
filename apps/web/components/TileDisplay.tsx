@@ -5,7 +5,7 @@ import {
   Info
 } from '@phosphor-icons/react/dist/ssr';
 import { widgets as tiles } from '@own.page/own.tiles';
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import TileConfig from './TileConfig';
 
 type TileDisplayButtonProps = {
@@ -14,13 +14,22 @@ type TileDisplayButtonProps = {
   label: string;
 };
 
-const TileDisplayButton = (props: TileDisplayButtonProps) => {
-  return (
-    <button className="hover:bg-white/20 p-1 rounded-md" {...props}>
-      <props.Icon size={20} weight="fill" />
-    </button>
-  );
-};
+const TileDisplayButton = forwardRef<HTMLButtonElement, TileDisplayButtonProps>(
+  ({ Icon, onClick, label }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className="hover:bg-white/20 p-1 rounded-md"
+        onClick={onClick}
+        aria-label={label}
+      >
+        <Icon size={20} weight="fill" />
+      </button>
+    );
+  }
+);
+
+TileDisplayButton.displayName = 'TileDisplayButton';
 
 type TileName = keyof typeof tiles;
 const tileNames = Object.keys(tiles) as TileName[];
