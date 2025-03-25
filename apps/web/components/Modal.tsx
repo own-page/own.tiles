@@ -31,7 +31,7 @@ const Modal = (props: ModalProps) => {
         <DialogDescription className="sr-only">
           Allows configuration of the tile
         </DialogDescription>
-        <div className="relative w-full max-w-screen-md">{children}</div>
+        <div className="absolute top-0 w-full max-w-screen-md">{children}</div>
       </DialogContent>
     </Dialog>
   );

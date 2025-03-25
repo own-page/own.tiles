@@ -14,7 +14,7 @@ type Props = {
   /** Title of the event */
   title?: string;
   /** Date and time of the event */
-  date?: Date;
+  date?: string;
   /** Location of the event */
   location?: string;
   /** Theme */
@@ -61,8 +61,9 @@ const extractOpenGraphData = async (url: string): Promise<OpenGraphData> => {
 
 // Format date in a nice way
 const formatEventDate = (
-  dateTime: Date
+  dateTimeStr: string
 ): { date: string; time: string; month: string; day: string; year: string } => {
+  const dateTime = new Date(dateTimeStr);
   const month = dateTime.toLocaleString('en-US', { month: 'short' });
   const day = dateTime.getDate().toString();
   const year = dateTime.getFullYear().toString();
@@ -111,14 +112,14 @@ export const Event = (props: Props) => {
   const [bgImage, setBgImage] = useState<string | null>(null);
   const [loadedLink, setLoadedLink] = useState<string>('');
   const [suggestedTitle, setSuggestedTitle] = useState<string | null>(null);
-  const [suggestedDate, setSuggestedDate] = useState<Date | null>(null);
+  const [suggestedDate, setSuggestedDate] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const theme = props.theme || 'light';
   // If we have a suggested title from OpenGraph and no custom title, use the suggested one
   const title = props.title || suggestedTitle || 'Untitled Event';
   const link = props.link || '';
-  const dateTime = props.date || suggestedDate || new Date();
+  const dateTime = props.date || suggestedDate || new Date().toISOString();
   const location = props.location || 'Location not specified';
 
   const { date, time, month, day } = formatEventDate(dateTime);
@@ -146,7 +147,7 @@ export const Event = (props: Props) => {
             try {
               const parsedDate = new Date(data.date);
               if (!isNaN(parsedDate.getTime())) {
-                setSuggestedDate(parsedDate);
+                setSuggestedDate(data.date);
               }
             } catch (error) {
               console.error('Error parsing date from OpenGraph:', error);
@@ -284,7 +285,7 @@ export const tile: RawTileInfo<'event', Props> = {
   props: {
     link: { slowLoad: false },
     title: { slowLoad: false },
-    date: { slowLoad: false, type: 'date' },
+    date: { slowLoad: false, type: 'string' },
     location: { slowLoad: false },
     theme: { slowLoad: false, defaultValue: 'light' }
   },

@@ -59,7 +59,7 @@ export const GoogleCalendar = (props: Props) => {
       <div
         className={`text-[#0a0909c4]
         absolute left-1/2 -translate-x-1/2 top-0 z-10
-        flex-center px-5 h-10 
+        flex-center px-5 h-10 content-center
         font-['Plus_Jakarta_Sans'] font-medium text-base`}
       >
         {title}

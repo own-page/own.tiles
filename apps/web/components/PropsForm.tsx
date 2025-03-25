@@ -133,6 +133,7 @@ const Toggle: React.FC<{
           />
           <div
             className={`
+              relative
               cursor-pointer w-11 h-6
               rounded-full peer
               bg-black/30
@@ -162,6 +163,7 @@ const Toggle: React.FC<{
               after:duration-200
               after:ease-in-out
             `}
+            onClick={() => setValue(!value)}
           ></div>
         </div>
       </div>

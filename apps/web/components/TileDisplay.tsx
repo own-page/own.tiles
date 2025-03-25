@@ -100,7 +100,7 @@ const TileDisplay = (props: TileDisplayProps) => {
         </div>
 
         {/* Author, Accessibility and Cookie Information Footer */}
-        <div className="flex flex-col text-white text-xs m-3 rounded-2xl backdrop-blur-sm font-mono ">
+        <div className="flex flex-col text-white text-xs p-3 rounded-xl bg-black/15 backdrop-blur-sm font-mono ">
           {/* First row: Author and Accessibility */}
           <div className="flex items-center justify-start space-x-6 flex-wrap">
             {Tile.author && (

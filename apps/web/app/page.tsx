@@ -15,7 +15,7 @@ export default function Home() {
     <main>
       <div
         className="fixed inset-0 w-screen h-screen 
-        bg-gradient-to-bl from-green-500 via-teal-700 to-blue-700 bg-fixed"
+        bg-gradient-to-bl from-[#535cb1] to-[#009258] bg-fixed"
         aria-hidden="true"
       />
       <div
@@ -39,7 +39,7 @@ export default function Home() {
           aria-label="Search results"
         >
           {<DisplayOwnTiles filter={searchValue} />}
-          {!showHeader && <Footer className="p-2" />}
+          {!showHeader && <Footer className="p-2 absolute right-0" />}
         </div>
       </div>
 
