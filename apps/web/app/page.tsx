@@ -15,11 +15,11 @@ export default function Home() {
     <main>
       <div
         className="fixed inset-0 w-screen h-screen 
-        bg-gradient-to-bl from-[#535cb1] to-[#009258] bg-fixed"
+        bg-gradient-to-bl  from-[#535cb1] to-[#009258] bg-fixed"
         aria-hidden="true"
       />
       <div
-        className="m-auto max-w-xl w-full px-6 space-y-10
+        className="m-auto max-w-xl w-full px-6 space-y-4
         data-[show-header=true]:animate-slideDown
         data-[show-header=false]:animate-slideUp
         transform-gpu will-change-[transform]
@@ -34,7 +34,7 @@ export default function Home() {
           <Header showHeader={showHeader} />
         </div>
         <div
-          className="absolute top-12 left-0 w-full"
+          className="absolute top-16 left-0 w-full"
           role="region"
           aria-label="Search results"
         >

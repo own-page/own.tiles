@@ -90,7 +90,7 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
+  cookieInformation: [
     {
       type: 'preferences',
       description:

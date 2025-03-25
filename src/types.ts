@@ -71,7 +71,7 @@ export type TileInfo<
   origin: string;
   author?: Author;
   accessibility?: AccessibilityStandard;
-  cookieInformaton?: CookieInformation[];
+  cookieInformation?: CookieInformation[];
   license: LicenseDescription;
   props: PropsInfo<P>;
   minDimensions?: DimensionFunction<P>;

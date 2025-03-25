@@ -395,7 +395,7 @@ export const Clock = (props: Props) => {
         className={`absolute top-4 left-4 z-10 size-10 flex-center rounded-full p-2 backdrop-blur-xl ${styles.icon}`}
         style={{ boxShadow }}
       >
-        <ClockIcon size={'100%'} weight="duotone" />
+        <ClockIcon size={'100%'} weight="duotone" aria-label="Clock icon" />
       </div>
 
       <div className="flex flex-col items-center justify-center">
@@ -426,7 +426,7 @@ export const tile: RawTileInfo<'clock', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [],
+  cookieInformation: [],
   origin: '',
   minDimensions: {
     w: 2,

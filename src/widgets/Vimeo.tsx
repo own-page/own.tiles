@@ -78,7 +78,7 @@ export const tile: RawTileInfo<'vimeo', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
+  cookieInformation: [
     {
       type: 'preferences',
       description:

@@ -24,7 +24,7 @@ const SearchBar = (props: SearchBarProps) => {
           onChange={(e) => {
             props.setSearchValue(e.target.value);
           }}
-          className="bg-black/60 px-5 py-3 w-full border border-white/90 rounded-full
+          className="bg-white/10 px-5 py-3 w-full border border-white/90 rounded-full
              !outline-none text-white placeholder:text-white/80 focus:!ring-0 drop-shadow-xl focus:outline-white focus:border-white"
           aria-label="Search for tiles"
         />

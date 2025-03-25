@@ -59,7 +59,7 @@ export const tile: RawTileInfo<'eventbrite', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
+  cookieInformation: [
     {
       type: 'preferences',
       description:
