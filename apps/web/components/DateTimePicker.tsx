@@ -80,7 +80,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   }, [isOpen, uniqueId]);
 
-  const _hours = Array.from({ length: 12 }, (_, i) => i + 1);
+  // const _hours = Array.from({ length: 12 }, (_, i) => i + 1);
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
     if (selectedDate) {
@@ -93,42 +93,42 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   };
 
-  const _handleTimeChange = (
-    type: 'hour' | 'minute' | 'ampm',
-    value: string
-  ) => {
-    if (date) {
-      const newDate = new Date(date);
-      if (type === 'hour') {
-        newDate.setHours(
-          (parseInt(value) % 12) + (newDate.getHours() >= 12 ? 12 : 0)
-        );
-      } else if (type === 'minute') {
-        newDate.setMinutes(parseInt(value));
-      } else if (type === 'ampm') {
-        const currentHours = newDate.getHours();
-        const isPM = currentHours >= 12;
+  // const _handleTimeChange = (
+  //   type: 'hour' | 'minute' | 'ampm',
+  //   value: string
+  // ) => {
+  //   if (date) {
+  //     const newDate = new Date(date);
+  //     if (type === 'hour') {
+  //       newDate.setHours(
+  //         (parseInt(value) % 12) + (newDate.getHours() >= 12 ? 12 : 0)
+  //       );
+  //     } else if (type === 'minute') {
+  //       newDate.setMinutes(parseInt(value));
+  //     } else if (type === 'ampm') {
+  //       const currentHours = newDate.getHours();
+  //       const isPM = currentHours >= 12;
 
-        if (value === 'PM' && !isPM) {
-          newDate.setHours(currentHours + 12);
-        } else if (value === 'AM' && isPM) {
-          newDate.setHours(currentHours - 12);
-        }
-      }
-      setDate(newDate);
-    } else {
-      // If no date is selected, use today with the selected time
-      const newDate = new Date();
-      if (type === 'hour') {
-        newDate.setHours(parseInt(value) % 12);
-      } else if (type === 'minute') {
-        newDate.setMinutes(parseInt(value));
-      } else if (type === 'ampm' && value === 'PM') {
-        newDate.setHours(newDate.getHours() + 12);
-      }
-      setDate(newDate);
-    }
-  };
+  //       if (value === 'PM' && !isPM) {
+  //         newDate.setHours(currentHours + 12);
+  //       } else if (value === 'AM' && isPM) {
+  //         newDate.setHours(currentHours - 12);
+  //       }
+  //     }
+  //     setDate(newDate);
+  //   } else {
+  //     // If no date is selected, use today with the selected time
+  //     const newDate = new Date();
+  //     if (type === 'hour') {
+  //       newDate.setHours(parseInt(value) % 12);
+  //     } else if (type === 'minute') {
+  //       newDate.setMinutes(parseInt(value));
+  //     } else if (type === 'ampm' && value === 'PM') {
+  //       newDate.setHours(newDate.getHours() + 12);
+  //     }
+  //     setDate(newDate);
+  //   }
+  // };
 
   // Maintain the same style as other form components
   return (

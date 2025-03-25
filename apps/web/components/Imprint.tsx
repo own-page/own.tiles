@@ -1,6 +1,5 @@
 // import { Scales } from '@phosphor-icons/react/dist/ssr';
 
-import { useState } from 'react';
 import Modal from './Modal';
 
 const Imprint = () => {
