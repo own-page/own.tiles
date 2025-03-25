@@ -9,12 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@own.page/own.tiles": "file:../../",
     "@phosphor-icons/react": "^2.1.7",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-scroll-area": "^1.2.3",
+    "@radix-ui/react-slot": "^1.1.2",
     "cheerio": "^1.0.0",
-    "next": "14.2.15",
-    "own.tiles": "file:../../",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.483.0",
+    "next": "^14.2.25",
     "react": "^18.3.1",
-    "react-dom": "^18"
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

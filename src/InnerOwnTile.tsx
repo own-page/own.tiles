@@ -21,7 +21,7 @@ export const InnerOwnTile = <T extends ElementType = 'div'>({
     <Component
       // this p-4 gap here is inside the element (e.g. so that text has border until edge of tile)
       className={
-        `p-4 rounded-[var(--tile-radius)] w-full h-full overflow-hidden relative ` +
+        `p-4 rounded-[--tile-radius] w-full h-full overflow-hidden relative ` +
         (className || '')
       }
       {...rest}

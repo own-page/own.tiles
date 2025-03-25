@@ -4,8 +4,7 @@ import {
   SlidersHorizontal,
   Info
 } from '@phosphor-icons/react/dist/ssr';
-import { widgets as tiles } from 'own.tiles';
-import 'own.tiles/style.css';
+import { widgets as tiles } from '@own.page/own.tiles';
 import { useState } from 'react';
 import TileConfig from './TileConfig';
 
@@ -17,14 +16,8 @@ type TileDisplayButtonProps = {
 
 const TileDisplayButton = (props: TileDisplayButtonProps) => {
   return (
-    <button
-      className="hover:bg-white/30 p-1 rounded-md"
-      onClick={props.onClick}
-      aria-label={props.label}
-      tabIndex={0}
-    >
-      <props.Icon size={20} weight="fill" aria-hidden="true" />
-      <span className="sr-only">{props.label}</span>
+    <button className="hover:bg-white/20 p-1 rounded-md" {...props}>
+      <props.Icon size={20} weight="fill" />
     </button>
   );
 };
@@ -79,11 +72,14 @@ const TileDisplay = (props: TileDisplayProps) => {
             onClick={copyToClipboard}
             label={`Copy ${props.name} tile code`}
           />
-          <TileDisplayButton
-            Icon={SlidersHorizontal}
-            onClick={() => setIsOpen(true)}
-            label={`Configure ${props.name} tile`}
-          />
+          <TileConfig
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            info={Tile}
+            height={height}
+          >
+            <TileDisplayButton Icon={SlidersHorizontal} label={''} />
+          </TileConfig>
         </div>
         <div
           className="overflow-hidden"
@@ -196,12 +192,6 @@ const TileDisplay = (props: TileDisplayProps) => {
           </div>
         </div>
       </div>
-      <TileConfig
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        info={Tile}
-        height={height}
-      />
     </>
   );
 };
