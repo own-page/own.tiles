@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { TileInfo } from 'own.tiles';
+import type { TileInfo } from '@own.page/own.tiles';
 import Modal from './Modal';
 import PropsForm from './PropsForm';
 import { useState, useEffect, type SetStateAction, useRef } from 'react';
@@ -37,6 +37,7 @@ type TileConfigProps = {
   setIsOpen: (isOpen: boolean) => void;
   info: TileInfo;
   height: number;
+  children?: React.ReactNode;
 };
 
 type ButtonProps = {
@@ -108,45 +109,36 @@ const TileConfig = (props: TileConfigProps) => {
   };
 
   return (
-    <>
-      {props.isOpen && (
-        <Modal
-          className="rounded-3xl bg-gray-50/20 backdrop-blur-xl border border-white/20"
-          isOpen={props.isOpen}
-          onClose={() => props.setIsOpen(false)}
-        >
-          <div className="max-w-xl flex flex-col m-auto p-6">
-            <div className="flex items-center justify-end space-x-2">
-              <Button
-                onClick={copyIframeToClipboard}
-                Icon={Code}
-                text="Copy iframe"
-              />
-              <Button
-                onClick={copyLinkToClipboard}
-                Icon={Link}
-                text="Copy link"
-              />
-            </div>
+    <Modal
+      className="rounded-3xl bg-gray-50/20 backdrop-blur-xl border border-white/20"
+      trigger={props.children}
+    >
+      <div className="max-w-xl flex flex-col m-auto p-6">
+        <div className="flex items-center justify-end space-x-2">
+          <Button
+            onClick={copyIframeToClipboard}
+            Icon={Code}
+            text="Copy iframe"
+          />
+          <Button onClick={copyLinkToClipboard} Icon={Link} text="Copy link" />
+        </div>
 
-            <div className="w-full h-2/3 mt-6">
-              <div className="overflow-hidden" style={{ height: props.height }}>
-                <props.info.Component {...debouncedProps} />
-              </div>
-            </div>
-
-            <div className="w-full h-1/3 mt-6">
-              <PropsForm
-                propsInfo={props.info.props}
-                previewProps={immediateProps}
-                setPreviewProps={updateProps}
-                setDebouncedPreviewProps={updateDebouncedProps}
-              />
-            </div>
+        <div className="w-full h-2/3 mt-6">
+          <div className="overflow-hidden" style={{ height: props.height }}>
+            <props.info.Component {...debouncedProps} />
           </div>
-        </Modal>
-      )}
-    </>
+        </div>
+
+        <div className="w-full h-1/3 mt-6">
+          <PropsForm
+            propsInfo={props.info.props}
+            previewProps={immediateProps}
+            setPreviewProps={updateProps}
+            setDebouncedPreviewProps={updateDebouncedProps}
+          />
+        </div>
+      </div>
+    </Modal>
   );
 };
 

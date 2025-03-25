@@ -4,8 +4,7 @@ import {
   SlidersHorizontal,
   Info
 } from '@phosphor-icons/react/dist/ssr';
-import { widgets as tiles } from 'own.tiles';
-import 'own.tiles/style.css';
+import { widgets as tiles } from '@own.page/own.tiles';
 import { useState } from 'react';
 import TileConfig from './TileConfig';
 
@@ -16,10 +15,7 @@ type TileDisplayButtonProps = {
 
 const TileDisplayButton = (props: TileDisplayButtonProps) => {
   return (
-    <button
-      className="hover:bg-white/20 p-1 rounded-md"
-      onClick={props.onClick}
-    >
+    <button className="hover:bg-white/20 p-1 rounded-md" {...props}>
       <props.Icon size={20} weight="fill" />
     </button>
   );
@@ -72,10 +68,14 @@ const TileDisplay = (props: TileDisplayProps) => {
             Icon={isCopied ? Check : Clipboard}
             onClick={copyToClipboard}
           />
-          <TileDisplayButton
-            Icon={SlidersHorizontal}
-            onClick={() => setIsOpen(true)}
-          />
+          <TileConfig
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            info={Tile}
+            height={height}
+          >
+            <TileDisplayButton Icon={SlidersHorizontal} />
+          </TileConfig>
         </div>
         <div className="overflow-hidden" style={{ height }}>
           <Tile.Component />
@@ -168,12 +168,6 @@ const TileDisplay = (props: TileDisplayProps) => {
           </div>
         </div>
       </div>
-      <TileConfig
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        info={Tile}
-        height={height}
-      />
     </>
   );
 };

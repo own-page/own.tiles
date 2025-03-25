@@ -48,7 +48,9 @@ function processComponentInfo<T>(componentInfo: any): PropsInfo<T> {
     } else if (prop.type.name === 'enum') {
       type = prop.type.value.map((v: any) => v.value.replace(/"/g, ''));
     } else if (
-      ['number', 'string', 'object', 'function'].includes(prop.type.name)
+      ['number', 'string', 'object', 'function', 'date'].includes(
+        prop.type.name
+      )
     ) {
       type = prop.type.name;
     } else {
