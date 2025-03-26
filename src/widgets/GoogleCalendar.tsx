@@ -109,8 +109,8 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
   ],
   origin: 'https://calendar.google.com/',
   minDimensions: {
-    w: 4,
-    h: 4
+    w: 2,
+    h: 2
   },
   maxDimensions: () => {
     //const email = parseLink(props.email || FALLBACK_LINK);
