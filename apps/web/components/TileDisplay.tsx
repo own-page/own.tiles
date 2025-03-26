@@ -1,28 +1,35 @@
 import {
   Check,
   Clipboard,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Info
 } from '@phosphor-icons/react/dist/ssr';
-import { widgets as tiles } from 'own.tiles';
-import 'own.tiles/style.css';
-import { useState } from 'react';
+import { widgets as tiles } from '@own.page/own.tiles';
+import { useState, forwardRef } from 'react';
 import TileConfig from './TileConfig';
 
 type TileDisplayButtonProps = {
   Icon: React.ElementType;
   onClick?: () => void;
+  ariaLabel: string;
 };
 
-const TileDisplayButton = (props: TileDisplayButtonProps) => {
-  return (
-    <button
-      className="hover:bg-white/20 p-1 rounded-md"
-      onClick={props.onClick}
-    >
-      <props.Icon size={20} weight="fill" />
-    </button>
-  );
-};
+const TileDisplayButton = forwardRef<HTMLButtonElement, TileDisplayButtonProps>(
+  ({ Icon, onClick, ariaLabel }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className="hover:bg-white/20 p-1 rounded-md"
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
+        <Icon size={20} weight="fill" aria-hidden="true" />
+      </button>
+    );
+  }
+);
+
+TileDisplayButton.displayName = 'TileDisplayButton';
 
 type TileName = keyof typeof tiles;
 const tileNames = Object.keys(tiles) as TileName[];
@@ -35,6 +42,7 @@ const TileDisplay = (props: TileDisplayProps) => {
 
   const [isCopied, setIsCopied] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [showCookieInfo, setShowCookieInfo] = useState(false);
 
   const copyToClipboard = () => {
     setIsCopied(true);
@@ -63,50 +71,175 @@ const TileDisplay = (props: TileDisplayProps) => {
       <div
         className="my-4 px-5 py-5 space-y-5 bg-white/10 rounded-2xl relative text-white
      border border-white/20 data-[modal=true]:z-[1001]"
+        role="region"
+        aria-label={`${props.name} tile`}
       >
-        <div className="text-xl font-semibold leading-none">{props.name}</div>
+        <h2 className="text-xl font-semibold leading-none">{props.name}</h2>
         <div className="absolute right-5 top-0 space-x-1">
           <TileDisplayButton
             Icon={isCopied ? Check : Clipboard}
             onClick={copyToClipboard}
+            ariaLabel={isCopied ? 'Copied!' : `Copy ${props.name} tile code`}
           />
-          <TileDisplayButton
-            Icon={SlidersHorizontal}
-            onClick={() => setIsOpen(true)}
-          />
+          <TileConfig
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            info={Tile}
+            height={height}
+          >
+            <TileDisplayButton
+              Icon={SlidersHorizontal}
+              ariaLabel={`Configure ${props.name} tile settings`}
+            />
+          </TileConfig>
         </div>
-        <div className="overflow-hidden" style={{ height }}>
-          <Tile.Component />
+        <div
+          className="overflow-hidden"
+          style={{ height }}
+          role="img"
+          aria-label={`Preview of ${props.name} tile`}
+        >
+          <Tile.Component aria-label={`${props.name} tile content`} />
+        </div>
+
+        {/* Author, Accessibility and Cookie Information Footer */}
+        <div className="flex flex-col text-white text-xs p-3 rounded-xl bg-black/15 backdrop-blur-sm font-mono ">
+          {/* First row: Author and Accessibility */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start space-x-0 sm:space-x-6 flex-wrap">
+            {Tile.author && (
+              <div className="flex items-center">
+                <span className="text-white font-medium mr-1">Author:</span>
+                <a
+                  href={Tile.author.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline text-white focus:outline-none focus:underline "
+                >
+                  {Tile.author.name}
+                </a>
+              </div>
+            )}
+
+            {Tile.accessibility && (
+              <div className="flex items-center">
+                <span className="text-white font-medium mr-1">
+                  Accessibility:
+                </span>
+                <span className="text-white">
+                  {Tile.accessibility.standard} {Tile.accessibility.rating}
+                </span>
+              </div>
+            )}
+
+            {Tile.license && (
+              <div className="flex items-center">
+                <span className="text-white font-medium mr-1">License:</span>
+                <span className="text-white">{Tile.license.type}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Second row: Cookies, Source */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start space-x-0 sm:space-x-6 mt-0 sm:mt-2 flex-wrap">
+            {Tile.cookieInformation && Tile.cookieInformation.length > 0 && (
+              <div className="flex items-center">
+                <span className="text-white font-medium mr-1">Cookies:</span>
+                <div className="relative flex items-center">
+                  <span className="text-white">
+                    {Tile.cookieInformation
+                      .slice(0, 3)
+                      .map((c) => c.type)
+                      .join(', ')}
+                  </span>
+
+                  <button
+                    onClick={() => setShowCookieInfo(!showCookieInfo)}
+                    onMouseEnter={() => setShowCookieInfo(true)}
+                    onMouseLeave={() => setShowCookieInfo(false)}
+                    className="hover:underline rounded-full"
+                    aria-label="Show cookie information"
+                    aria-expanded={showCookieInfo}
+                  >
+                    <Info
+                      size={12}
+                      className="ml-1 text-white"
+                      aria-hidden="true"
+                    />
+                  </button>
+
+                  {showCookieInfo && (
+                    <div
+                      className="absolute bottom-6 left-0 bg-black/90 p-3 rounded-lg text-white text-xs w-60 z-20 font-mono"
+                      role="tooltip"
+                      aria-live="polite"
+                    >
+                      {Tile.cookieInformation.map((cookie, i) => (
+                        <div key={i} className="mb-2 last:mb-0">
+                          <div className="font-medium capitalize">
+                            {cookie.type}
+                          </div>
+                          <div className="text-white text-[10px]">
+                            {cookie.description}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {Tile.origin && (
+              <div className="flex items-center">
+                <span className="text-white font-medium mr-1">Source:</span>
+
+                <a
+                  href={Tile.origin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline text-white focus:outline-none focus:underline "
+                  aria-label={`Source: ${new URL(Tile.origin).hostname}`}
+                >
+                  {new URL(Tile.origin).hostname}
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      <TileConfig
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        info={Tile}
-        height={height}
-      />
     </>
   );
 };
 
 type DisplayOwnTilesProps = {
   filter: string;
+  showAll?: boolean;
 };
 
 const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
-  if (props.filter.trim() === '') return null;
+  if (props.filter.trim() === '' && !props.showAll) return null;
 
-  const results = tileNames.filter((s) =>
-    s.toLowerCase().includes(props.filter.toLowerCase())
-  );
+  const results = props.showAll
+    ? tileNames
+    : tileNames.filter((s) =>
+        s.toLowerCase().includes(props.filter.toLowerCase())
+      );
 
   if (results.length === 0) {
-    return <div className="w-full text-center m-4">No tiles found</div>;
+    return (
+      <div className="w-full text-center m-4 text-white font-medium">
+        No tiles found
+      </div>
+    );
   }
 
-  return results.map((e) => <TileDisplay key={e} name={e} />);
-
-  return <div>Hello</div>;
+  return (
+    <div role="region" aria-label="Tile search results">
+      {results.map((e) => (
+        <TileDisplay key={e} name={e} />
+      ))}
+    </div>
+  );
 };
 
 export default DisplayOwnTiles;

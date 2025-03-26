@@ -53,7 +53,7 @@ export const YouTube = (props: Props) => {
 
   return (
     <IFrame
-      style={{ clipPath: 'inset(0 round 2.25rem)', border: 0 }}
+      style={{ clipPath: 'inset(0 round var(--tile-radius))', border: 0 }}
       src={`https://www.youtube.com/embed/${videoId}`}
       width="100%"
       height="100%"
@@ -61,6 +61,8 @@ export const YouTube = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       loading="lazy"
+      title="YouTube video player"
+      aria-label="YouTube video content"
     />
   );
 };
@@ -76,7 +78,12 @@ export const tile: RawTileInfo<'youtube', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
+  cookieInformation: [
+    {
+      type: 'necessary',
+      description:
+        'Used for security, session management, and video streaming stability.'
+    },
     {
       type: 'preferences',
       description:
@@ -86,17 +93,12 @@ export const tile: RawTileInfo<'youtube', Props> = {
       type: 'analytics',
       description:
         'Tracks user engagement and video performance for YouTube analytics.'
-    },
-    {
-      type: 'necessary',
-      description:
-        'Used for security, session management, and video streaming stability.'
     }
   ],
   origin: 'https://www.youtube.com/',
   minDimensions: {
-    w: 3,
-    h: 2
+    w: 4,
+    h: 3
   },
   props: {
     link: { slowLoad: true }

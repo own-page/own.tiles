@@ -1,13 +1,24 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User, X, CaretDown, Link, Palette } from '@phosphor-icons/react';
+import {
+  User,
+  X,
+  CaretDown,
+  Link,
+  Palette,
+  Calendar,
+  MapPin
+} from '@phosphor-icons/react';
 import { useEffect, useRef } from 'react';
-import type { PropInfo, PropsInfo } from 'own.tiles';
+import type { PropInfo, PropsInfo } from '@own.page/own.tiles';
+import DateTimePicker from './DateTimePicker';
 
 const mapComponents = {
   username: <User weight="bold" />,
   link: <Link weight="bold" />,
-  theme: <Palette weight="bold" />
+  theme: <Palette weight="bold" />,
+  date: <Calendar weight="bold" />,
+  location: <MapPin weight="bold" />
 };
 
 const TextInput: React.FC<{
@@ -17,51 +28,67 @@ const TextInput: React.FC<{
   placeholder: string;
   label?: string;
   index: number;
-}> = ({ id, value, setValue, placeholder, label, index }) => {
+}> = ({ id, value, setValue, placeholder, label }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (index === 0) {
-      const handlePaste = (e: ClipboardEvent) => {
-        if (inputRef.current && document.activeElement !== inputRef.current) {
-          e.preventDefault();
-          const pastedText = e.clipboardData?.getData('text');
-          if (pastedText) {
-            setValue(pastedText);
-          }
-        }
-      };
+    // The paste event handler should only apply when the input is focused
+    const handlePaste = () => {
+      // Only handle paste events when this specific input is focused
+      if (inputRef.current && document.activeElement === inputRef.current) {
+        // No need to preventDefault - let the normal paste behavior work
+        // e.preventDefault();
+        // const pastedText = e.clipboardData?.getData('text');
+        // if (pastedText) {
+        //   setValue(pastedText);
+        // }
+      }
+    };
 
-      document.addEventListener('paste', handlePaste);
-      return () => document.removeEventListener('paste', handlePaste);
-    }
-  }, [index, setValue]);
+    document.addEventListener('paste', handlePaste);
+    return () => document.removeEventListener('paste', handlePaste);
+  }, [setValue]);
+
+  const displayLabel = label || placeholder;
 
   return (
     <>
       <div className="relative rounded-full bg-black/40 px-2 py-0 cursor-text h-10 flex items-center w-72">
-        <div className="absolute inset-y-0 left-3 flex items-center text-white">
+        <label htmlFor={`input-${id}`} className="sr-only">
+          {displayLabel}
+        </label>
+        <div
+          className="absolute inset-y-0 left-3 flex items-center text-white"
+          aria-hidden="true"
+        >
           {id in mapComponents && (mapComponents as any)[id]}
         </div>
         <input
           ref={inputRef}
+          id={`input-${id}`}
           type="text"
-          className="bg-transparent text-white text-left px-7 py-1 focus:outline-none h-full placeholder:text-white/60"
-          placeholder={label || placeholder}
+          className="bg-transparent text-white text-left px-7 py-1 focus:outline-none w-full h-full placeholder:text-white/80 rounded-full"
+          placeholder={displayLabel}
           onFocus={(e) => {
             e.target.placeholder = '';
           }}
           onBlur={(e) => {
-            e.target.placeholder = label || placeholder;
+            e.target.placeholder = displayLabel;
           }}
           value={value}
-          maxLength={128}
+          maxLength={256}
           onChange={(e) => setValue(e.target.value)}
+          onPaste={() => {
+            // Let the default paste behavior work
+          }}
+          aria-label={displayLabel}
         />
         {value && (
           <button
-            className="right-2 text-white/50 hover:text-white"
+            className="relative right-1 text-white/70 hover:text-white focus:outline-none rounded-full"
             onClick={() => setValue('')}
+            aria-label={`Clear ${displayLabel}`}
+            type="button"
           >
             <X size={16} weight="bold" />
           </button>
@@ -77,22 +104,36 @@ const Toggle: React.FC<{
   setValue: React.Dispatch<React.SetStateAction<boolean>>;
   label?: string;
 }> = ({ id, value, setValue, label }) => {
+  const displayLabel = label || id;
+  const toggleId = `toggle-${id}`;
+
   return (
     <>
       <div className="relative rounded-full px-2 py-0 h-10 flex items-center w-72">
-        <div className="absolute inset-y-0 left-3 flex items-center text-white">
+        <div
+          className="absolute inset-y-0 left-3 flex items-center text-white"
+          aria-hidden="true"
+        >
           {id in mapComponents && (mapComponents as any)[id]}
         </div>
-        <span className="text-white text-left px-7 py-1">{label || id}</span>
-        <label className="absolute right-3 flex items-center">
+        <label
+          htmlFor={toggleId}
+          className="text-white text-left px-7 py-1 cursor-pointer"
+        >
+          {displayLabel}
+        </label>
+        <div className="absolute right-3 flex items-center">
           <input
+            id={toggleId}
             type="checkbox"
             checked={value}
             onChange={(e) => setValue(e.target.checked)}
             className="sr-only peer"
+            aria-label={displayLabel}
           />
           <div
             className={`
+              relative
               cursor-pointer w-11 h-6
               rounded-full peer
               bg-black/30
@@ -101,7 +142,7 @@ const Toggle: React.FC<{
 
               hover:outline-none
               hover:ring-4
-              hover:ring-white/10
+              hover:ring-white/20
 
               peer-checked:after:translate-x-full
               rtl:peer-checked:after:-translate-x-full
@@ -122,12 +163,14 @@ const Toggle: React.FC<{
               after:duration-200
               after:ease-in-out
             `}
+            onClick={() => setValue(!value)}
           ></div>
-        </label>
+        </div>
       </div>
     </>
   );
 };
+
 const Dropdown: React.FC<{
   id: string;
   value: any;
@@ -135,29 +178,41 @@ const Dropdown: React.FC<{
   options: any[];
   label?: string;
 }> = ({ id, value, setValue, options, label }) => {
+  const currentValue = value || options[0];
+  const displayLabel = label || id;
+  const selectId = `select-${id}`;
+
   return (
     <>
       <div className="relative rounded-full px-2 py-0 h-10 flex items-center w-72">
-        <div className="absolute inset-y-0 left-3 flex items-center text-white">
+        <div
+          className="absolute inset-y-0 left-3 flex items-center text-white"
+          aria-hidden="true"
+        >
           {id in mapComponents && (mapComponents as any)[id]}
         </div>
-        <span className="text-white text-left px-7 py-1">{label || id}</span>
+        <label htmlFor={selectId} className="text-white text-left px-7 py-1">
+          {displayLabel}
+        </label>
         <div className="absolute right-3 flex items-center">
           <select
-            value={value}
+            id={selectId}
+            value={currentValue}
             onChange={(e) => setValue(e.target.value)}
-            className="w-36 h-8 pl-4 pr-8 text-black/50 bg-white/50 rounded-full appearance-none cursor-pointer focus:outline-none"
+            className="w-32 h-8 pl-4 pr-8 text-black/70 bg-white/60 rounded-full appearance-none cursor-pointer focus:outline-none "
+            aria-label={displayLabel}
           >
             {options.map((option) => (
-              <option key={option} value={option} className="bg-white/20">
+              <option key={option} value={option} className="bg-white">
                 {option}
               </option>
             ))}
           </select>
           <CaretDown
-            className="absolute right-3 text-black/50 pointer-events-none"
+            className="absolute right-3 text-black/70 pointer-events-none"
             weight="bold"
             size={16}
+            aria-hidden="true"
           />
         </div>
       </div>
@@ -171,6 +226,7 @@ const getComponent = (
   if (type === 'string') return TextInput;
   if (type === 'boolean') return Toggle;
   if (Array.isArray(type)) return Dropdown;
+  if (type === 'date') return DateTimePicker;
   return null;
 };
 
@@ -185,11 +241,22 @@ const PropInput: React.FC<{
 
   if (!Component) return null;
 
+  // Handle default values for different types
+  let currentValue = props.value;
+  if (currentValue === undefined || currentValue === null) {
+    if (props.info.type === 'date') {
+      // Use current date as default for date type if not set
+      currentValue = props.info.defaultValue || new Date();
+    } else {
+      currentValue = props.info.defaultValue;
+    }
+  }
+
   return (
     <div className="flex items-center justify-center z-[10000] my-2">
       <Component
         id={props.id}
-        value={props.value}
+        value={currentValue}
         setValue={props.setValue}
         label={props.info.description}
         placeholder={props.info.type === 'string' ? props.id : undefined}
@@ -211,12 +278,12 @@ type Props<P> = {
 
 const PropsForm = <P,>(props: Props<P>) => {
   return (
-    <>
+    <div role="form" aria-label="Tile configuration">
       {Object.entries(props.propsInfo).map(([k, v], index) => (
         <PropInput
           key={k}
           id={k}
-          value={props.previewProps[k]}
+          value={props.previewProps[k] ?? ''}
           info={v as PropInfo}
           setValue={(newValue) => {
             const setter = (v as PropInfo).slowLoad
@@ -230,7 +297,7 @@ const PropsForm = <P,>(props: Props<P>) => {
           index={index}
         />
       ))}
-    </>
+    </div>
   );
 };
 

@@ -6,7 +6,14 @@ export type AccessibilityStandard = {
 };
 
 export type CookieInformation = {
-  type: 'preferences' | 'necessary' | 'analytics';
+  type:
+    | 'preferences'
+    | 'necessary'
+    | 'analytics'
+    | 'performance'
+    | 'functional'
+    | 'targeting'
+    | 'no cookies';
   description: string;
 };
 
@@ -71,7 +78,7 @@ export type TileInfo<
   origin: string;
   author?: Author;
   accessibility?: AccessibilityStandard;
-  cookieInformaton?: CookieInformation[];
+  cookieInformation?: CookieInformation[];
   license: LicenseDescription;
   props: PropsInfo<P>;
   minDimensions?: DimensionFunction<P>;
@@ -101,3 +108,8 @@ export type TilePosition = {
 // export type Tile = {
 //   props: TileProps;
 // };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const hasTileGridProp = (props: any): boolean => {
+  return props && 'grid' in props;
+};

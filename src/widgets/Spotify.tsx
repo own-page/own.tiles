@@ -45,6 +45,9 @@ export const Spotify = (props: Props) => {
     ? { clipPath: 'inset(0 0 8px 0 round var(--tile-radius))' } // this is a hack because spotify embeds of tracks have white background
     : { clipPath: 'inset(0 round var(--tile-radius))' };
 
+  const linkType = link.split('/')[1] || 'content'; // album, track, playlist, etc.
+  const title = `Spotify ${linkType}`;
+
   return (
     <IFrame
       style={{ ...clipPathStyle, border: 0 }}
@@ -55,6 +58,8 @@ export const Spotify = (props: Props) => {
       // sandbox="allow-scripts allow-forms allow-same-origin"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
+      title={title}
+      aria-label={`Spotify ${linkType} player`}
     />
   );
 };
@@ -68,24 +73,24 @@ export const tile: RawTileInfo<'spotify', Props> = {
   },
   accessibility: {
     // not certain about this
-    rating: 'A',
+    rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
+  cookieInformation: [
     {
-      type: 'preferences',
+      type: 'necessary',
       description:
-        'Stores user preferences like volume settings, playback options, and saved preferences across sessions.'
+        'Essential cookies required for the Spotify Widget to function properly, including playback functionality and session management.'
     },
     {
       type: 'analytics',
       description:
-        'Tracks user interaction with the embedded player, providing data for Spotify to improve its services and user experience.'
+        'Cookies placed by Spotify and Google Analytics to collect usage data and improve widget functionality and user experience.'
     },
     {
-      type: 'necessary',
+      type: 'targeting',
       description:
-        'Essential for maintaining session integrity, enabling playback, and ensuring the Spotify player functions correctly on embedded pages.'
+        'Third-party cookies placed by Spotify partners to enhance widget functionality and user experience.'
     }
   ],
   origin: 'https://spotify.com/',
