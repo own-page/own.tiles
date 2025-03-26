@@ -2,7 +2,6 @@
 
 import { notFound, useParams, useSearchParams } from 'next/navigation';
 import { widgets } from '@own.page/own.tiles';
-import '@own.page/own.tiles/style.css';
 
 // type LowerCaseWidgets = {
 //   [K in keyof typeof widgets as Lowercase<K & string>]: (typeof widgets)[K];
