@@ -92,6 +92,11 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
   },
   cookieInformation: [
     {
+      type: 'necessary',
+      description:
+        'Essential for authentication, session management, and maintaining calendar functionality.'
+    },
+    {
       type: 'preferences',
       description:
         'Stores calendar view preferences such as timezone, display settings, and language preferences.'
@@ -100,11 +105,6 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
       type: 'analytics',
       description:
         'Tracks user interaction and calendar usage patterns to improve service quality.'
-    },
-    {
-      type: 'necessary',
-      description:
-        'Essential for authentication, session management, and maintaining calendar functionality.'
     }
   ],
   origin: 'https://calendar.google.com/',

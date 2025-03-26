@@ -6,7 +6,14 @@ export type AccessibilityStandard = {
 };
 
 export type CookieInformation = {
-  type: 'preferences' | 'necessary' | 'analytics';
+  type:
+    | 'preferences'
+    | 'necessary'
+    | 'analytics'
+    | 'performance'
+    | 'functional'
+    | 'targeting'
+    | 'no cookies';
   description: string;
 };
 

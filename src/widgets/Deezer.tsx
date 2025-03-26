@@ -82,6 +82,11 @@ export const tile: RawTileInfo<'deezer', Props> = {
   },
   cookieInformation: [
     {
+      type: 'necessary',
+      description:
+        'Essential for audio playback functionality, streaming quality, and player performance.'
+    },
+    {
       type: 'preferences',
       description:
         'Stores audio preferences like volume settings, playback mode, and quality preferences.'
@@ -90,11 +95,6 @@ export const tile: RawTileInfo<'deezer', Props> = {
       type: 'analytics',
       description:
         'Tracks music listening patterns and player interactions to improve recommendations.'
-    },
-    {
-      type: 'necessary',
-      description:
-        'Essential for audio playback functionality, streaming quality, and player performance.'
     }
   ],
   origin: 'https://www.deezer.com/',

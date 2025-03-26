@@ -423,10 +423,12 @@ export const tile: RawTileInfo<'clock', Props> = {
     url: 'https://own.page'
   },
   accessibility: {
-    rating: 'AA',
+    rating: 'AAA',
     standard: 'WCAG 2.1'
   },
-  cookieInformation: [],
+  cookieInformation: [
+    { type: 'no cookies', description: 'This widget sets no cookies' }
+  ],
   origin: '',
   minDimensions: {
     w: 2,

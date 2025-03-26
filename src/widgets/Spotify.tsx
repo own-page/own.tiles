@@ -78,19 +78,19 @@ export const tile: RawTileInfo<'spotify', Props> = {
   },
   cookieInformation: [
     {
-      type: 'preferences',
+      type: 'necessary',
       description:
-        'Stores user preferences like volume settings, playback options, and saved preferences across sessions.'
+        'Essential cookies required for the Spotify Widget to function properly, including playback functionality and session management.'
     },
     {
       type: 'analytics',
       description:
-        'Tracks user interaction with the embedded player, providing data for Spotify to improve its services and user experience.'
+        'Cookies placed by Spotify and Google Analytics to collect usage data and improve widget functionality and user experience.'
     },
     {
-      type: 'necessary',
+      type: 'targeting',
       description:
-        'Essential for maintaining session integrity, enabling playback, and ensuring the Spotify player functions correctly on embedded pages.'
+        'Third-party cookies placed by Spotify partners to enhance widget functionality and user experience.'
     }
   ],
   origin: 'https://spotify.com/',

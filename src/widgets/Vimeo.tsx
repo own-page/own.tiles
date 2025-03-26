@@ -80,19 +80,19 @@ export const tile: RawTileInfo<'vimeo', Props> = {
   },
   cookieInformation: [
     {
-      type: 'preferences',
+      type: 'necessary',
       description:
-        'Stores video playback preferences like volume, quality settings, and subtitle options.'
+        'Security and bot prevention cookies required for secure video playback and rate limiting (cf_clearance, player_clearance, _cf_bm)'
+    },
+    {
+      type: 'functional',
+      description:
+        'Stores player preferences like volume, quality settings, and authentication for password-protected videos'
     },
     {
       type: 'analytics',
       description:
-        'Collects data on viewing habits and player interactions to improve service quality.'
-    },
-    {
-      type: 'necessary',
-      description:
-        'Essential for video playback functionality, session management, and player performance.'
+        'Tracks viewer analytics and form submissions through unique identifiers (vuid)'
     }
   ],
   origin: 'https://vimeo.com/',

@@ -76,19 +76,20 @@ export const tile: RawTileInfo<'calendly', Props> = {
   },
   cookieInformation: [
     {
-      type: 'preferences',
-      description:
-        'Stores scheduling preferences, timezone settings, and interface customizations.'
-    },
-    {
-      type: 'analytics',
-      description:
-        'Tracks scheduling patterns and user engagement to improve the booking experience.'
-    },
-    {
       type: 'necessary',
-      description:
-        'Essential for appointment scheduling, calendar synchronization, and scheduling workflow.'
+      description: 'Essential cookies required for core website functionality.'
+    },
+    {
+      type: 'performance',
+      description: 'Anonymous analytics cookies to measure site performance.'
+    },
+    {
+      type: 'functional',
+      description: 'Enables enhanced website features and personalization.'
+    },
+    {
+      type: 'targeting',
+      description: 'Used by advertising partners for targeted ads across sites.'
     }
   ],
   origin: 'https://calendly.com/',

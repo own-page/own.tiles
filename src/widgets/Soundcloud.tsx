@@ -80,19 +80,24 @@ export const tile: RawTileInfo<'soundcloud', Props> = {
   },
   cookieInformation: [
     {
-      type: 'preferences',
+      type: 'necessary',
       description:
-        'Stores audio preferences like volume settings, playback mode, and quality preferences.'
+        'Essential for authentication, security, fraud prevention and core platform functionality.'
+    },
+    {
+      type: 'functional',
+      description:
+        'Enables enhanced features and personalization including user preferences and content settings.'
     },
     {
       type: 'analytics',
       description:
-        'Tracks music listening patterns and player interactions to improve recommendations.'
+        'Tracks usage patterns and performance metrics to improve platform experience.'
     },
     {
-      type: 'necessary',
+      type: 'targeting',
       description:
-        'Essential for audio playback functionality, streaming quality, and player performance.'
+        'Used for personalized advertising and content recommendations across platforms.'
     }
   ],
   origin: 'https://soundcloud.com/',

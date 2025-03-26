@@ -138,12 +138,15 @@ const TileDisplay = (props: TileDisplayProps) => {
 
           {/* Second row: Cookies, Source */}
           <div className="flex items-center justify-start space-x-6 mt-2 flex-wrap">
-            {Tile.cookieInformaton && Tile.cookieInformaton.length > 0 && (
+            {Tile.cookieInformation && Tile.cookieInformation.length > 0 && (
               <div className="flex items-center">
                 <span className="text-white font-medium mr-1">Cookies:</span>
                 <div className="relative flex items-center">
                   <span className="text-white">
-                    {Tile.cookieInformaton.map((c) => c.type).join(', ')}
+                    {Tile.cookieInformation
+                      .slice(0, 3)
+                      .map((c) => c.type)
+                      .join(', ')}
                   </span>
 
                   <button
@@ -167,7 +170,7 @@ const TileDisplay = (props: TileDisplayProps) => {
                       role="tooltip"
                       aria-live="polite"
                     >
-                      {Tile.cookieInformaton.map((cookie, i) => (
+                      {Tile.cookieInformation.map((cookie, i) => (
                         <div key={i} className="mb-2 last:mb-0">
                           <div className="font-medium capitalize">
                             {cookie.type}

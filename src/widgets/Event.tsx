@@ -272,7 +272,13 @@ export const tile: RawTileInfo<'event', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformation: [],
+  cookieInformation: [
+    {
+      type: 'functional',
+      description:
+        'Third-party cookies may be set when loading event details from external URLs'
+    }
+  ],
   origin: '',
   minDimensions: {
     w: 3,

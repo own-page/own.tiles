@@ -80,6 +80,11 @@ export const tile: RawTileInfo<'youtube', Props> = {
   },
   cookieInformation: [
     {
+      type: 'necessary',
+      description:
+        'Used for security, session management, and video streaming stability.'
+    },
+    {
       type: 'preferences',
       description:
         'Stores video playback settings such as volume, subtitles, and autoplay preferences.'
@@ -88,11 +93,6 @@ export const tile: RawTileInfo<'youtube', Props> = {
       type: 'analytics',
       description:
         'Tracks user engagement and video performance for YouTube analytics.'
-    },
-    {
-      type: 'necessary',
-      description:
-        'Used for security, session management, and video streaming stability.'
     }
   ],
   origin: 'https://www.youtube.com/',

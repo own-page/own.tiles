@@ -136,17 +136,7 @@ export const tile: RawTileInfo<'github', Props> = {
     rating: 'AA',
     standard: 'WCAG 2.1'
   },
-  cookieInformaton: [
-    {
-      type: 'preferences',
-      description:
-        'Stores user interface preferences and display settings for the GitHub contribution calendar.'
-    },
-    {
-      type: 'analytics',
-      description:
-        'Collects usage data to improve GitHub services and enhance user experience with the embedded calendar.'
-    },
+  cookieInformation: [
     {
       type: 'necessary',
       description:
