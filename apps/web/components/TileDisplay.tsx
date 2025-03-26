@@ -105,7 +105,7 @@ const TileDisplay = (props: TileDisplayProps) => {
         {/* Author, Accessibility and Cookie Information Footer */}
         <div className="flex flex-col text-white text-xs p-3 rounded-xl bg-black/15 backdrop-blur-sm font-mono ">
           {/* First row: Author and Accessibility */}
-          <div className="flex items-center justify-start space-x-6 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start space-x-0 sm:space-x-6 flex-wrap">
             {Tile.author && (
               <div className="flex items-center">
                 <span className="text-white font-medium mr-1">Author:</span>
@@ -140,7 +140,7 @@ const TileDisplay = (props: TileDisplayProps) => {
           </div>
 
           {/* Second row: Cookies, Source */}
-          <div className="flex items-center justify-start space-x-6 mt-2 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start space-x-0 sm:space-x-6 mt-0 sm:mt-2 flex-wrap">
             {Tile.cookieInformation && Tile.cookieInformation.length > 0 && (
               <div className="flex items-center">
                 <span className="text-white font-medium mr-1">Cookies:</span>

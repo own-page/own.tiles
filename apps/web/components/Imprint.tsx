@@ -5,7 +5,7 @@ import Modal from './Modal';
 const Imprint = () => {
   return (
     <Modal
-      className="rounded-3xl max-w-lg bg-gray-50/70 backdrop-blur-xl border border-white/20"
+      className="rounded-3xl max-w-lg !left-1/2 !translate-x-[-50%] !translate-y-[-50%] !top-[50%] !h-[600px] w-full bg-white/10 backdrop-blur-xl border border-white/20"
       trigger={
         <button
           className="flex-1 py-1.5 px-3.5 sm-2
@@ -27,7 +27,7 @@ const Imprint = () => {
         </button>
       }
     >
-      <div className="max-w-xl flex flex-col m-auto p-6 font-mono text-black/70">
+      <div className="max-w-xl flex flex-col m-auto p-6 font-mono text-white">
         <h1 className="text-2xl font-bold mb-6">Imprint</h1>
 
         <div className="space-y-2">
@@ -41,7 +41,7 @@ const Imprint = () => {
             <span className="font-semibold">Email:</span>{' '}
             <a
               href="mailto:contact@own.page"
-              className="text-black/70 underline hover:text-black/90"
+              className="text-white underline hover:text-white/70"
             >
               contact@own.page
             </a>
@@ -52,7 +52,7 @@ const Imprint = () => {
               href="https://www.own.page"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/70 underline hover:text-black/90"
+              className="text-white underline hover:text-white/70"
             >
               www.own.page
             </a>

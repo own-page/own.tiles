@@ -186,15 +186,15 @@ const TileConfig = (props: TileConfigProps) => {
       trigger={props.children}
     >
       <div className="max-w-xl flex flex-col m-auto p-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between">
           <div className="flex flex-col">
-            <div className="flex items-center justify-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center">
               <DimensionDropdown
                 label="Width"
                 value={tileWidth}
                 onChange={setTileWidth}
               />
-              <span className="text-white mr-4">×</span>
+              <span className="text-white mr-0 sm:mr-4 mb-1 sm:mb-0">×</span>
               <DimensionDropdown
                 label="Height"
                 value={tileHeight}
@@ -217,7 +217,7 @@ const TileConfig = (props: TileConfigProps) => {
         </div>
 
         <div
-          className="w-full mt-6 overflow-hidden relative left-1/2 -translate-x-1/2"
+          className="w-full max-w-full sm:max-w-none mt-6 overflow-hidden relative left-1/2 -translate-x-1/2"
           aria-label={`${props.info.name} tile preview`}
           style={{ height: heightInPixels, width: widthInPixels }}
         >

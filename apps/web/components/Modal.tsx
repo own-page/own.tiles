@@ -23,7 +23,7 @@ const Modal = (props: ModalProps) => {
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
         className={cn(
-          '!inset-8 fixed !transform-none max-w-full w-auto p-0 flex justify-center items-center bg-white/10 border-white/20 backdrop-blur-lg',
+          '!inset-8 fixed max-w-full w-auto p-0 flex justify-center items-center bg-white/10 border-white/20 backdrop-blur-lg',
           props.className
         )}
       >
