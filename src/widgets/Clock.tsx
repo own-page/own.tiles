@@ -431,7 +431,7 @@ export const tile: RawTileInfo<'clock', Props> = {
   ],
   origin: '',
   minDimensions: {
-    w: 2,
+    w: 4,
     h: 2
   },
   maxDimensions: {

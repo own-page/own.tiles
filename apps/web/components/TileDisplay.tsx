@@ -46,7 +46,11 @@ const TileDisplay = (props: TileDisplayProps) => {
 
   const copyToClipboard = () => {
     setIsCopied(true);
-    // navigator.clipboard.writeText(Tile.code);
+    const host = window.location.origin;
+
+    const link = `${host}/widgets/${props.name.toLowerCase()}`;
+    console.log(link);
+    navigator.clipboard.writeText(link);
     setTimeout(() => {
       setIsCopied(false);
     }, 300);

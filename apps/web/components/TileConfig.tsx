@@ -146,7 +146,27 @@ const TileConfig = (props: TileConfigProps) => {
 
   const createLink = (): string => {
     const host = window.location.origin;
-    const link = `${host}/widgets/${props.info.name}?${new URLSearchParams(debouncedProps).toString()}`;
+    const params = new URLSearchParams();
+
+    // Only add non-empty parameters
+    Object.entries(debouncedProps).forEach(([key, value]) => {
+      if (
+        value !== undefined &&
+        value !== null &&
+        value !== 0 &&
+        value !== ''
+      ) {
+        params.append(key, String(value));
+      }
+    });
+
+    // Add width and height parameters
+    params.append('width', widthInPixels.toString());
+    params.append('height', heightInPixels.toString());
+
+    const queryString = params.toString();
+    const link = `${host}/widgets/${props.info.name}${queryString ? `?${queryString}` : ''}`;
+
     return link;
   };
 
@@ -157,7 +177,8 @@ const TileConfig = (props: TileConfigProps) => {
 
   const copyIframeToClipboard = () => {
     const link = createLink();
-    const iframe = `<iframe src="${link}" width="100%" height="100%"></iframe>`;
+    // Use actual pixel dimensions in the iframe tag
+    const iframe = `<iframe src="${link}" width="${widthInPixels}px" height="${heightInPixels}px" style="border:none;"></iframe>`;
     navigator.clipboard.writeText(iframe);
   };
 

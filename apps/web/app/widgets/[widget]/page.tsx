@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 'use client';
 
 import { notFound, useParams, useSearchParams } from 'next/navigation';
@@ -21,6 +22,13 @@ const WidgetPage = () => {
   if (!Tile) notFound();
 
   const getHeight = () => {
+    // Try to get height from search params first
+    const heightParam = searchParams.get('height');
+    if (heightParam) {
+      return parseInt(heightParam, 10);
+    }
+
+    // Fall back to min dimensions
     const minDimensions = 'minDimensions' in Tile ? Tile.minDimensions : null;
     const height = minDimensions
       ? (typeof minDimensions === 'function'
@@ -30,13 +38,34 @@ const WidgetPage = () => {
     return height;
   };
 
+  const getWidth = () => {
+    // Try to get width from search params first
+    const widthParam = searchParams.get('width');
+    if (widthParam) {
+      return parseInt(widthParam, 10);
+    }
+
+    // Fall back to min dimensions
+    const minDimensions = 'minDimensions' in Tile ? Tile.minDimensions : null;
+    const width = minDimensions
+      ? (typeof minDimensions === 'function'
+          ? minDimensions({}).w
+          : minDimensions.w) * 96
+      : 288;
+    return width;
+  };
+
   const height = getHeight();
+  const width = getWidth();
+
+  // Filter out the width and height from props so they don't get passed to the component
+  const { width: _, height: __, ...componentProps } = props;
 
   return (
-    <div className="overflow-hidden" style={{ height }}>
-      <Tile.Component {...props} />
+    <div className="overflow-hidden" style={{ height, width }}>
+      <Tile.Component {...componentProps} />
     </div>
-  ); // Render the tile with props
+  );
 };
 
 export default WidgetPage;

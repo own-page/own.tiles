@@ -99,7 +99,7 @@ export const tile: RawTileInfo<'deezer', Props> = {
   ],
   origin: 'https://www.deezer.com/',
   minDimensions: {
-    w: 3,
+    w: 4,
     h: 2
   },
   maxDimensions: (props) => {

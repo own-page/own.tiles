@@ -102,7 +102,7 @@ export const tile: RawTileInfo<'soundcloud', Props> = {
   ],
   origin: 'https://soundcloud.com/',
   minDimensions: {
-    w: 3,
+    w: 4,
     h: 2
   },
   maxDimensions: (props) => {

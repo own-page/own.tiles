@@ -79,8 +79,8 @@ export const GoogleCalendar = (props: Props) => {
   );
 };
 
-export const tile: RawTileInfo<'google-calendar', Props> = {
-  name: 'google-calendar',
+export const tile: RawTileInfo<'googlecalendar', Props> = {
+  name: 'googlecalendar',
   license: { type: 'MIT', fullText: 'MIT' },
   author: {
     name: 'own.page',
