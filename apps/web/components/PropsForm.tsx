@@ -199,7 +199,7 @@ const Dropdown: React.FC<{
             id={selectId}
             value={currentValue}
             onChange={(e) => setValue(e.target.value)}
-            className="w-32 h-8 pl-4 pr-8 text-black/70 bg-white/60 rounded-full appearance-none cursor-pointer "
+            className="w-32 h-8 pl-4 pr-8 text-black/70 bg-white/60 rounded-full appearance-none cursor-pointer focus:outline-none "
             aria-label={displayLabel}
           >
             {options.map((option) => (
