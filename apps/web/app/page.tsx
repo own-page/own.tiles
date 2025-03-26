@@ -8,8 +8,9 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
+  const [showAll, setShowAll] = useState(false);
 
-  const showHeader = searchValue.trim() === '';
+  const showHeader = searchValue.trim() === '' && !showAll;
 
   return (
     <main>
@@ -29,16 +30,21 @@ export default function Home() {
         <div className="sr-only">
           <h1>own.tiles - open source repository for grid-based web widgets</h1>
         </div>
-        <SearchBar value={searchValue} setSearchValue={setSearchValue} />
+        <SearchBar
+          value={searchValue}
+          setSearchValue={setSearchValue}
+          showAll={showAll}
+          setShowAll={setShowAll}
+        />
         <div className="w-full">
           <Header showHeader={showHeader} />
         </div>
         <div
-          className="absolute top-16 left-0 w-full"
+          className="absolute top-24 sm:top-16 left-0 w-full"
           role="region"
           aria-label="Search results"
         >
-          {<DisplayOwnTiles filter={searchValue} />}
+          {<DisplayOwnTiles filter={searchValue} showAll={showAll} />}
           {!showHeader && <Footer className="p-2 absolute right-0" />}
         </div>
       </div>

@@ -213,14 +213,17 @@ const TileDisplay = (props: TileDisplayProps) => {
 
 type DisplayOwnTilesProps = {
   filter: string;
+  showAll?: boolean;
 };
 
 const DisplayOwnTiles = (props: DisplayOwnTilesProps) => {
-  if (props.filter.trim() === '') return null;
+  if (props.filter.trim() === '' && !props.showAll) return null;
 
-  const results = tileNames.filter((s) =>
-    s.toLowerCase().includes(props.filter.toLowerCase())
-  );
+  const results = props.showAll
+    ? tileNames
+    : tileNames.filter((s) =>
+        s.toLowerCase().includes(props.filter.toLowerCase())
+      );
 
   if (results.length === 0) {
     return (

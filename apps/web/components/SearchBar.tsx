@@ -1,17 +1,19 @@
-import { MagnifyingGlass, X } from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlass, X, List } from '@phosphor-icons/react/dist/ssr';
 import { useRef } from 'react';
 
 type SearchBarProps = {
   value: string;
   setSearchValue: (value: string) => void;
+  showAll: boolean;
+  setShowAll: (value: boolean) => void;
 };
 
 const SearchBar = (props: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null!);
 
   return (
-    <div className="flex items-center justify-center py-6">
-      <div className="relative w-96">
+    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-center ">
+      <div className="relative w-full sm:w-96">
         <label htmlFor="search-input" className="sr-only">
           Search for tiles
         </label>
@@ -23,6 +25,9 @@ const SearchBar = (props: SearchBarProps) => {
           value={props.value}
           onChange={(e) => {
             props.setSearchValue(e.target.value);
+            if (e.target.value === '') {
+              props.setShowAll(false);
+            }
           }}
           className="bg-white/10 px-5 py-3 w-full border border-white/90 rounded-full
              !outline-none text-white placeholder:text-white/80 focus:!ring-0 drop-shadow-xl focus:outline-white focus:border-white"
@@ -35,6 +40,7 @@ const SearchBar = (props: SearchBarProps) => {
               props.setSearchValue('');
               // Autofocus the input after clearing
               inputRef.current.focus();
+              props.setShowAll(false);
             }
           }}
           type="button"
@@ -58,6 +64,31 @@ const SearchBar = (props: SearchBarProps) => {
           )}
         </button>
       </div>
+      <button
+        className={`ml-3 px-5 py-3 rounded-full border border-white/90 flex items-center text-white ${
+          props.showAll ? 'bg-white/30' : 'bg-white/10'
+        } hover:bg-white/20 transition-colors`}
+        onClick={() => {
+          props.setShowAll(!props.showAll);
+          if (!props.showAll) {
+            props.setSearchValue('');
+          }
+        }}
+        type="button"
+        aria-label={props.showAll ? 'Hide all tiles' : 'Show all tiles'}
+      >
+        {props.showAll ? (
+          <>
+            <X size={24} className="" weight="bold" aria-hidden="true" />
+            <span className="ml-1">Hide all</span>
+          </>
+        ) : (
+          <>
+            <List size={24} className="" weight="bold" aria-hidden="true" />
+            <span className="ml-1">Show all</span>
+          </>
+        )}
+      </button>
     </div>
   );
 };
