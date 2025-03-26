@@ -149,6 +149,6 @@ export const tile: RawTileInfo<'github', Props> = {
     showUsername: { slowLoad: false },
     color: { slowLoad: false }
   },
-  minDimensions: { w: 1, h: 1 },
+  minDimensions: { w: 4, h: 2 },
   Component: memo(GitHub)
 };

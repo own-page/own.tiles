@@ -95,8 +95,8 @@ export const tile: RawTileInfo<'spotify', Props> = {
   ],
   origin: 'https://spotify.com/',
   minDimensions: {
-    w: 1,
-    h: 1
+    w: 4,
+    h: 4
   },
   maxDimensions: (props) => {
     const link = parseLink(props.link || FALLBACK_LINK);
