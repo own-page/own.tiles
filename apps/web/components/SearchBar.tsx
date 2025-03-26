@@ -1,4 +1,4 @@
-import { MagnifyingGlass, X, List } from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlass, X } from '@phosphor-icons/react/dist/ssr';
 import { useRef } from 'react';
 
 type SearchBarProps = {
@@ -25,7 +25,12 @@ const SearchBar = (props: SearchBarProps) => {
           value={props.value}
           onChange={(e) => {
             props.setSearchValue(e.target.value);
+
             if (e.target.value === '') {
+              props.setShowAll(false);
+            } else if (e.target.value.toLowerCase() === 'all') {
+              props.setShowAll(true);
+            } else {
               props.setShowAll(false);
             }
           }}
@@ -64,31 +69,6 @@ const SearchBar = (props: SearchBarProps) => {
           )}
         </button>
       </div>
-      <button
-        className={`ml-3 px-5 py-3 rounded-full border border-white/90 flex items-center text-white ${
-          props.showAll ? 'bg-white/30' : 'bg-white/10'
-        } hover:bg-white/20 transition-colors`}
-        onClick={() => {
-          props.setShowAll(!props.showAll);
-          if (!props.showAll) {
-            props.setSearchValue('');
-          }
-        }}
-        type="button"
-        aria-label={props.showAll ? 'Hide all tiles' : 'Show all tiles'}
-      >
-        {props.showAll ? (
-          <>
-            <X size={24} className="" weight="bold" aria-hidden="true" />
-            <span className="ml-1">Hide all</span>
-          </>
-        ) : (
-          <>
-            <List size={24} className="" weight="bold" aria-hidden="true" />
-            <span className="ml-1">Show all</span>
-          </>
-        )}
-      </button>
     </div>
   );
 };
