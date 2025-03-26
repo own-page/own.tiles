@@ -108,3 +108,8 @@ export type TilePosition = {
 // export type Tile = {
 //   props: TileProps;
 // };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const hasTileGridProp = (props: any): boolean => {
+  return props && 'grid' in props;
+};
