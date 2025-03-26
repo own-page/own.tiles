@@ -11,19 +11,19 @@ import TileConfig from './TileConfig';
 type TileDisplayButtonProps = {
   Icon: React.ElementType;
   onClick?: () => void;
-  label: string;
+  ariaLabel: string;
 };
 
 const TileDisplayButton = forwardRef<HTMLButtonElement, TileDisplayButtonProps>(
-  ({ Icon, onClick, label }, ref) => {
+  ({ Icon, onClick, ariaLabel }, ref) => {
     return (
       <button
         ref={ref}
         className="hover:bg-white/20 p-1 rounded-md"
         onClick={onClick}
-        aria-label={label}
+        aria-label={ariaLabel}
       >
-        <Icon size={20} weight="fill" />
+        <Icon size={20} weight="fill" aria-hidden="true" />
       </button>
     );
   }
@@ -79,7 +79,7 @@ const TileDisplay = (props: TileDisplayProps) => {
           <TileDisplayButton
             Icon={isCopied ? Check : Clipboard}
             onClick={copyToClipboard}
-            label={`Copy ${props.name} tile code`}
+            ariaLabel={isCopied ? 'Copied!' : `Copy ${props.name} tile code`}
           />
           <TileConfig
             isOpen={isOpen}
@@ -87,7 +87,10 @@ const TileDisplay = (props: TileDisplayProps) => {
             info={Tile}
             height={height}
           >
-            <TileDisplayButton Icon={SlidersHorizontal} label={''} />
+            <TileDisplayButton
+              Icon={SlidersHorizontal}
+              ariaLabel={`Configure ${props.name} tile settings`}
+            />
           </TileConfig>
         </div>
         <div

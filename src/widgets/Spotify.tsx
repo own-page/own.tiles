@@ -73,7 +73,7 @@ export const tile: RawTileInfo<'spotify', Props> = {
   },
   accessibility: {
     // not certain about this
-    rating: 'A',
+    rating: 'AA',
     standard: 'WCAG 2.1'
   },
   cookieInformation: [
