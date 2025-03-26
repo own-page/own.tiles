@@ -58,12 +58,9 @@ const WidgetPage = () => {
   const height = getHeight();
   const width = getWidth();
 
-  // Filter out the width and height from props so they don't get passed to the component
-  const { width: _, height: __, ...componentProps } = props;
-
   return (
     <div className="overflow-hidden" style={{ height, width }}>
-      <Tile.Component {...componentProps} />
+      <Tile.Component {...props} />
     </div>
   );
 };
