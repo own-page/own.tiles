@@ -171,6 +171,27 @@ The PropsForm system automatically maps icons to common property names:
 
 Text inputs automatically handle system-wide paste events for the first input field, making it easy to paste content from anywhere.
 
+#### Widget Dimensions
+
+Widgets use a grid-based sizing system:
+
+- 1 unit = 96px
+- Default width: 5.5 units (528px)
+- Default height: 3 units (288px)
+- Width options: 1-10 units (96px-960px)
+- Height options: 1-10 units (96px-960px)
+
+You can specify dimensions in two ways:
+
+1. Via URL parameters: `?width=528&height=288`
+2. Via component props: `width={528} height={288}`
+
+The widget will respect:
+
+1. URL parameters first
+2. Component props second
+3. Fall back to minimum dimensions defined in the widget config
+
 ### Widget Best Practices
 
 #### Accessibility
@@ -253,27 +274,6 @@ export default function Page() {
   );
 }
 ```
-
-#### Widget Dimensions
-
-Widgets use a grid-based sizing system:
-
-- 1 unit = 96px
-- Default width: 5.5 units (528px)
-- Default height: 3 units (288px)
-- Width options: 1-10 units (96px-960px)
-- Height options: 1-10 units (96px-960px)
-
-You can specify dimensions in two ways:
-
-1. Via URL parameters: `?width=528&height=288`
-2. Via component props: `width={528} height={288}`
-
-The widget will respect:
-
-1. URL parameters first
-2. Component props second
-3. Fall back to minimum dimensions defined in the widget config
 
 #### With Custom Styling
 
