@@ -74,10 +74,10 @@ type TileInfo = {
   }[];
   // Source domain of external content
   origin: string;
-  // Minimum widget dimensions
+  // Minimum widget dimensions (in grid units, 1 unit = 96px)
   minDimensions: {
-    w: number;
-    h: number;
+    w: number; // width in units
+    h: number; // height in units
   };
   // Widget properties
   props: Record<string, PropInfo>;
@@ -243,11 +243,37 @@ import { widgets } from 'own.tiles';
 export default function Page() {
   return (
     <div className="widget-container">
-      <widgets.YouTube link="https://youtube.com/watch?v=..." />
+      <widgets.YouTube
+        link="https://youtube.com/watch?v=..."
+        // Optional: Override default dimensions
+        width={528} // 5.5 units (default max width)
+        height={288} // 3 units
+      />
     </div>
   );
 }
 ```
+
+#### Widget Dimensions
+
+Widgets use a grid-based sizing system:
+
+- 1 unit = 96px
+- Default width: 5.5 units (528px)
+- Default height: 3 units (288px)
+- Width options: 1-10 units (96px-960px)
+- Height options: 1-10 units (96px-960px)
+
+You can specify dimensions in two ways:
+
+1. Via URL parameters: `?width=528&height=288`
+2. Via component props: `width={528} height={288}`
+
+The widget will respect:
+
+1. URL parameters first
+2. Component props second
+3. Fall back to minimum dimensions defined in the widget config
 
 #### With Custom Styling
 
