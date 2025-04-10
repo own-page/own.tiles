@@ -9,9 +9,6 @@
   "files": [
     "dist"
   ],
-  "workspaces": [
-    "apps/web"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
