@@ -46,7 +46,8 @@ const InnerCalendar = (props: InnerProps) => {
   return (
     <GitHubCalendar
       style={{
-        overflow: 'clip'
+        overflow: 'clip',
+        justifyContent: 'center'
       }}
       fontSize={14}
       theme={{
@@ -78,7 +79,7 @@ export const GitHub = (props: Props) => {
 
   return (
     <InnerOwnTile
-      className="size-full p-7 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
+      className="flex size-full p-7 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
       style={{
         direction: 'rtl'
       }}
