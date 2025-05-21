@@ -59,8 +59,8 @@ const InnerCalendar = (props: InnerProps) => {
       hideColorLegend={true}
       hideMonthLabels={true}
       hideTotalCount={true}
-      blockSize={12}
-      blockMargin={3}
+      blockSize={13}
+      blockMargin={4}
       transformData={selectLastHalfYear(props.months)}
       username={props.username}
     />
@@ -70,8 +70,8 @@ const InnerCalendar = (props: InnerProps) => {
 const InnerCalendarMemo = memo(InnerCalendar);
 
 export const GitHub = (props: Props) => {
-  const months =
-    props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
+  // const months =
+  //   props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
 
   const username = props.username || 'DominikScholz';
   const showUsername = props.showUsername;
@@ -79,11 +79,15 @@ export const GitHub = (props: Props) => {
 
   return (
     <InnerOwnTile
-      className="flex size-full p-7 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
+      className="flex size-full p-7 pl-5 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
       style={{
         direction: 'rtl'
       }}
     >
+      <div
+        className="bg-[linear-gradient(to_right,white,white,transparent)]
+          flex-center absolute top-0 left-2 z-8 p-0 h-full w-10 whitespace-nowrap"
+      />
       <div
         className="text-white bg-black/90 rounded-full 
           size-10 flex-center absolute top-4 left-4 z-10 p-2 backdrop-blur-xl whitespace-nowrap
@@ -119,7 +123,7 @@ export const GitHub = (props: Props) => {
       ></div>
       <InnerCalendarMemo
         username={username}
-        months={months}
+        months={12}
         colorTheme={colorTheme}
       />
     </InnerOwnTile>
