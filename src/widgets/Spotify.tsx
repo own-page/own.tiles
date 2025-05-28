@@ -37,8 +37,9 @@ const FALLBACK_LINK =
   'https://open.spotify.com/album/4cCfFozyo6JC8acN8uIP7u?si=laPgYvLDR8Gh0fPa3M2mFw';
 
 export const Spotify = (props: Props) => {
-  const useColor = props.theme === undefined || props.theme === 'color';
-  const themeString = useColor ? '' : '&theme=0';
+  //const useColor = props.theme === undefined || props.theme === 'color';
+  //const themeString = useColor ? '' : '&theme=0';
+  const themeString = '&theme=0'; // for the moment we are forcing dark theme
   const link = parseLink(props.link || FALLBACK_LINK);
 
   const clipPathStyle = link.startsWith('/track')
@@ -50,7 +51,11 @@ export const Spotify = (props: Props) => {
 
   return (
     <IFrame
-      style={{ ...clipPathStyle, border: 0 }}
+      style={{
+        ...clipPathStyle,
+        border: 0,
+        backgroundColor: '#1f1f1f !important'
+      }}
       src={`https://open.spotify.com/embed${link}?utm_source=generator${themeString}`}
       width="100%"
       height="100%"
@@ -96,7 +101,7 @@ export const tile: RawTileInfo<'spotify', Props> = {
   origin: 'https://spotify.com/',
   minDimensions: {
     w: 4,
-    h: 4
+    h: 2
   },
   maxDimensions: (props) => {
     const link = parseLink(props.link || FALLBACK_LINK);
