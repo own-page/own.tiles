@@ -54,7 +54,7 @@ export const Spotify = (props: Props) => {
       style={{
         ...clipPathStyle,
         border: 0,
-        backgroundColor: '#1f1f1f !important'
+        backgroundColor: '#1f1f1f'
       }}
       src={`https://open.spotify.com/embed${link}?utm_source=generator${themeString}`}
       width="100%"
