@@ -78,55 +78,61 @@ export const GitHub = (props: Props) => {
   const colorTheme = props.color || 'colorful';
 
   return (
-    <InnerOwnTile
-      className="flex size-full p-7 pl-5 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
-      style={{
-        direction: 'rtl'
-      }}
+    <a
+      href={`https://github.com/${username}`}
+      target="_blank"
+      rel="noopener noreferrer"
     >
-      <div
-        className="bg-[linear-gradient(to_right,white,white,transparent)]
-          flex-center absolute top-0 left-2 z-8 p-0 h-full w-10 whitespace-nowrap"
-      />
-      <div
-        className="text-white bg-black/90 rounded-full 
-          size-10 flex-center absolute top-4 left-4 z-10 p-2 backdrop-blur-xl whitespace-nowrap
-          "
+      <InnerOwnTile
+        className="flex size-full p-7 pl-5 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
         style={{
-          boxShadow:
-            '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
+          direction: 'rtl'
         }}
       >
-        <GithubLogo size={'100%'} />
-      </div>
-      {showUsername && (
         <div
-          className="text-[#0a0909c4] bg-white 
-        absolute left-4 bottom-4 z-10
-        flex-center rounded-full px-5 h-10 
-        font-['Plus_Jakarta_Sans'] font-medium text-base"
+          className="bg-[linear-gradient(to_right,white,white,transparent)]
+          flex-center absolute top-0 left-2 z-8 p-0 h-full w-10 whitespace-nowrap"
+        />
+        <div
+          className="text-white bg-black/90 rounded-full 
+          size-10 flex-center absolute top-4 left-4 z-10 p-2 backdrop-blur-xl whitespace-nowrap
+          "
           style={{
             boxShadow:
               '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
           }}
         >
-          {username}
+          <GithubLogo size={'100%'} />
         </div>
-      )}
+        {showUsername && (
+          <div
+            className="text-[#0a0909c4] bg-white 
+        absolute left-4 bottom-4 z-10
+        flex-center rounded-full px-5 h-10 
+        font-['Plus_Jakarta_Sans'] font-medium text-base"
+            style={{
+              boxShadow:
+                '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
+            }}
+          >
+            {username}
+          </div>
+        )}
 
-      <div
-        className="absolute size-full mix-blend-color"
-        style={{
-          display: colorTheme === 'github' ? 'none' : 'block',
-          backgroundColor: 'var(--background-color)'
-        }}
-      ></div>
-      <InnerCalendarMemo
-        username={username}
-        months={12}
-        colorTheme={colorTheme}
-      />
-    </InnerOwnTile>
+        <div
+          className="absolute size-full mix-blend-color"
+          style={{
+            display: colorTheme === 'github' ? 'none' : 'block',
+            backgroundColor: 'var(--background-color)'
+          }}
+        ></div>
+        <InnerCalendarMemo
+          username={username}
+          months={12}
+          colorTheme={colorTheme}
+        />
+      </InnerOwnTile>
+    </a>
   );
 };
 
