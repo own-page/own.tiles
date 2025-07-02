@@ -79,6 +79,7 @@ export const GitHub = (props: Props) => {
 
   return (
     <a
+      className="w-full h-full"
       href={`https://github.com/${username}`}
       target="_blank"
       rel="noopener noreferrer"
