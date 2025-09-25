@@ -8,7 +8,7 @@ import { tile as Calendly } from './Calendly';
 import { tile as Deezer } from './Deezer';
 import { tile as Clock } from './Clock';
 import { tile as Event } from './Event';
-import { tile as Soundcloud } from './Soundcloud';
+import { tile as SoundCloud } from './Soundcloud';
 import { type TileInfo } from 'types';
 
 const rawWidgets = {
@@ -20,7 +20,7 @@ const rawWidgets = {
   Calendly,
   Deezer,
   Clock,
-  Soundcloud,
+  SoundCloud,
   Event
 } as const;
 

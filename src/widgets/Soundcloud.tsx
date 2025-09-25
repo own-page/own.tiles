@@ -9,9 +9,14 @@ type Props = {
   theme?: 'light' | 'dark';
   /** Auto play */
   autoPlay?: boolean;
+  /** Pre-resolved official SoundCloud embed url (set by editor on input) */
+  embedSrc?: string;
 };
 
 const SOUNDCLOUD_DOMAIN = 'soundcloud.com';
+
+const FALLBACK_LINK =
+  'https://soundcloud.com/carl-cox/sets/permission-to-smoke';
 
 const parseLink = (rawLink: string) => {
   if (typeof rawLink !== 'string') {
@@ -35,29 +40,55 @@ const parseLink = (rawLink: string) => {
   }
 };
 
-const FALLBACK_LINK =
-  'https://soundcloud.com/carl-cox/sets/space-ibiza-25-dj-mix';
+const resolveInputLink = async (value: string) => {
+  try {
+    const rawLink = (value as string) || FALLBACK_LINK;
+    const resolvedLink = await fetch(
+      `https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(rawLink)}`
+    );
+    if (!resolvedLink.ok)
+      throw new Error(`oEmbed failed: ${resolvedLink.status}`);
 
-export const Soundcloud = (props: Props) => {
-  const contentPath = parseLink(props.link || FALLBACK_LINK);
+    const data = await resolvedLink.json();
+    const iFrameSrc =
+      typeof data.html === 'string' ? data.html.match(/src="([^"]+)"/) : null;
+
+    if (!iFrameSrc) throw new Error('No iframe src in oEmbed response');
+
+    const url = new URL(iFrameSrc[1]);
+    return { embedSrc: url.toString() };
+  } catch (error) {
+    return {};
+  }
+};
+
+const constructSrc = (embedSrc: string, autoPlay: boolean, theme: string) => {
+  try {
+    const url = new URL(embedSrc);
+    const searchParams = url.searchParams;
+
+    searchParams.set('auto_play', autoPlay ? 'true' : 'false');
+    searchParams.set('color', theme === 'dark' ? '%232d252d' : '%23ff5500');
+
+    url.search = searchParams.toString();
+    return url.toString();
+  } catch (error) {
+    return embedSrc;
+  }
+};
+
+export const SoundCloud = (props: Props) => {
   const theme = props.theme || 'light';
   const autoPlay = props.autoPlay ?? false;
 
-  const colorParams = theme === 'dark' ? 'color=%232d252d' : 'color=%23ff5500';
-  const autoPlayParams = autoPlay ? 'auto_play=true' : 'auto_play=false';
-
-  // Construct the parameters
-  // const params = new URLSearchParams({
-  //   color: theme === 'dark' ? '%232d252d' : '%23ff5500',
-  //   auto_play: autoPlay ? 'true' : 'false'
-  // });
-
-  console.log(colorParams, autoPlayParams);
+  const src = props.embedSrc
+    ? constructSrc(props.embedSrc, autoPlay, theme)
+    : `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2052945276&color=%23ff5500&auto_play=false`;
 
   return (
     <IFrame
       style={{ clipPath: 'inset(0 round var(--tile-radius))', border: 0 }}
-      src={`https://w.soundcloud.com/player/?url=https%3A//soundcloud.com${contentPath}&${colorParams}&${autoPlayParams}`}
+      src={src}
       width="100%"
       height="100%"
       frameBorder={0}
@@ -114,9 +145,15 @@ export const tile: RawTileInfo<'soundcloud', Props> = {
     };
   },
   props: {
-    link: { slowLoad: true },
+    link: {
+      slowLoad: true,
+      onInput: async ({ value }) => {
+        return await resolveInputLink(value as string);
+      }
+    },
     theme: { slowLoad: false },
-    autoPlay: { slowLoad: false }
+    autoPlay: { slowLoad: false },
+    embedSrc: { render: false }
   },
-  Component: memo(Soundcloud)
+  Component: memo(SoundCloud)
 };

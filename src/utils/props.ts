@@ -9,6 +9,17 @@ export type PropInfo = {
   defaultValue?: unknown;
   /** if true, a change in prop will result in a slow refresh (e.g. if iframe link is changed) */
   slowLoad: boolean;
+  /** optional async/sync hook invoked in editor when this prop changes; may return extra props to merge */
+  onInput?: (args: {
+    key: string;
+    value: unknown;
+    props: Record<string, unknown>;
+  }) =>
+    | Promise<Record<string, unknown> | void>
+    | Record<string, unknown>
+    | void;
+  /** if false, the prop will not be rendered in the editor */
+  render?: boolean;
 };
 
 export type PropsInfo<T> = {
