@@ -50,11 +50,13 @@ export const YouTube = (props: Props) => {
   //   const useColor = props.theme === undefined || props.theme === 'color';
   //   const themeString = useColor ? '' : '&theme=0';
   const videoId = parseLink(props.link || FALLBACK_LINK);
+  const tMatch = (props.link || '').match(/[?&]t=(\d+)/);
+  const startParam = tMatch ? `?start=${tMatch[1]}` : '';
 
   return (
     <IFrame
       style={{ clipPath: 'inset(0 round var(--tile-radius))', border: 0 }}
-      src={`https://www.youtube.com/embed/${videoId}`}
+      src={`https://www.youtube.com/embed/${videoId}${startParam}`}
       width="100%"
       height="100%"
       allowFullScreen
