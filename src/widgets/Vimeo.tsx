@@ -98,7 +98,7 @@ export const tile: RawTileInfo<'vimeo', Props> = {
   origin: 'https://vimeo.com/',
   minDimensions: {
     w: 4,
-    h: 3
+    h: 2
   },
   maxDimensions: () => {
     return {
