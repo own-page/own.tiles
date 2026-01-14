@@ -1,3 +1,5 @@
+'use client';
+
 import { memo, useEffect, useState } from 'react';
 import { type RawTileInfo } from 'types';
 import { InnerOwnTile } from 'InnerOwnTile';
