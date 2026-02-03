@@ -1,4 +1,4 @@
-import { GithubLogo, DiscordLogo, XLogo } from '@phosphor-icons/react/dist/ssr';
+import { GithubLogoIcon, DiscordLogoIcon, XLogoIcon } from '@phosphor-icons/react/dist/ssr';
 
 const socials = [
   {
@@ -17,16 +17,16 @@ const socials = [
   {
     name: 'Github',
     url: 'https://github.com/own-page/own.tiles',
-    icon: GithubLogo,
+    icon: GithubLogoIcon,
     label: 'Github logo'
   },
   {
     name: 'Discord',
     url: 'https://discord.gg/GVz4ykbh6C',
-    icon: DiscordLogo,
+    icon: DiscordLogoIcon,
     label: 'Discord logo'
   },
-  { name: 'X', url: 'https://x.com/own_pages', icon: XLogo, label: 'X logo' }
+  { name: 'X', url: 'https://x.com/own_pages', icon: XLogoIcon, label: 'X logo' }
 ];
 
 const P = (props: React.PropsWithChildren) => (

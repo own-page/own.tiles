@@ -1,24 +1,24 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  User,
-  X,
-  CaretDown,
-  Link,
-  Palette,
-  Calendar,
-  MapPin
-} from '@phosphor-icons/react';
+  UserIcon,
+  XIcon,
+  CaretDownIcon,
+  LinkIcon,
+  PaletteIcon,
+  CalendarIcon,
+  MapPinIcon
+} from '@phosphor-icons/react/dist/ssr';
 import { useEffect, useRef } from 'react';
 import type { PropInfo, PropsInfo } from '@own.page/own.tiles';
 import DateTimePicker from './DateTimePicker';
 
 const mapComponents = {
-  username: <User weight="bold" />,
-  link: <Link weight="bold" />,
-  theme: <Palette weight="bold" />,
-  date: <Calendar weight="bold" />,
-  location: <MapPin weight="bold" />
+  username: <UserIcon weight="bold" />,
+  link: <LinkIcon weight="bold" />,
+  theme: <PaletteIcon weight="bold" />,
+  date: <CalendarIcon weight="bold" />,
+  location: <MapPinIcon weight="bold" />
 };
 
 const TextInput: React.FC<{
@@ -90,7 +90,7 @@ const TextInput: React.FC<{
             aria-label={`Clear ${displayLabel}`}
             type="button"
           >
-            <X size={16} weight="bold" />
+            <XIcon size={16} weight="bold" />
           </button>
         )}
       </div>
@@ -208,7 +208,7 @@ const Dropdown: React.FC<{
               </option>
             ))}
           </select>
-          <CaretDown
+          <CaretDownIcon
             className="absolute right-3 text-black/70 pointer-events-none"
             weight="bold"
             size={16}

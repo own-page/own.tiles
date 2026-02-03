@@ -2,7 +2,7 @@
 import { memo } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { type GridArea, type RawTileInfo } from 'types';
-import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
+import { GithubLogoIcon } from '@phosphor-icons/react/dist/ssr';
 import { InnerOwnTile } from 'InnerOwnTile';
 
 type Props = {
@@ -103,7 +103,7 @@ export const GitHub = (props: Props) => {
               '0 0 1rem white, 0 0 2rem white, 0 0 4rem white, 0 0 8rem white'
           }}
         >
-          <GithubLogo size={'100%'} />
+          <GithubLogoIcon size={'100%'} />
         </div>
         {showUsername && (
           <div

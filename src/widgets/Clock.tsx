@@ -3,7 +3,7 @@
 import { memo, useEffect, useState } from 'react';
 import { type RawTileInfo } from 'types';
 import { InnerOwnTile } from 'InnerOwnTile';
-import { Clock as ClockIcon } from '@phosphor-icons/react/dist/ssr/Clock';
+import { ClockIcon as ClockIconPi } from '@phosphor-icons/react/dist/ssr';
 
 // Define the city options type
 type CityOption =
@@ -397,7 +397,7 @@ export const Clock = (props: Props) => {
         className={`absolute top-4 left-4 z-10 size-10 flex-center rounded-full p-2 backdrop-blur-xl ${styles.icon}`}
         style={{ boxShadow }}
       >
-        <ClockIcon size={'100%'} weight="duotone" aria-label="Clock icon" />
+        <ClockIconPi size={'100%'} weight="duotone" aria-label="Clock icon" />
       </div>
 
       <div className="flex flex-col items-center justify-center">

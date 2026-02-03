@@ -1,4 +1,4 @@
-import { MagnifyingGlass, X } from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlassIcon, XIcon } from '@phosphor-icons/react/dist/ssr';
 import { useRef } from 'react';
 
 type SearchBarProps = {
@@ -53,14 +53,14 @@ const SearchBar = (props: SearchBarProps) => {
           style={{ cursor: props.value ? 'pointer' : 'default' }}
         >
           {props.value ? (
-            <X
+            <XIcon
               size={24}
               className="text-white"
               weight="bold"
               aria-hidden="true"
             />
           ) : (
-            <MagnifyingGlass
+            <MagnifyingGlassIcon
               size={24}
               className="text-white"
               weight="bold"

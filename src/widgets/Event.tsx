@@ -4,10 +4,10 @@ import { memo, useEffect, useState } from 'react';
 import { type RawTileInfo } from 'types';
 import { InnerOwnTile } from 'InnerOwnTile';
 import {
-  Calendar,
-  MapPin,
-  Ticket,
-  SpinnerGap
+  CalendarIcon,
+  MapPinIcon,
+  TicketIcon,
+  SpinnerGapIcon
 } from '@phosphor-icons/react/dist/ssr';
 
 type Props = {
@@ -190,7 +190,7 @@ export const Event = (props: Props) => {
       {isLoading && (
         <div className="absolute inset-0 bg-black/40 z-50 flex items-center justify-center">
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 flex flex-col items-center">
-            <SpinnerGap
+            <SpinnerGapIcon
               size={32}
               className="animate-spin text-white mb-2"
               weight="bold"
@@ -223,7 +223,7 @@ export const Event = (props: Props) => {
             role="text"
             aria-label={`Date and time: ${date} at ${time}`}
           >
-            <Calendar weight="duotone" className="mr-2" aria-hidden="true" />
+            <CalendarIcon weight="duotone" className="mr-2" aria-hidden="true" />
             <span>
               {date} • {time}
             </span>
@@ -235,7 +235,7 @@ export const Event = (props: Props) => {
             role="text"
             aria-label={`Location of the event: ${location}`}
           >
-            <MapPin weight="duotone" className="mr-2" aria-hidden="true" />
+            <MapPinIcon weight="duotone" className="mr-2" aria-hidden="true" />
             <span>{location}</span>
           </div>
         </div>
@@ -250,7 +250,7 @@ export const Event = (props: Props) => {
           className={`inline-flex items-center justify-center rounded-full px-5 py-2 mt-2 ${styles.button} transition-colors duration-200`}
           aria-label="Get tickets for this event"
         >
-          <Ticket
+          <TicketIcon
             weight="duotone"
             className="mr-2"
             aria-hidden="true"

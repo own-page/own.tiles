@@ -3,7 +3,7 @@ import type { TileInfo } from '@own.page/own.tiles';
 import Modal from './Modal';
 import PropsForm from './PropsForm';
 import { useState, useEffect, type SetStateAction, useRef } from 'react';
-import { CaretDown, Code, Link } from '@phosphor-icons/react/dist/ssr';
+import { CaretDownIcon, CodeIcon, LinkIcon } from '@phosphor-icons/react/dist/ssr';
 
 /**
  * Waits a fixed amount of seconds and returns a promise that resolves after that time,
@@ -107,7 +107,7 @@ const DimensionDropdown = ({
           </option>
         ))}
       </select>
-      <CaretDown
+      <CaretDownIcon
         className="relative -left-7 text-black/70 pointer-events-none"
         weight="bold"
         size={16}
@@ -226,12 +226,12 @@ const TileConfig = (props: TileConfigProps) => {
           <div className="flex items-center space-x-2">
             <Button
               onClick={copyIframeToClipboard}
-              Icon={Code}
+              Icon={CodeIcon}
               text="Copy iframe"
             />
             <Button
               onClick={copyLinkToClipboard}
-              Icon={Link}
+              Icon={LinkIcon}
               text="Copy link"
             />
           </div>

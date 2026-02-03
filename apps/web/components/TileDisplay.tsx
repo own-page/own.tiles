@@ -1,8 +1,8 @@
 import {
-  Check,
-  Clipboard,
-  SlidersHorizontal,
-  Info
+  CheckIcon,
+  ClipboardIcon,
+  SlidersHorizontalIcon,
+  InfoIcon
 } from '@phosphor-icons/react/dist/ssr';
 import { widgets as tiles } from '@own.page/own.tiles';
 import { useState, forwardRef } from 'react';
@@ -81,7 +81,7 @@ const TileDisplay = (props: TileDisplayProps) => {
         <h2 className="text-xl font-semibold leading-none">{props.name}</h2>
         <div className="absolute right-5 top-0 space-x-1">
           <TileDisplayButton
-            Icon={isCopied ? Check : Clipboard}
+            Icon={isCopied ? CheckIcon : ClipboardIcon}
             onClick={copyToClipboard}
             ariaLabel={isCopied ? 'Copied!' : `Copy ${props.name} tile code`}
           />
@@ -92,7 +92,7 @@ const TileDisplay = (props: TileDisplayProps) => {
             height={height}
           >
             <TileDisplayButton
-              Icon={SlidersHorizontal}
+              Icon={SlidersHorizontalIcon}
               ariaLabel={`Configure ${props.name} tile settings`}
             />
           </TileConfig>
@@ -164,7 +164,7 @@ const TileDisplay = (props: TileDisplayProps) => {
                     aria-label="Show cookie information"
                     aria-expanded={showCookieInfo}
                   >
-                    <Info
+                    <InfoIcon
                       size={12}
                       className="ml-1 text-white"
                       aria-hidden="true"
