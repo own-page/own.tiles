@@ -9,6 +9,7 @@ import { tile as Deezer } from './Deezer';
 import { tile as Clock } from './Clock';
 import { tile as Event } from './Event';
 import { tile as SoundCloud } from './Soundcloud';
+import { tile as AppleMusic } from './AppleMusic';
 import { type TileInfo } from 'types';
 
 const rawWidgets = {
@@ -19,6 +20,7 @@ const rawWidgets = {
   Vimeo,
   Calendly,
   Deezer,
+  AppleMusic,
   Clock,
   SoundCloud,
   Event
