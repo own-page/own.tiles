@@ -112,7 +112,7 @@ export const tile: RawTileInfo<'spotify', Props> = {
   },
   props: {
     link: { slowLoad: true },
-    theme: { slowLoad: true }
+    theme: { slowLoad: true, defaultValue: 'dark' }
   },
   Component: memo(Spotify)
 };

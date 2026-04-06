@@ -10,6 +10,7 @@ import { tile as Clock } from './Clock';
 import { tile as Event } from './Event';
 import { tile as SoundCloud } from './Soundcloud';
 import { tile as AppleMusic } from './AppleMusic';
+import { tile as QRCode } from './QRCode';
 import { type TileInfo } from 'types';
 
 const rawWidgets = {
@@ -23,7 +24,8 @@ const rawWidgets = {
   AppleMusic,
   Clock,
   SoundCloud,
-  Event
+  Event,
+  QRCode
 } as const;
 
 export const widgets = rawWidgets as unknown as {

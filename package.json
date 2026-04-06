@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "qrcode.react": "^4.2.0",
     "react-docgen-typescript": "^2.2.2",
     "react-github-calendar": "^4.2.2"
   }

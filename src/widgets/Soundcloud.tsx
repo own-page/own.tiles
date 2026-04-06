@@ -151,8 +151,8 @@ export const tile: RawTileInfo<'soundcloud', Props> = {
         return await resolveInputLink(value as string);
       }
     },
-    theme: { slowLoad: false },
-    autoPlay: { slowLoad: false },
+    theme: { slowLoad: false, defaultValue: 'light' },
+    autoPlay: { slowLoad: false, defaultValue: false },
     embedSrc: { render: false }
   },
   Component: memo(SoundCloud)

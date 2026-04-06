@@ -123,7 +123,7 @@ export const tile: RawTileInfo<'google-calendar', Props> = {
     email: { slowLoad: true },
     title: { slowLoad: false },
     theme: { slowLoad: false },
-    view: { slowLoad: true }
+    view: { slowLoad: true, defaultValue: 'week' }
   },
   Component: memo(GoogleCalendar)
 };
