@@ -85,7 +85,7 @@ export const GitHub = (props: Props) => {
       rel="noopener noreferrer"
     >
       <InnerOwnTile
-        className="flex size-full p-7 pl-5 overflow-clip relative bg-white [&_div]:!overflow-hidden [&_rect]:!stroke-none"
+        className="flex size-full p-7 pl-5 overflow-clip relative bg-white border border-solid border-black/[0.06] rounded-[inherit] [&_div]:!overflow-hidden [&_rect]:!stroke-none"
         style={{
           direction: 'rtl'
         }}
