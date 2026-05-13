@@ -89,7 +89,8 @@ export const YouTube = (props: Props) => {
       height="100%"
       allowFullScreen
       // sandbox="allow-scripts allow-forms allow-same-origin"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerPolicy="strict-origin-when-cross-origin"
       loading="lazy"
       title="YouTube video player"
       aria-label="YouTube video content"
