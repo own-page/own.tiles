@@ -7,6 +7,8 @@ import { autoProps } from './vite-auto-props';
 import { getPropsInfo } from './src/utils/props';
 import preserveDirectives from 'rollup-preserve-directives';
 
+const peerDependencyNames = Object.keys(peerDependencies);
+
 export default defineConfig({
   plugins: [
     autoProps({ getPropsInfo }),
@@ -23,13 +25,19 @@ export default defineConfig({
     preserveDirectives()
   ],
   build: {
+    commonjsOptions: {
+      esmExternals: true
+    },
     lib: {
       entry: './src/index.ts',
       name: 'own.tiles',
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: [...Object.keys(peerDependencies)],
+      external: (id) =>
+        peerDependencyNames.some(
+          (dependency) => id === dependency || id.startsWith(`${dependency}/`)
+        ),
       output: {
         globals: {
           react: 'React'
