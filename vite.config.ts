@@ -25,6 +25,9 @@ export default defineConfig({
     preserveDirectives()
   ],
   build: {
+    commonjsOptions: {
+      esmExternals: true
+    },
     lib: {
       entry: './src/index.ts',
       name: 'own.tiles',
