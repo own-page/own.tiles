@@ -63,6 +63,7 @@ const InnerCalendar = (props: InnerProps) => {
       blockMargin={4}
       transformData={selectLastHalfYear(props.months)}
       username={props.username}
+      errorMessage={`GitHub user "${props.username}" was not found or contributions could not be loaded. Check the username or try again later.`}
     />
   );
 };
@@ -73,7 +74,7 @@ export const GitHub = (props: Props) => {
   // const months =
   //   props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
 
-  const username = props.username || 'DominikScholz';
+  const username = props.username?.trim() || 'elitza-vasileva';
   const showUsername = props.showUsername;
   const colorTheme = props.color || 'colorful';
 
@@ -127,11 +128,17 @@ export const GitHub = (props: Props) => {
             backgroundColor: 'var(--background-color)'
           }}
         ></div>
-        <InnerCalendarMemo
-          username={username}
-          months={12}
-          colorTheme={colorTheme}
-        />
+        <div
+          className="flex size-full items-center justify-center text-center text-sm text-neutral-900"
+          style={{ direction: 'ltr' }}
+        >
+          <InnerCalendarMemo
+            key={username}
+            username={username}
+            months={12}
+            colorTheme={colorTheme}
+          />
+        </div>
       </InnerOwnTile>
     </a>
   );
