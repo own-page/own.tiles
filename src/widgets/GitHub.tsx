@@ -76,7 +76,7 @@ export const GitHub = (props: Props) => {
 
   const username = props.username?.trim() || 'elitza-vasileva';
   const showUsername = props.showUsername;
-  const colorTheme = props.color || 'colorful';
+  const colorTheme = props.color || 'github';
 
   return (
     <a
