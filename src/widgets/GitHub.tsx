@@ -86,10 +86,9 @@ export const GitHub = (props: Props) => {
       rel="noopener noreferrer"
     >
       <InnerOwnTile
-        className="flex size-full p-7 pl-5 overflow-clip relative bg-white border border-solid border-black/[0.06] rounded-[inherit] [&_div]:!overflow-hidden [&_rect]:!stroke-none"
-        style={{
-          direction: 'rtl'
-        }}
+        // Keep the calendar at its intrinsic width and crop older weeks on the
+        // left. RTL does not right-align an overflowing block-level SVG.
+        className="flex justify-end size-full p-7 pl-5 overflow-clip relative bg-white border border-solid border-black/[0.06] rounded-[inherit] [&_.react-activity-calendar]:!max-w-none [&_.react-activity-calendar]:shrink-0 [&_div]:!overflow-hidden [&_rect]:!stroke-none"
       >
         <div
           className="bg-[linear-gradient(to_right,white,white,transparent)]
@@ -129,7 +128,7 @@ export const GitHub = (props: Props) => {
           }}
         ></div>
         <div
-          className="flex size-full items-center justify-center text-center text-sm text-neutral-900"
+          className="flex size-full min-w-0 items-center justify-end text-center text-sm text-neutral-900"
           style={{ direction: 'ltr' }}
         >
           <InnerCalendarMemo
