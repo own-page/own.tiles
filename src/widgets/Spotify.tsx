@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -36,7 +37,7 @@ const parseLink = (rawLink: string) => {
 const FALLBACK_LINK =
   'https://open.spotify.com/album/4cCfFozyo6JC8acN8uIP7u?si=laPgYvLDR8Gh0fPa3M2mFw';
 
-export const Spotify = (props: Props) => {
+export const Spotify = (props: Props & TileLanguageProps) => {
   //const useColor = props.theme === undefined || props.theme === 'color';
   //const themeString = useColor ? '' : '&theme=0';
   const themeString = '&theme=0'; // for the moment we are forcing dark theme
@@ -64,7 +65,7 @@ export const Spotify = (props: Props) => {
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
       title={title}
-      aria-label={`Spotify ${linkType} player`}
+      aria-label={tileWords(props.language).spotifyPlayer(linkType)}
     />
   );
 };

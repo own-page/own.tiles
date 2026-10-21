@@ -4,7 +4,9 @@ import { type ComponentDoc, parse } from 'react-docgen-typescript';
 const docgenOptions = {
   shouldExtractValuesFromUnion: true,
   // shouldExtractLiteralValuesFromEnum: true,
-  savePropValueAsString: true
+  savePropValueAsString: true,
+  // the page language comes from the renderer, it is not an editor setting
+  propFilter: (prop: { name: string }) => prop.name !== 'language'
 };
 
 export function autoProps(options: {

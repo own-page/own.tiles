@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { memo } from 'react';
 import GitHubCalendar from 'react-github-calendar';
-import { type GridArea, type RawTileInfo } from 'types';
+import { type GridArea, type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import { GithubLogoIcon } from '@phosphor-icons/react/dist/ssr';
 import { InnerOwnTile } from 'InnerOwnTile';
 
@@ -40,6 +41,7 @@ type InnerProps = {
   username: string;
   months: number;
   colorTheme: string;
+  language?: string;
 };
 
 const InnerCalendar = (props: InnerProps) => {
@@ -63,14 +65,14 @@ const InnerCalendar = (props: InnerProps) => {
       blockMargin={4}
       transformData={selectLastHalfYear(props.months)}
       username={props.username}
-      errorMessage={`GitHub user "${props.username}" was not found or contributions could not be loaded. Check the username or try again later.`}
+      errorMessage={tileWords(props.language).githubError(props.username)}
     />
   );
 };
 
 const InnerCalendarMemo = memo(InnerCalendar);
 
-export const GitHub = (props: Props) => {
+export const GitHub = (props: Props & TileLanguageProps) => {
   // const months =
   //   props.grid !== undefined ? Math.floor(props.grid.w * 1.37) : 12;
 
@@ -136,6 +138,7 @@ export const GitHub = (props: Props) => {
             username={username}
             months={12}
             colorTheme={colorTheme}
+            language={props.language}
           />
         </div>
       </InnerOwnTile>

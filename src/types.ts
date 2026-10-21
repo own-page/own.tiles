@@ -57,6 +57,14 @@ export type LicenseDescription = {
 
 export type TileDimensions = { w: number; h: number };
 
+/**
+ * Optional prop every tile receives from the renderer: the page language
+ * code such as 'fr'. Missing or unknown values render English.
+ */
+export type TileLanguageProps = {
+  language?: string;
+};
+
 export type RawTileInfo<N extends Lowercase<string>, P extends object> = Omit<
   TileInfo<N, P>,
   'props'

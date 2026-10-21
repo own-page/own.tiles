@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -32,7 +33,7 @@ const parseLink = (rawLink: string) => {
 
 const FALLBACK_LINK = 'https://www.eventbrite.com/e/sample-event-1234567890';
 
-export const Eventbrite = (props: Props) => {
+export const Eventbrite = (props: Props & TileLanguageProps) => {
   const link = parseLink(props.link || FALLBACK_LINK);
 
   return (
@@ -44,6 +45,7 @@ export const Eventbrite = (props: Props) => {
       allowFullScreen
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
+      title={tileWords(props.language).embeddedContent}
     />
   );
 };
