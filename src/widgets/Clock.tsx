@@ -1,7 +1,8 @@
 'use client';
 
 import { memo, useEffect, useState } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileLocale, tileWords } from 'utils/words';
 import { InnerOwnTile } from 'InnerOwnTile';
 import { ClockIcon as ClockIconPi } from '@phosphor-icons/react/dist/ssr';
 
@@ -313,7 +314,9 @@ type Props = {
   hideTimezone?: boolean;
 };
 
-export const Clock = (props: Props) => {
+export const Clock = (props: Props & TileLanguageProps) => {
+  const locale = tileLocale(props.language);
+  const words = tileWords(props.language);
   const [time, setTime] = useState(new Date());
 
   const city = props.city ?? 'Vienna';
@@ -347,7 +350,7 @@ export const Clock = (props: Props) => {
       options.second = '2-digit';
     }
 
-    return new Intl.DateTimeFormat('en-US', options).format(time);
+    return new Intl.DateTimeFormat(locale, options).format(time);
   };
 
   // Format date
@@ -359,7 +362,7 @@ export const Clock = (props: Props) => {
       timeZone: timezone
     };
 
-    return new Intl.DateTimeFormat('en-US', options).format(time);
+    return new Intl.DateTimeFormat(locale, options).format(time);
   };
 
   // Get dynamic styles based on theme
@@ -397,7 +400,11 @@ export const Clock = (props: Props) => {
         className={`absolute top-4 left-4 z-10 size-10 flex-center rounded-full p-2 backdrop-blur-xl ${styles.icon}`}
         style={{ boxShadow }}
       >
-        <ClockIconPi size={'100%'} weight="duotone" aria-label="Clock icon" />
+        <ClockIconPi
+          size={'100%'}
+          weight="duotone"
+          aria-label={words.clockIcon}
+        />
       </div>
 
       <div className="flex flex-col items-center justify-center">

@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -77,7 +78,7 @@ const constructSrc = (embedSrc: string, autoPlay: boolean, theme: string) => {
   }
 };
 
-export const SoundCloud = (props: Props) => {
+export const SoundCloud = (props: Props & TileLanguageProps) => {
   const theme = props.theme || 'light';
   const autoPlay = props.autoPlay ?? false;
 
@@ -94,6 +95,7 @@ export const SoundCloud = (props: Props) => {
       frameBorder={0}
       allow="autoplay"
       loading="lazy"
+      title={tileWords(props.language).embeddedContent}
     />
   );
 };

@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -43,7 +44,7 @@ const parseLink = (rawLink: string) => {
 
 const FALLBACK_LINK = 'own-page/30min';
 
-export const Calendly = (props: Props) => {
+export const Calendly = (props: Props & TileLanguageProps) => {
   const path = parseLink(props.link || FALLBACK_LINK);
   const hideEventDetails = props.hideEventDetails || false;
   const hideEventDetailsParam = hideEventDetails
@@ -59,6 +60,7 @@ export const Calendly = (props: Props) => {
       allowFullScreen
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
+      title={tileWords(props.language).embeddedContent}
     />
   );
 };

@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileLanguage, tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 import { InnerOwnTile } from 'InnerOwnTile';
 
@@ -41,11 +42,16 @@ const parseEmail = (rawEmail: string) => {
 // email address to the public austrian holidays calendar
 const FALLBACK_EMAIL = 'ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com';
 
-export const GoogleCalendar = (props: Props) => {
+export const GoogleCalendar = (props: Props & TileLanguageProps) => {
+  const words = tileWords(props.language);
+  const language = tileLanguage(props.language);
+  // Google's own calendar UI in the page language, English pages stay as before
+  const languageParam =
+    language === 'en' ? '' : `&hl=${language === 'pt' ? 'pt-BR' : language}`;
   const useColor = props.theme === undefined || props.theme === 'white';
   const email = parseEmail(props.email || FALLBACK_EMAIL);
   const view = props.view || 'week';
-  const title = props.title || 'My Calendar';
+  const title = props.title || words.myCalendar;
 
   const themeStyle = useColor
     ? { filter: 'none' }
@@ -65,7 +71,8 @@ export const GoogleCalendar = (props: Props) => {
         {title}
       </div>
       <IFrame
-        src={`https://${GOOGLE_CALENDAR_DOMAIN}/calendar/embed?src=${email}&bgColor=ffffff&mode=${view}&showTitle=0&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0`}
+        src={`https://${GOOGLE_CALENDAR_DOMAIN}/calendar/embed?src=${email}&bgColor=ffffff&mode=${view}&showTitle=0&showPrint=0&showTz=0&showDate=0&showTabs=0&showCalendars=0${languageParam}`}
+        title={words.embeddedContent}
         width="100%"
         height="100%"
         frameBorder="0"

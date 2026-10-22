@@ -1,7 +1,8 @@
 'use client';
 
 import { memo, useEffect, useState } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileLocale, tileWords } from 'utils/words';
 import { InnerOwnTile } from 'InnerOwnTile';
 import {
   CalendarIcon,
@@ -63,21 +64,24 @@ const extractOpenGraphData = async (url: string): Promise<OpenGraphData> => {
 
 // Format date in a nice way
 const formatEventDate = (
-  dateTimeStr: string
+  dateTimeStr: string,
+  language?: string
 ): { date: string; time: string; month: string; day: string; year: string } => {
+  const locale = tileLocale(language);
   const dateTime = new Date(dateTimeStr);
-  const month = dateTime.toLocaleString('en-US', { month: 'short' });
+  const month = dateTime.toLocaleString(locale, { month: 'short' });
   const day = dateTime.getDate().toString();
   const year = dateTime.getFullYear().toString();
-  const date = dateTime.toLocaleDateString('en-US', {
+  const date = dateTime.toLocaleDateString(locale, {
     weekday: 'long',
     month: 'long',
     day: 'numeric'
   });
-  const time = dateTime.toLocaleTimeString('en-US', {
+  // English keeps 12h, the other languages use 24h
+  const time = dateTime.toLocaleTimeString(locale, {
     hour: '2-digit',
     minute: '2-digit',
-    hour12: true
+    hour12: locale === 'en-US'
   });
 
   return { date, time, month, day, year };
@@ -110,7 +114,8 @@ const getThemeStyles = (color: 'light' | 'dark') => {
 const randomBackground =
   DEFAULT_BACKGROUNDS[Math.floor(Math.random() * DEFAULT_BACKGROUNDS.length)];
 
-export const Event = (props: Props) => {
+export const Event = (props: Props & TileLanguageProps) => {
+  const words = tileWords(props.language);
   const [bgImage, setBgImage] = useState<string | null>(null);
   const [loadedLink, setLoadedLink] = useState<string>('');
   const [suggestedTitle, setSuggestedTitle] = useState<string | null>(null);
@@ -119,12 +124,12 @@ export const Event = (props: Props) => {
 
   const theme = props.theme || 'light';
   // If we have a suggested title from OpenGraph and no custom title, use the suggested one
-  const title = props.title || suggestedTitle || 'Untitled Event';
+  const title = props.title || suggestedTitle || words.untitledEvent;
   const link = props.link || '';
   const dateTime = props.date || suggestedDate || new Date().toISOString();
-  const location = props.location || 'Location not specified';
+  const location = props.location || words.locationNotSpecified;
 
-  const { date, time, month, day } = formatEventDate(dateTime);
+  const { date, time, month, day } = formatEventDate(dateTime, props.language);
 
   // Only fetch the data when the link actually changes
   useEffect(() => {
@@ -195,7 +200,7 @@ export const Event = (props: Props) => {
               className="animate-spin text-white mb-2"
               weight="bold"
             />
-            <div className="text-white text-sm">Loading event data...</div>
+            <div className="text-white text-sm">{words.loadingEvent}</div>
           </div>
         </div>
       )}
@@ -221,9 +226,13 @@ export const Event = (props: Props) => {
           <div
             className={`relative flex items-center ${styles.details}`}
             role="text"
-            aria-label={`Date and time: ${date} at ${time}`}
+            aria-label={words.eventDateTime(date, time)}
           >
-            <CalendarIcon weight="duotone" className="mr-2" aria-hidden="true" />
+            <CalendarIcon
+              weight="duotone"
+              className="mr-2"
+              aria-hidden="true"
+            />
             <span>
               {date} • {time}
             </span>
@@ -233,7 +242,7 @@ export const Event = (props: Props) => {
           <div
             className={`relative flex items-center ${styles.details}`}
             role="text"
-            aria-label={`Location of the event: ${location}`}
+            aria-label={words.eventLocation(location)}
           >
             <MapPinIcon weight="duotone" className="mr-2" aria-hidden="true" />
             <span>{location}</span>
@@ -248,15 +257,15 @@ export const Event = (props: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex items-center justify-center rounded-full px-5 py-2 mt-2 ${styles.button} transition-colors duration-200`}
-          aria-label="Get tickets for this event"
+          aria-label={words.getTicketsForEvent}
         >
           <TicketIcon
             weight="duotone"
             className="mr-2"
             aria-hidden="true"
-            aria-label="Link to tickets"
+            aria-label={words.linkToTickets}
           />
-          Tickets
+          {words.tickets}
         </a>
       </div>
     </InnerOwnTile>

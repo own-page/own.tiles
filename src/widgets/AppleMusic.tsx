@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -27,7 +28,10 @@ const toEmbedUrl = (rawLink: string) => {
       return url.toString();
     }
 
-    if (hostname === APPLE_MUSIC_HOST || hostname === `www.${APPLE_MUSIC_HOST}`) {
+    if (
+      hostname === APPLE_MUSIC_HOST ||
+      hostname === `www.${APPLE_MUSIC_HOST}`
+    ) {
       url.hostname = APPLE_MUSIC_EMBED_HOST;
       return url.toString();
     }
@@ -40,7 +44,8 @@ const toEmbedUrl = (rawLink: string) => {
   }
 };
 
-export const AppleMusic = (props: Props) => {
+export const AppleMusic = (props: Props & TileLanguageProps) => {
+  const words = tileWords(props.language);
   const src = toEmbedUrl(props.link || FALLBACK_LINK);
 
   return (
@@ -52,8 +57,8 @@ export const AppleMusic = (props: Props) => {
       allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
       sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
       loading="lazy"
-      title="Apple Music player"
-      aria-label="Apple Music player"
+      title={words.appleMusicPlayer}
+      aria-label={words.appleMusicPlayer}
     />
   );
 };

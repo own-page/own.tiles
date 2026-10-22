@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { type RawTileInfo } from 'types';
+import { type RawTileInfo, type TileLanguageProps } from 'types';
+import { tileWords } from 'utils/words';
 import IFrame from 'utils/IFrame';
 
 type Props = {
@@ -48,7 +49,7 @@ const parseLink = (rawLink: string) => {
 
 const FALLBACK_LINK = 'https://www.deezer.com/us/playlist/1479458365';
 
-export const Deezer = (props: Props) => {
+export const Deezer = (props: Props & TileLanguageProps) => {
   const contentPath = parseLink(props.link || FALLBACK_LINK);
   const theme = props.theme || 'auto';
   const hideTracklist = props.hideTracklist ?? false;
@@ -65,6 +66,7 @@ export const Deezer = (props: Props) => {
       frameBorder={0}
       allow="accelerometer; encrypted-media; gyroscope; clipboard-write;"
       loading="lazy"
+      title={tileWords(props.language).embeddedContent}
     />
   );
 };
