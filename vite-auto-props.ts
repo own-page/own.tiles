@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
+import ts from 'typescript';
 import { type Plugin } from 'vite';
-import { type ComponentDoc, withCustomConfig } from 'react-docgen-typescript';
+import { type ComponentDoc, withCompilerOptions } from 'react-docgen-typescript';
 
 const docgenOptions = {
   shouldExtractValuesFromUnion: true,
@@ -10,10 +11,17 @@ const docgenOptions = {
   propFilter: (prop: { name: string }) => prop.name !== 'language'
 };
 
-// the tsconfig resolves bare imports like 'types'; without it, props typed
-// with an imported type come back empty and the editor shows no fields
-const docgen = withCustomConfig(
-  fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+// docgen's default options plus baseUrl, so bare imports like 'types' resolve
+// (otherwise props typed with an imported type come back empty). Not strict:
+// with strictNullChecks optional props become `string | undefined` and show
+// up in the editor as an "Undefined / String" picker.
+const docgen = withCompilerOptions(
+  {
+    jsx: ts.JsxEmit.React,
+    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.Latest,
+    baseUrl: fileURLToPath(new URL('./src', import.meta.url))
+  },
   docgenOptions
 );
 
