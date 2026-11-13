@@ -5,6 +5,7 @@ import { type GridArea, type RawTileInfo, type TileLanguageProps } from 'types';
 import { tileWords } from 'utils/words';
 import { GithubLogoIcon } from '@phosphor-icons/react/dist/ssr';
 import { InnerOwnTile } from 'InnerOwnTile';
+import { useLinkRel } from 'linkRel';
 
 type Props = {
   /** GitHub username */
@@ -79,13 +80,14 @@ export const GitHub = (props: Props & TileLanguageProps) => {
   const username = props.username?.trim() || 'elitza-vasileva';
   const showUsername = props.showUsername;
   const colorTheme = props.color || 'github';
+  const linkRel = useLinkRel();
 
   return (
     <a
       className="w-full h-full"
       href={`https://github.com/${username}`}
       target="_blank"
-      rel="noopener noreferrer"
+      rel={linkRel}
     >
       <InnerOwnTile
         // Keep the calendar at its intrinsic width and crop older weeks on the
