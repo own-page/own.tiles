@@ -4,6 +4,7 @@ import { memo, useEffect, useState } from 'react';
 import { type RawTileInfo, type TileLanguageProps } from 'types';
 import { tileLocale, tileWords } from 'utils/words';
 import { InnerOwnTile } from 'InnerOwnTile';
+import { useLinkRel } from 'linkRel';
 import {
   CalendarIcon,
   MapPinIcon,
@@ -116,6 +117,7 @@ const randomBackground =
 
 export const Event = (props: Props & TileLanguageProps) => {
   const words = tileWords(props.language);
+  const linkRel = useLinkRel();
   const [bgImage, setBgImage] = useState<string | null>(null);
   const [loadedLink, setLoadedLink] = useState<string>('');
   const [suggestedTitle, setSuggestedTitle] = useState<string | null>(null);
@@ -255,7 +257,7 @@ export const Event = (props: Props & TileLanguageProps) => {
         <a
           href={link}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={linkRel}
           className={`inline-flex items-center justify-center rounded-full px-5 py-2 mt-2 ${styles.button} transition-colors duration-200`}
           aria-label={words.getTicketsForEvent}
         >
